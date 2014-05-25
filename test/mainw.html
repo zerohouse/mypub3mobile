@@ -1,0 +1,69 @@
+<meta charset="utf-8" />
+<link  type='text/css' rel='stylesheet' href='css/main.css' media='screen' />
+<script src="js/jquery-1.10.2.js"></script>
+<script src="js/jquery-ui.js"></script>
+<script src="js/Chart.js"></script>
+<script src="js/stickyfloat.js"></script>
+<script type="text/javascript" src="js/jquery.mousewheel-3.0.6.pack.js"></script>
+<script type="text/javascript" src="js/jquery.fancybox.js?v=2.1.5"></script>
+<script src="js/chartforletter.js"></script>
+<link rel="stylesheet" type="text/css" href="js/jquery.fancybox.css?v=2.1.5" media="screen" />
+<link rel="stylesheet" href="css/dropzone.css" />
+<script src="js/dropzone.js"></script>
+<script src="js/jquery.autosize.min.js"></script>
+<script type="text/javascript">
+$(function() {
+	
+	$('.writebody').autosize();
+	require("boot");
+    $('textarea').each(function() {
+        $(this).not(".title").css("height",$(this).prop('scrollHeight'));
+    });
+
+
+    $(".popup").hide();
+    $(".replybox").hide();
+    $('#container').not(".popup").click(function(){
+        $(".popup").hide();
+    });
+    $('#more').click(function(){
+        $(this).toggleClass("moreclicked")
+    });
+
+});
+
+
+function showID(showid) {
+    $('#'+showid).show();
+}
+function hideID(hideid){
+    $('#'+hideid).hide();
+}
+function toggleID(toggleid){
+        $('.popup').not('#'+toggleid).hide();
+        $('#'+toggleid).toggle();
+}
+
+</script>
+
+
+	
+        <div class='writeformwrap'>
+		<div id="submit-all" class='writebtn'>글남기기</div>
+		<div class=replyonwrap>
+                <a class='profileimg' style="background-image: url('icon/sch.png')"></a><div class=replywrap><span class=reply>그랫군</span><br><span class=replydate>그랫어</span>
+            </div></div>
+        <textarea class='writetitle' placeholder='제목'></textarea>
+		
+
+		<form action="php/uploadimg.php" class="dropzone" id="my-dropzone"><div class='filldropzone'>여기에 사진을 드래그 해주세요.<br>
+		<font size='3'>JPG, GIF, PNG 파일만 업로드 가능하며 제한용량은 1MB입니다.</font></div></form>
+
+        <textarea class='writebody' placeholder='내용'>
+		</textarea>
+		</div>
+
+		
+
+		
+		

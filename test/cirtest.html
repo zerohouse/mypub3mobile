@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Circle Menu</title>
+        <link rel="stylesheet" type="text/css" href="morden/circle-menu.css" />
+        <script src="js/jquery-1.10.2.min.js"></script>
+        <script src="morden/jQuery.circleMenu.js"></script>
+        <script>
+            $(function(){
+                $('#menu').circleMenu({direction:'top-left',
+						item_diameter:130,
+						circle_radius:165,
+					});
+					});
+		</script>
+
+    <body>
+
+                <ul class="menu" id="menu">
+                    <li><a href="#">모던이여 모던</a></li>
+                    <li><a href="#" alt="Item 1" title="Item 1">1</a></li>
+                    <li><a href="#" alt="Item 2" title="Item 2">2</a></li>
+                    <li><a href="#" alt="Item 4" title="Item 4">4</a></li>
+					<li><a href="#" alt="Item 4" title="Item 4">4</a></li>
+					<li><a href="#" alt="Item 4" title="Item 4">4</a></li>
+                </ul>

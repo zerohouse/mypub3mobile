@@ -1,0 +1,16 @@
+<meta charset="utf-8" />
+<link rel="stylesheet" href="dropzone.css" />
+<script src="dropzone.js"></script>
+  <script>
+    require("boot");
+  </script>
+
+    <form id="my-awesome-dropzone" action="uploadimg.php" class="dropzone">  
+        <div class="dropzone-previews"></div>
+        <div class="fallback"> <!-- this is the fallback if JS isn't working -->
+        <input name="file" type="file" multiple />
+		<input name="good" type="text"/>
+        </div>
+
+    </form>
+      <button type="submit" id="submit-all" class="btn btn-primary btn-xs">Upload the file</button>

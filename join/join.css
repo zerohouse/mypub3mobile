@@ -1,0 +1,41 @@
+@font-face {font-family: "lexi";src:url("../font/lexi.woff")}
+@font-face {font-family: "dek";src:url("../font/dekar.woff")}
+body{font-family:lexi;margin:0;padding: 0; overflow-x:hidden;}
+input{font-family:lexi;width:12em;border:solid 0.1em;#e8f6ff; background:none;border-radius:0.3em;height:1.4em;font-size:120%;padding:0.2em;}
+#joincontainer{margin:auto;top:5em;border:0.3em solid #cdcdcd; border-radius:2em; overflow:auto;
+width:90%;padding:10px;text-align:center;background-image:url(back.png);margin-bottom:5em;}
+.joinbtn{width:5em;height:2em;cursor:hand}
+.link{text-decoration:none;color:#000;}
+.form{width:60%;}
+input[type=radio].css-checkbox {
+							display:none;
+						}
+
+						input[type=radio].css-checkbox + label.css-label {
+							padding-left:1.4em;
+							height:1em; 
+							display:inline-block;
+							line-height:1em;
+							background-repeat:no-repeat;
+							background-position: 0 0;
+							
+							vertical-align:middle;
+							cursor:pointer;
+
+						}
+						
+						input[type=radio].css-checkbox:checked + label.css-label {
+							background-position: 0 -1em; font-size:110%;
+						}
+						label.css-label {
+						background-size:1em;
+				background-image:url(check.png);
+				-webkit-touch-callout: none;
+				-webkit-user-select: none;
+				-khtml-user-select: none;
+				-moz-user-select: none;
+				-ms-user-select: none;
+				user-select: none;
+			}
+.color{height:3em;width:4em;font-size:10%;border-radius:0.5em;}
+.group{width:6em}

@@ -1,0 +1,24 @@
+@font-face {font-family: "pub";src:url("../font/lexi.woff")}
+@font-face {font-family: "dek";src:url("../font/dekar.woff")}
+body{font-family:pub;margin:0;padding:0; }
+html, body, div, span, object,
+form, h1, h2, button, label, a, img {color:#777777
+    font-family: pub;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    /* this will work for QtWebKit in future */
+    -webkit-user-drag: none;
+	text-decoration:none;
+}
+input{font-family: pub;color:#777777}
+textarea{pointer-events: none; border:none;font-family: pub;resize:none;overflow:hidden;z-index:-1;}
+p {text-align:left;margin:auto;}
+input:focus, select:focus,  textarea:focus,   button:focus {
+outline: none;
+}
+
+#wrap{width:90%;margin:auto;padding:10px;text-align:center;}
+.form{width:70%;margin:0;border:1px solid #dddddd;height:30px;padding:10px;font-size:15px}
+#user_id{border-radius:5px 5px 0px 0px;}
+#user_pw{border-radius:0px 0px 5px 5px;border-top:none;}
+.btn{width:200px;margin:auto;margin-top:10px;height:30px;font-size:15px;border-radius:5px;border:none;}

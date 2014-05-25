@@ -1,0 +1,124 @@
+<?
+include('../php/connect_db.php');
+$sql = "select *from user_db where userid = '$user_id'";
+$find_db = mysql_query($sql, $connect);
+$in = mysql_fetch_array($find_db);
+if ($in[4] == 'm'){$man ='checked';$woman="";}
+else{$woman ='checked'; $man="";}
+?>
+<script type="text/javascript" src="/js/num.js"></script>
+<script type="text/javascript">
+	$(function() {
+
+    $('#phone').numberOnly();
+});
+
+</script>
+<script type="text/javascript">
+function chk_input() {
+if(user_form.fuserid.value==""){
+alert("아이디를 입력해주세요.");
+user_form.fuserid.focus();
+return false;
+}
+else if(user_form.fname.value==""){
+alert("이름을 입력해주세요.");
+user_form.fname.focus();
+return false;
+}
+else if(user_form.fpasswd.value==""){
+alert("암호를 입력해주세요.");
+user_form.fpasswd.focus();
+return false;
+}
+else if(user_form.fpasswd_re.value==""){
+alert("암호를 한번 더 입력해주세요.");
+user_form.fpasswd_re.focus();
+return false;
+}
+else if(user_form.fpasswd.value != user_form.fpasswd_re.value){
+alert("암호값이 다릅니다. 다시 입력해주세요.");
+user_form.fpasswd.value="";
+user_form.fpasswd_re.value="";
+user_form.fpasswd.focus();
+return false;
+}
+else if(user_form.phone.value == ""){
+alert("폰번호 마지막 네자리를 입력해주세요.");
+user_form.phone.value="";
+user_form.phone.focus();
+return false;
+}
+else if(user_form.phone.value.length != 4){
+alert("폰번호 마지막 네자리를 모두 입력해주세요.");
+user_form.phone.value="";
+user_form.phone.focus();
+return false;
+}
+else
+{return true;}
+}
+
+
+<!-- 숫자 영문자만 입력가능-->
+function stringCheck() 
+{ 
+var str = user_form.fuserid.value;
+; 
+var err = 0; 
+        for (var i=0; i<str.length; i++) 
+        { 
+                var chk = str.substring(i,i+1); 
+                if(!chk.match(/[0-9]|[a-z]|[A-Z]/)) 
+                { 
+                err = err + 1; 
+                } 
+        } 
+        if (err > 0) 
+        { 
+                $("#about").html("<p style='color:red'>아이디는 영문과 숫자만 입력가능합니다.</p>"); 
+				user_form.fuserid.focus();
+        } 
+} 
+
+
+
+
+</script>
+
+<body>
+<br><br><br><br>
+<font size='7'> <font style="font-family:dek;">MYPUB</font> 정보변경</font><br><br><br><br>
+<div id='howcontainer'>
+<form name="user_form" action="/php/fix_db.php" method="post" onsubmit="return chk_input()">
+신분 &nbsp;&nbsp;<input class='form3' type="text" name="fuserid" id="fuserid" maxlength="12" value='<? echo $user_id;?>' readonly>&nbsp;&nbsp;<div id="about" align='center'></div>
+
+<br>
+<br />
+
+
+이름&nbsp;&nbsp; <input class='form3' type="text" value='<?echo $user_name;?>' name="fname" id="fname" maxlength="10"> <br /> <br>
+변경 암호&nbsp;&nbsp; <input class='form3' type="password" name="fpasswd" id="fpasswd" maxlength="10"><br /><br>
+암호 확인&nbsp;&nbsp; <input class='form3' type="password" name="fpasswd_re" id="fpasswd_re" maxlength="10" onblur="chk_passwd()"> <br><font size="2">한번더입력해주삼</font> <br /><br><br>
+폰번호 뒤 4자리&nbsp;&nbsp; <input class='form3' type="text" name="phone" value='<?echo  $in[17];?>' id="phone" maxlength="4"> <br><font size="2">친구 찾기등에 사용됩니다!</font> <br /><br>
+성별 <input   type="radio" name="fsex" value="m" <?echo $man?>> 남 
+<input type="radio" name="fsex" value="w" <?echo $woman?>> 여 <br /><br>
+
+
+<br><br>
+이메일&nbsp;&nbsp; <input class='form3' value='<? echo $in[5];?>' type="text" name="femail" maxlength="30"><br><br><br>
+
+
+<br>
+
+
+
+
+
+<input class='form3' style='text-align:center;font-size:1.3em;' type="submit" value="정보변경"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</form>
+</div>
+
+
+</font>
+<br>

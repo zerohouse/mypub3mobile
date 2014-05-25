@@ -1,0 +1,74 @@
+
+
+
+
+
+
+
+
+
+<meta charset="utf-8" name="viewPort" content="initial-scale=1.0; maximum-scale=1.0; minimum-scale=1.0; user-scale=no;" />
+        <link rel="stylesheet" type="text/css" href="morden/circle-menu.css" />
+        <script src="js/jquery-1.10.2.min.js"></script>
+        <script src="morden/jQuery.circleMenu.js"></script>
+		<link rel="stylesheet" type="text/css" href="morden/component.css" />
+		<script src="morden/modernizr.custom.js"></script>
+		<script>
+		
+		$(function() {
+		            $('#menu').circleMenu({direction:'top-left',
+						item_diameter:130,
+						circle_radius:165,
+					});
+		var backcolor = new Array ('#f24333', '#0099cc', '#1ecd97', 'f3c71a');
+		var ran = Math.ceil(Math.random()*3);
+		$("body").css("background-color", backcolor[ran]);
+		});
+		</script>
+		<body align='center'> 
+		
+
+<div id="mainpage">
+		<br><font class=dek size=6>Group1</font><br>
+		그룹명은 이거닷
+			<section class="grid3d vertical" id="grid3d">
+				<div class="grid-wrap">
+					<div class="grid">
+						<figure><div class=mordentitle>제목은 그래요</div><img src="img/6.jpg" alt="img01"/></figure>
+						
+					</div>
+				</div><!-- /grid-wrap -->
+				<div class="content">
+					<div>
+						<br><br><font size=6><strong>제목은 그래요</strong></font><br>
+						<img src="img/6.jpg" class=margin alt="img01"/>
+						<img src="img/6.jpg" class=margin alt="img01"/>
+						<p class="mordenbody">The only people for me are the mad ones, the ones who are mad to live, mad to talk, mad to be saved, desirous of everything at the same time, the ones who never yawn or say a commonplace thing, but burn, burn, burn like fabulous yellow roman candles exploding like spiders across the stars.</p>
+
+							<br><br><br><br>
+							<br><br><br><br>
+
+					</div>
+					<span class="loading"></span>
+					<span class="icon close-content"></span>
+
+				</div>
+			</section>
+</div>
+		        <ul class="menu" id="menu">
+                    <li><a class=dek href="#">MYPUB</a></li>
+					
+
+                    <li><a href="#" alt="Item 1" title="Item 1">1</a></li>
+                    <li><a href="#" alt="Item 2" title="Item 2">2</a></li>
+                    <li><a href="#" alt="Item 4" title="Item 4">4</a></li>
+					<li><a href="#" alt="Item 4" title="Item 4">4</a></li>
+					<li><a href="#" onclick="location.replace('main.html')" class=dek alt="Item 4" title="Item 4">Back</a></li>
+                </ul>
+
+		<script src="morden/classie.js"></script>
+		<script src="morden/helper.js"></script>
+		<script src="morden/grid3d.js"></script>
+		<script>
+			new grid3D( document.getElementById( 'grid3d' ) );
+		</script>
