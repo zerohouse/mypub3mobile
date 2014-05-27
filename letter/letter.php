@@ -1,10 +1,12 @@
 <meta charset=utf-8' />
 
 <?
-include "php/connect_db.php";
+include "../php/connect_db.php";
 $group = $_POST['group'];
 $groupname = $_POST['name'];
 $page = $_POST['page'];
+
+$type = explode('||',$group);
 
 $sql = mysql_query("SELECT * FROM user_data  WHERE `id` = '$user_id'");
 $user_data = mysql_fetch_array($sql,MYSQL_NUM); // no, id, name, passwd, sex, email, date, group, phone, char_url, profile, score, attractive
@@ -30,6 +32,36 @@ echo "
 // 여기부터 글	
 
 	for ($i=0;$i<4;$i++){
+	
+	if($type[1]==1){
+	$sql = mysql_query("SELECT * from t_$user_id where `id` = '$type[0]' order by no desc limit $i, 1"); //no  sort  id  name  talk  score  anony  talk_sort  only_no  date
+	$data = mysql_fetch_array($sql,MYSQL_NUM);
+	$sql = mysql_query("SELECT * from user_data where `id` = '$data[2]'"); // no, id, name, passwd, sex, email, date, group, phone, char_url, profile, score, attractive
+	$writer_data = mysql_fetch_array($sql,MYSQL_NUM);
+	$sql = mysql_query("SELECT `reply`from reply where `only_no` = '$data[8]'");
+	$sql = mysql_fetch_array($sql,MYSQL_NUM); // 리플 가져오기
+	$reply = explode("|",$sql[0]); // 리플
+	$talk = explode("|+|",$data[4]); // 제목 글 분리
+	$photo = explode("|+|", $data[3]); // 포토 0 은 사진 1는 제목
+	$only_no[0] = $data[8];
+	$sql = mysql_query("SELECT score from score where `only_no` = '$only_no[0]'"); 
+	$sql = mysql_fetch_array($sql,MYSQL_NUM);
+	$score = explode("|",$sql[0]);
+	}else if($type[1]==2){
+	$sql = mysql_query("SELECT * from pub_$type[0] order by no desc limit $i, 1"); //no  sort  id  name  talk  score  anony  talk_sort  only_no  date
+	$data = mysql_fetch_array($sql,MYSQL_NUM);
+	$sql = mysql_query("SELECT * from user_data where `id` = '$data[2]'"); // no, id, name, passwd, sex, email, date, group, phone, char_url, profile, score, attractive
+	$writer_data = mysql_fetch_array($sql,MYSQL_NUM);
+	$sql = mysql_query("SELECT `reply`from reply where `only_no` = '$data[8]'");
+	$sql = mysql_fetch_array($sql,MYSQL_NUM); // 리플 가져오기
+	$reply = explode("|",$sql[0]); // 리플
+	$talk = explode("|+|",$data[4]); // 제목 글 분리
+	$photo = explode("|+|", $data[3]); // 포토 0 은 사진 1는 제목
+	$only_no[0] = $data[8];
+	$sql = mysql_query("SELECT score from score where `only_no` = '$only_no[0]'"); 
+	$sql = mysql_fetch_array($sql,MYSQL_NUM);
+	$score = explode("|",$sql[0]);
+	}else{
 	$sql = mysql_query("SELECT * from t_$user_id where `sort` = '$group' order by no desc limit $i, 1"); //no  sort  id  name  talk  score  anony  talk_sort  only_no  date
 	$data = mysql_fetch_array($sql,MYSQL_NUM);
 	$sql = mysql_query("SELECT * from user_data where `id` = '$data[2]'"); // no, id, name, passwd, sex, email, date, group, phone, char_url, profile, score, attractive
@@ -43,6 +75,7 @@ echo "
 	$sql = mysql_query("SELECT score from score where `only_no` = '$only_no[0]'"); 
 	$sql = mysql_fetch_array($sql,MYSQL_NUM);
 	$score = explode("|",$sql[0]);
+	}
 	
 	
 	$leng = mb_strlen($talk[0]); // 길이따른 폰트 크기 지정
@@ -58,7 +91,7 @@ if ($data[0]!=null){
 	echo "
     <article class='letter'>
         <div class=replyonwrap>
-                <a class='profileimg' style='background-image: url($writer_data[10])'></a><div class=replywrap><span class=reply>$writer_data[2]</span><br><span class=replydate>$data[9]</span>
+                <a class='profileimg' style='background-image: url($writer_data[10])'></a><div class=replywrap><span onclick=\"swipeLetter(100, 0, '$data[2]')\" class=reply>$writer_data[2]</span><br><span class=replydate>$data[9]</span>
             </div></div>";
 		
 	if ($talk[1]!=null) { //제목 있으면 출력
@@ -101,7 +134,7 @@ if ($data[0]!=null){
 		$profile = mysql_fetch_array($sql,MYSQL_NUM); // 리플작성자 프로필 가져오기
 		echo "
         <div class=replyonwrap>
-            <a class='profileimg' style=\"background-image: url($profile[0])\"></a><div class=replywrap><a class=replydate>$replydata[1] $replydata[4]</a><textarea class=reply readonly>$replydata[3]</textarea>
+            <a class='profileimg' style=\"background-image: url($profile[0])\"></a><div class=replywrap><a class=replydate onclick=\"swipeLetter(100, 0, '$replydata[2]')\">$replydata[1] $replydata[4]</a><textarea class=reply readonly>$replydata[3]</textarea>
         </div></div>";}}
 		
 		echo "

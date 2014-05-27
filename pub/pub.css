@@ -1,0 +1,38 @@
+.newpubs{text-align:left;width:212px;position:absolute;margin-top:37px;margin-left:46px;overflow:auto;height:250px}
+.newpubs ul{
+margin-top:0;
+z-index: 5;
+position:absolute;
+list-style-type: none;
+overflow-x: hidden;
+overflow-y: auto;
+padding: 0;
+background-color: #fff;
+box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+border: 1px solid #ccc;
+height:150px;}
+.newpubs li{color:#777777;min-width:180px;padding:8px 15px;font-size:15px;}
+.newpubs li:hover{color:#000;background-color:#f4f4f4}
+.headli{font-family:dek;border-bottom:1px solid #dddddd;font-weight:900;margin-top:10px;}
+.justli{border-bottom:1px solid #dddddd;height:1px;}
+
+.windowtop{background-color:#dddddd;padding:5px;padding-left:10px;font-family:dek;height:20px;width:195px;overflow:hidden;line-height:25px;box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+border: 1px solid #ccc;border-bottom:none;}
+
+
+
+::-webkit-scrollbar
+{
+  width: 12px;  /* for vertical scrollbars */
+  height: 12px; /* for horizontal scrollbars */
+}
+
+::-webkit-scrollbar-track
+{
+  background: rgba(0, 0, 0, 0.1);
+}
+
+::-webkit-scrollbar-thumb
+{
+  background: rgba(0, 0, 0, 0.5);
+}

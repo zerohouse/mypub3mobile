@@ -1,0 +1,330 @@
+<?
+include "../php/connect_db.php";
+
+$sql = mysql_query("SELECT * FROM user_data  WHERE `id` = '$user_id'");
+$user_data = mysql_fetch_array($sql,MYSQL_NUM); // no, id, name, passwd, sex, email, date, group, phone, char_url, profile, score, attractive
+
+$onmenu = explode("||",$user_data[7]);
+$cnt = count($onmenu);
+$cnt--;
+?>
+<meta charset="utf-8" name="viewPort" content="initial-scale=1.0; maximum-scale=1.0; minimum-scale=1.0; user-scale=no;" />
+        <link rel="stylesheet" type="text/css" href="circle-menu.css" />
+        <script src="../js/jquery-1.10.2.min.js"></script>
+        <script src="jQuery.circleMenu.js"></script>
+		<link rel="stylesheet" type="text/css" href="component.css" />
+		<script src="modernizr.custom.js"></script>
+		<script src="../js/jquery.mobile-1.4.2.min.js"></script>
+		<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+		<script src="loadmore.js"> </script>
+		<script src="../js/jquery-ui.js"></script>
+		<script src="../js/Chart.js"></script>
+		<script type="text/javascript" src="../js/jquery.mousewheel-3.0.6.pack.js"></script>
+		<script type="text/javascript" src="../js/jquery.fancybox.js?v=2.1.5"></script>
+		<script src="../js/chartforletter.js"></script>
+		<link rel="stylesheet" type="text/css" href="css/jquery.fancybox.css?v=2.1.5" media="screen" />
+
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<script>
+		
+		$(function() {
+					$('.replybox').hide();
+		            $('#menu').circleMenu({direction:'top-left',
+						item_diameter:130,
+						circle_radius:165,
+					});
+		var backcolor = new Array ('#f24333', '#0099cc', '#1ecd97', 'f3c71a');
+		var ran = Math.ceil(Math.random()*3);
+		$("body").css("background-color", backcolor[ran]);
+		});
+		
+			
+			function swipeLetter($group, $showingid){
+					
+				location.replace("modern.html?g="+groupnumberfor[$group]+"&n=" + groupnameajax[$group])
+			}
+		
+		function toggleID(toggleid){
+        $('.popup').not('#'+toggleid).hide();
+        $('#'+toggleid).toggle();}
+		
+		
+		function writeReply($replyid, only, $textid, $anonyreply) {
+						var replytext = $($textid).val();
+						if (replytext==""){alert("댓글을 입력해주세요");
+						}
+						else{
+						var anonyreply = $($anonyreply).text();
+						$.ajax({
+                        type: "POST",
+                        url: "letter/writereply.php",
+                        data: {onlyno: only, reply: replytext, anony: replanony},
+                        success: function(response) {
+						alert(response);
+						$($replyid).append(response);
+						$textid.value="";
+					}});}
+        } 
+		
+		
+		</script>
+		<body align='center'> 
+		
+
+<div id="mainpage">
+
+<?
+include "php/connect_db.php";
+$group = $_GET['g'];
+$groupname = $_GET['n'];
+$page = $_GET['p'];
+$groupn = $group+1;
+$sql = mysql_query("SELECT * FROM user_data  WHERE `id` = '$user_id'");
+$user_data = mysql_fetch_array($sql,MYSQL_NUM); // no, id, name, passwd, sex, email, date, group, phone, char_url, profile, score, attractive
+if ($groupname==null){$groupname="이름없는 그룹";}
+
+		echo "
+		<br><font class=dek size=6>Group{$groupn}</font><br>
+		$groupname
+		
+        "; // 탑메뉴
+		
+		
+	
+echo "<section class='grid3d vertical' id='grid3d'>	<div class='grid-wrap'>	<div class='grid'>";// gridwrap start
+	
+	
+	for ($i=0;$i<4;$i++){
+	$sql = mysql_query("SELECT * from t_$user_id where `sort` = '$group' order by no desc limit $i, 1"); //no  sort  id  name  talk  score  anony  talk_sort  only_no  date
+	$data = mysql_fetch_array($sql,MYSQL_NUM);
+	$sql = mysql_query("SELECT * from user_data where `id` = '$data[2]'"); // no, id, name, passwd, sex, email, date, group, phone, char_url, profile, score, attractive
+	$writer_data = mysql_fetch_array($sql,MYSQL_NUM);
+	$sql = mysql_query("SELECT `reply`from reply where `only_no` = '$data[8]'");
+	$talk = explode("|+|",$data[4]); // 제목 글 분리
+	$photo = explode("|+|", $data[3]); // 포토 0 은 사진 1는 제목
+	$only_no[0] = $data[8];
+
+if ($data[0]!=null){
+
+
+
+	echo "<figure>";
+	if ($talk[1]!=null) { //제목 있으면 출력
+        echo "<div class=mordentitle>$talk[1]</div>";}
+		
+	$photosrc = explode('||',$photo[0]); 
+	$photoname = explode('||',$photo[1]); 
+	$cnt = count($photosrc);
+	if ($cnt>1) { //사진 1장이상있으면 출력
+	echo "<img src='$photosrc[0]' alt='img01'/>";}
+	echo "</figure>";
+	}
+	}
+
+
+echo "</div></div>"; //grid-wrap
+	
+	
+echo "<div class='content'>";	
+	
+	
+	
+
+	for ($i=0;$i<4;$i++){
+	$sql = mysql_query("SELECT * from t_$user_id where `sort` = '$group' order by no desc limit $i, 1"); //no  sort  id  name  talk  score  anony  talk_sort  only_no  date
+	$data = mysql_fetch_array($sql,MYSQL_NUM);
+	$sql = mysql_query("SELECT * from user_data where `id` = '$data[2]'"); // no, id, name, passwd, sex, email, date, group, phone, char_url, profile, score, attractive
+	$writer_data = mysql_fetch_array($sql,MYSQL_NUM);
+	$sql = mysql_query("SELECT `reply`from reply where `only_no` = '$data[8]'");
+	$sql = mysql_fetch_array($sql,MYSQL_NUM); // 리플 가져오기
+	$reply = explode("|",$sql[0]); // 리플
+	$talk = explode("|+|",$data[4]); // 제목 글 분리
+	$photo = explode("|+|", $data[3]); // 포토 0 은 사진 1는 제목
+	$only_no[0] = $data[8];
+	$sql = mysql_query("SELECT score from score where `only_no` = '$only_no[0]'"); 
+	$sql = mysql_fetch_array($sql,MYSQL_NUM);
+	$score = explode("|",$sql[0]);
+
+				
+
+
+
+	
+
+if ($data[0]!=null){
+
+	echo "<div><br><br>";
+		
+	if ($talk[1]!=null) { //제목 있으면 출력
+        echo "<font size=6><strong>$talk[1]</strong></font>";}
+	echo "<br>";
+	
+	
+	$photosrc = explode('||',$photo[0]); 
+	$photoname = explode('||',$photo[1]); 
+	$cnt = count($photosrc);
+	if ($cnt>1) {
+	
+
+
+	//사진 1장이상있으면 출력
+	/*switch($cnt){
+	case 2 : $photosize = "95%"; // 0번은 널이라서 1번부터셈. 갯수 = cnt -1
+		break;
+	case 3 : $photosize = "48%";
+		break;	
+	case 4 : $photosize = "32%";
+		break;
+	default : $photosize = "24%";
+				}
+	
+	echo "<p>";*/
+	for ($j=1;$j<$cnt;$j++){
+		echo "<img src='$photosrc[$j]' style=width:$photosize class=margin alt='img01'/>";
+        //echo "<a class=fancybox href=$photosrc[$j] data-fancybox-group=gallery title=$photoname[$j]><img style=width:$photosize src=$photosrc[$j] alt=></a>	";
+		}
+	/*echo " </p>";*/}
+	
+	if ($talk[0]!=null){ //본문 있으면 출력
+        echo "<p class='mordenbody'>$talk[0]</p>";}
+
+	
+
+		$cnt = count($reply);
+		$rc = $cnt-1;
+	    echo "
+		<br><a class='replycall' onclick=toggleID('replybox$data[8]');>댓글 ($rc 개)</a> &nbsp&nbsp&nbsp | &nbsp&nbsp <a class='replycall' onclick=toggleID('easing$data[8]');>Feeling?!</a><div class=replybox id=replybox$data[8]>";
+		
+		if($reply[1]!=null){
+		for ($j=1;$j<$cnt;$j++) {		
+		$replydata = explode("&*$",$reply[$j]); // 익명/실명 , 이름 , ID, 내용, 데이트
+		$sql = mysql_query("SELECT `profile`from user_data where `id` = '$replydata[2]'");
+		$profile = mysql_fetch_array($sql,MYSQL_NUM); // 리플작성자 프로필 가져오기
+		echo "
+        <div class=replyonwrap>
+            <a class='profileimg' style=\"background-image: url($profile[0])\"></a><div class=replywrap><a class=replydate>$replydata[1] $replydata[4]</a><textarea class=reply readonly>$replydata[3]</textarea>
+        </div></div>";}}
+		
+		echo "
+                <div class=replyonwrap >
+                <a class='profileimg' id='anonyimg$only_no[0]' onclick='replyToggle($only_no[0])' style='background-image: url($user_data[10])'></a><div class=replywrap><span id='anony$only_no[0]' class=reply>$user_data[2]</span> : <input id='replywriteform$only_no[0]' class=makereply type='text' placeholder='댓글을 남겨주세요^-^' onKeyDown='javascript:if (event.keyCode == 13) writeReply(replybox$only_no[0], $only_no[0], replywriteform$only_no[0], anony$only_no[0]);'>
+            </div></div></div>"; // 글끝
+		
+		
+		
+        echo "
+        <div class='easing' id='easing$data[8]'>
+            <br><br>
+            <a class='pointbtnsym' onclick='scorePlus(4, $only_no[0]);'>공감+</a><a class='pointbtnwow' onclick='scorePlus(0, $only_no[0]);'>우와+</a><a class='pointbtnwow' onclick='scorePlus(1, $only_no[0]);'>지식+</a><a class='pointbtnwow' onclick='scorePlus(2, $only_no[0]);'>감동+</a><a class='pointbtnhum' onclick='scorePlus(3, $only_no[0]);'>ㅋㅋ+</a><br>
+			<canvas id='radar$data[8]' data-type='Radar' width='250' height='250'></canvas><br>
+        <script type='text/javascript'>
+            var data$data[8] = {
+                labels : ['공감','우와','지식','감동','ㅋㅋ'],
+                datasets : [
+                    {
+                        fillColor : 'rgba(151,187,205,0.5)',
+                        strokeColor : 'rgba(151,187,205,1)',
+                        pointColor : 'rgba(151,187,205,1)',
+                        pointStrokeColor : '#fff',
+                        data : [$score[0],$score[1],$score[2],$score[3],$score[4]]
+                    }
+                ]
+            }
+        </script>
+        <script type='text/javascript'>
+            $(document).ready(function(){
+                $('#radar$data[8]').each(function(){
+                    eval(\"new Chart(this.getContext('2d')).\" + $(this).data('type') + '(data$data[8],options);');
+                });
+            });
+        </script>
+        </div>
+    </article>";
+	
+	echo "<br><br><br><br><br><br><br><br></div>";
+	
+	}
+	
+	}?>
+					<span class="loading"></span>
+					<span class="icon close-content"></span>
+	</div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+</div>
+		        <ul class="menu" id="menu">
+                    <li><a style='width:130;'  class=dek href="#">MYPUB</a></li>
+			<?
+			$cnt=4;
+			for($i=0;$i<$cnt;$i++){
+			$group = explode(";+;",$onmenu[$i]);
+			if ($group[0]==0){
+			$groupname = "'".$group[2]."'";
+			$gnumber[$i] = "'".$group[1]."'";
+			$gcforjava[$i] = "'".$group[3]."'";
+			$gnforjava[$i] = $groupname;
+			if (strlen($group[2])<1){$group[2]="무제";}
+			echo "<li><a id='menu$i' onclick=swipeLetter($i)>$group[2]</a></li>";}
+			else if ($group[0]==1){
+			$gnumber[$i] = "'".$group[1]."'";
+			$groupname = $group[2];
+			$gcforjava[$i] = "'".$group[3]."'";
+			$gnforjava[$i] = "'".$groupname."'";
+			if (strlen($group[2])<1){$group[2]="무제";}
+			echo "<li><a id='menu$i' onclick=swipeLetter($i)><font style='font-family:dek;font-size:10px'>PUB</font>$group[2]</a></li>";}}?>
+			
+
+
+					<li><a href="#" onclick="location.replace('../main.html')" class=dek alt="Item 4" title="Item 4">Back</a></li>
+                </ul>
+							
+		<script>
+			<?echo "groupcolorshow = new Array( ";
+			for($i=0;$i<$cnt;$i++){
+			echo " $gcforjava[$i],";
+			}
+			echo "'');";
+			
+			?>
+			<?echo "groupnameajax = new Array( ";
+			for($i=0;$i<$cnt;$i++){
+			echo " $gnforjava[$i],";
+			}
+			echo "'');";
+			
+			?>
+			<?echo "groupnumberfor = new Array( ";
+			for($i=0;$i<$cnt;$i++){
+			echo " {$gnumber[$i]},";
+			}
+			echo "'');";
+			
+			?>
+
+			</script>
+
+		<script src="classie.js"></script>
+		<script src="helper.js"></script>
+		<script src="grid3d.js"></script>
+		<script>
+			new grid3D( document.getElementById( 'grid3d' ) );
+		</script>

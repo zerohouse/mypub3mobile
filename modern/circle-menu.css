@@ -11,7 +11,6 @@
 	font-size:35px
 	}
 .menu li {
-	cursor:hand;
     background:#000;
     color:#fff;
     font-size:25px;
@@ -41,28 +40,4 @@
 
 .mordentitle{text-align:center;width:240;background-color:rgba(255,255,255,0.7);font-size:20px;z-index:10;}
 .margin{margin:10}
-
-/*포인트와 작성자*/
-.easing{width:95%;text-align: center;}
-.pointbtn{color:#777777;cursor:hand;margin-left: 15px;}
-.pointbtn:hover{color:#000;}
-.pointbtnsym{border:1px solid #dddddd;border-radius:3px 0px 0px 3px;padding:5px 10px}
-.pointbtnwow{border:1px solid #dddddd;border-left:none;border-radius:0px;padding:5px 12px;}
-.pointbtnhum{border:1px solid #dddddd;border-left:none;border-radius:0px 3px 3px 0px;padding:5px 10px}
-.pointbtnwow,.pointbtnsym,.pointbtnhum{color:#777777;cursor:hand;}
-.pointbtnwow:hover,.pointbtnsym:hover,.pointbtnhum:hover{background-color:#f4f4f4;color:#000;}
 	
-	
-/*리플*/
-.replycall{padding-left:10px;cursor: hand; color:#777777}
-.replycall:hover{color:#000}
-.replybox{border-top:1px solid #dddddd;margin-top:5px;}
-.replywrap{overflow:visible;padding:3px;margin-left:35px;}
-.replyonwrap{overflow:visible;padding:5px;clear:both;}
-.profileimg{margin-right:4px;float:left;width:35px;height:35px;background-size:35px;background-repeat:no-repeat;}
-.profileanony{margin-right:4px;float:left;width:35px;height:35px;background-image:url(../icon/anony.png);background-size:35px;background-repeat:no-repeat;}
-.reply{width:95%;font-size:15px;cursor:default;}
-.replydate{color:#777777;font-size: 12px;}
-
-.makereply{width:80%;height:35px;border:none;border-radius: 5px;padding:5px;}
-.makereply:hover,.makereply:focus,.makereply:active{border: 1px solid #dddddd;padding-left:4px;}
