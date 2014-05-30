@@ -3,19 +3,18 @@ function pubtoInput($valthis, $pubid){
 $("#p"+pubformnumber).val($valthis);
 pubid[pubformnumber]=$pubid;
 }
-
 </script>
                 <div class='newpubs'>
 				<div class='windowtop'>Add Pubs</div>
                     <ul>
 							<li class=headli style='margin-top:0'>Hot</li>
 							<li onclick="pubtoInput('유머','humor');">유머</li>
-							<li>1번</li>
-							<li>2번</li>
+							<li onclick="pubtoInput('이슈','issue');">이슈</li>
+							<li onclick="pubtoInput('자동차','car');">자동차</li>
 							<li class=headli>New</li>
-							<li>새롭다</li>
-							<li>새로워</li>
-							<li>으힝</li>
+							<li onclick="pubtoInput('세상엿보기','look');">엿보기</li>
+							<li onclick="pubtoInput('심리테스트','psytest');">심리테스트</li>
+							<li onclick="pubtoInput('감동','moved');">감동</li>
 							<li class=justli></li>
 							<li>더보기</li>
 

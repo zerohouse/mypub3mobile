@@ -125,7 +125,7 @@ if ($data[0]!=null){
 	$photoname = explode('||',$photo[1]); 
 	$cnt = count($photosrc);
 	if ($cnt>1) { //사진 1장이상있으면 출력
-	echo "<img src='$photosrc[0]' alt='img01'/>";}
+	echo "<img src='../$photosrc[0]' alt='img01'/>";}
 	echo "</figure>";
 	}
 	}
@@ -189,7 +189,7 @@ if ($data[0]!=null){
 	
 	echo "<p>";*/
 	for ($j=1;$j<$cnt;$j++){
-		echo "<img src='$photosrc[$j]' style=width:$photosize class=margin alt='img01'/>";
+		echo "<img src='../$photosrc[$j]' style=width:$photosize class=margin alt='img01'/>";
         //echo "<a class=fancybox href=$photosrc[$j] data-fancybox-group=gallery title=$photoname[$j]><img style=width:$photosize src=$photosrc[$j] alt=></a>	";
 		}
 	/*echo " </p>";*/}

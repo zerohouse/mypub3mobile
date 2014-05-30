@@ -79,27 +79,6 @@ echo "<li><script>friend = '$id_p[$i]'; sort = '$fr_g';</script><a class='frname
 ?></div>
 
 
-<script>
-
-function friendReq($friend, $sort) {
-
-
-  				$.ajax({
-                        type: "POST",
-                        url: "php/req.php",
-                        data: {id: $friend, sort: $sort},
-                        success: function(response) {
-							alert(response);
-								
-							}});							
-					
-					}
-				
-        
-</script>
-
-
-
 
 
 

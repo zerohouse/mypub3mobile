@@ -1,14 +1,14 @@
 @font-face {	font-family: 'pub';
-	src:url('../font/lexi.eot?-v92fkb');
-	src:url('../font/lexi.eot-v92fkb') format('embedded-opentype'),
-		url('../font/lexi.woff?-v92fkb') format('woff');
+	src:url('../font/NanumGothic.eot?-v92fkb');
+	src:url('../font/NanumGothic.eot-v92fkb') format('embedded-opentype'),
+		url('../font/NanumGothic.woff?-v92fkb') format('woff');
 }
 @font-face {font-family: "dek";
 	src:url('../font/dekar.eot?-v92fkb');
 	src:url('../font/dekar.eot-v92fkb') format('embedded-opentype'),
 		url('../font/dekar.woff?-v92fkb') format('woff');
 }
-body{font-family:pub;margin:0;padding:0;}
+body{font-family:pub;margin:0;padding:0;font-size:14px;}
 html, body, div, span, object,
 form, h1, h2, button, label, a, img {
     font-family: pub;
@@ -23,7 +23,7 @@ p {text-align:left;margin:auto;}
 input:focus, select:focus,  textarea:focus,   button:focus {
 outline: none;
 }
-#mainpage{width:95%; margin:auto;}
+
 /* 탑메뉴*/
 #topmenuwrap{height:48px;line-height:50px;border-bottom:1px solid #dddddd; background-color:#f4f4f4;width:100%;z-index:10;
            -webkit-user-select:none;
@@ -71,13 +71,13 @@ outline: none;
 .popup ul{     z-index: 5;
 position:absolute;
 list-style-type: none;
-overflow: hidden;
 padding: 5px 0;
 background-color: #fff;
 box-shadow: 0 5px 10px rgba(0,0,0,0.2);
 border: 1px solid #ccc;}
 .popup li{color:#777777;min-width:250px;padding:0px 15px;font-size:15px;}
 .popup li:hover{color:#000;background-color:#f4f4f4}
+#friendwhere{overflow-y:scroll;background-color:#f4f4f4;max-height:250px;}
 
 /* 그룹팝업*/
 #moregroups{position:absolute; margin-top:30px;left:10px;}
@@ -89,6 +89,7 @@ border: 1px solid #ccc;}
 
 
 /* 네임스페이스*/
+.wrapping{width:95%; margin:auto;}
 #namewrap{border-bottom:1px solid #dddddd;width:100%; color:#777777; height:50px;position:relative;line-height:60px}
 
 /*그룹세팅 팝업*/
@@ -114,7 +115,7 @@ border: 1px solid #ccc;}
 
 /*아티클*/
 .letter{border-bottom:1px solid #dddddd;width:100%;position:relative;padding-top:10px;padding-bottom:20px;overflow:hidden;height:}
-.title{font-weight: 900;width:95%;font-size:30px;cursor:default;height:40px;}
+.title{font-weight: 900;width:95%;font-size:25px;cursor:default;}
 .body{width:95%;font-size:15px;cursor:default;}
 
 .date{color:#777777;font-size:12px;padding-left:15px;}
@@ -166,3 +167,27 @@ border: 1px solid #ccc;}
 
 
 #loading{position:fixed;width:100%;top:48%;background-image:url(../icon/preloader.gif);background-repeat: no-repeat;background-position:center;height:64px}
+
+#friends, #friendswhere, .newfriends{display:none;}
+.reqbtn{cursor:hand}
+
+
+
+
+/*마이페이지*/
+.mprofile{width:70;height:70}
+.mbackground{width:100%;height:300px }
+#mimage{width:100%;}
+#mpimage{height:100;float:right;}
+.mybackgrounddiv{width:100%;background-size:400;overflow:hidden;}
+.mybackground{opacity:0;width:100%;position:absolute;}
+.myprofilediv{margin-left:10;margin-top:-120;position:absolute;width:100;overflow:visible;}
+.myprofile{opacity:0;width:100%;position:absolute;}
+.myinfo{width:100%;background-color:rgba(255, 255, 255, 0.7);height:40px;position:absolute;margin-top:-50px;padding-left:125px;padding-top:10px}
+.bottom{width:100%;height:120px;background-color:#e8e8e8}
+.omenu{margin:20px 10px;float:left;width:80;height:80;border-radius:40px;background-color:#FFF;text-align:center;line-height:80px;}
+.omenuwrap{margin:auto;overflow:auto;width:318}
+.myframe{border:none;width:100%;min-height:300px;}
+
+
+

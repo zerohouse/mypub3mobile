@@ -25,153 +25,42 @@ $cnt--;
 <link rel="stylesheet" href="css/dropzone.css" />
 <script src="js/dropzone.js"></script>
 <script src="js/jquery.autosize.min.js"></script>
-
-
+<script src="js/main.js"></script>
 <script type="text/javascript">
-$(function() {
-groupnumbernow = 0;
-anonymousval=0;
-pagerightnow = 0;
-sendto = "";
-pubformnumber = 0;
-windowheight=$(window).height();
-	$('#mainpage').scrollPagination();
-	require("boot");
-	$('.writebody').autosize();
-    $('textarea').each(function() {
-        $(this).not(".title").css("height",$(this).prop('scrollHeight'));
-    });
-	$(".writeformwrap").hide();
-    $(".popup").hide();
-	$("#loading").hide();
-
-    $('#more').click(function(){
-        $(this).toggleClass("moreclicked")
-    });
-	$('#mainpage').click(function(){
-    $(".popup").hide();
-    });	
-	$('#groupset').not(".newpubs").click(function(){
-    $(".newpubs").hide();
-    });	
-	$('#groupset').click(function(){
-    $(".popup").hide();
-    });	
-	$("#groupset").hide();
-	
-	
-	
-	  // Bind the swipeleftHandler callback function to the swipe event on div.box
-   $( "#mainpage" ).on( "swipeleft", swipeleftHandler );
-   $( "#mainpage" ).on( "swiperight", swiperightHandler );
-   
-
-  // Callback function references the event target and adds the 'swipeleft' class to it
-swipeLetter(groupnumbernow);
-});
-
-
-
-
-
-function showID(showid) {
-    $('#'+showid).show();
-}
-function hideID(hideid){
-    $('#'+hideid).hide();
-}
-function toggleID(toggleid){
-        $('.popup').not('#'+toggleid).hide();
-        $('#'+toggleid).toggle();
-}
-function togglePOPUP(toggleid){
-        $('.popup').not('#'+toggleid).hide();
-        $('#'+toggleid).toggle();
-}
-
-function toggleAnonymous(){
-if (anonymousval==0){ anonymousval=1;
-	$("#profiletoggle").css("background-image","url('icon/anony.png')");
-	$("#username").text("익명");}
-else{ anonymousval=0;
-	$("#profiletoggle").css("background-image","url('icon/sch.png')");
-	$("#username").text("<?echo $user_name?>");}
-}
-
-function writeLetter(){
-		var sendwr = groupnumberfor[groupnumbernow];
-if (groupnumbernow==100){sendwr = sendto;groupnumbernow=0; }
-if (pagetypearray[groupnumbernow]==1){sendwr=groupnumberfor[groupnumbernow]+"||2";}
-
-		var title = $("textarea#newtitle").val();
-		var text = $("textarea#newbody").val();
-
-				$.ajax({
-                        type: "POST",
-                        url: "php/board_insert.php",
-                        data: {head : title, body: text, anony : anonymousval, 			pagesort: sendwr},
-                        success: function(response) {		
-						$("textarea#newtitle").val("");
-						$("textarea#newbody").val("");
-						$("#my-dropzone").html("")
-						$("#wirtesomething").hide();
-						alert(response);
-						swipeLetter(groupnumbernow);
-						}});
-	}
-	
-function callgroupSET(){
-$("#groupset").show();
-$("#mainpage").hide();
-$(".popup").hide();
-}	
-
-function findFriends() {
-       $(".popup").hide();
-	  $( "#about" ).show();
-                var form_data = {
-                        find_id: $("#sch").val(),
-                        pagesort: groupnumbernow
-                };
-                $.ajax({
-                        type: "POST",
-                        url: "php/frsch.php",
-                        data: form_data,
-                        success: function(response) {
-                           $("#about").html(response);
-                        }
-                });
-                return false;
-}
-
-function scorePlus($scoretype, $onlynoscore)	{
-  $.ajax({              type: "POST",
-                        url: "php/scoreplus.php",
-                        data: {type: $scoretype, onlyno : $onlynoscore},
-                        success: function(response) {
-						swipeLetter(groupnumbernow, 'easing'+$onlynoscore);
-
-					}});
-  }
-   //점수올리기
-
-
+$user_name = "<?echo $user_name?>";
+$user_profile="<?echo $user_data[10];?>";
 </script>
     <div id='topmenuwrap'>
             <a id='more' class='morenonclicked' style='width:17px;' onclick="togglePOPUP('moregroups');"></a>
                 <div class='popup' id='moregroups'>
                     <ul>
 							<li onclick="toggleID('wirtesomething')">글쓰기</li>
-							<li onclick="swipeLetter(100, 0, '<? echo $user_id;?>')">내가 쓴글</li>
+							<li onclick="swipeLetter(100, 0, '<? echo $user_id;?>')">마이페이지</li>
 							
-							<li onclick=callgroupSET(); style='font-family:dek'>MYPUB Setting</li>
+							
 							<li class=line>알림</li>
+								<? 
+								$sql = mysql_query("SELECT count(no) FROM alarm  WHERE `id` = '$user_id'");
+								$alarmcnt = mysql_fetch_array($sql,MYSQL_NUM); // no, id, message, function, date
+								if ($alarmcnt[0] ==0){
+								echo "<li>알림이 없습니다.</li>";
+								}else{
+								for ($i=0;$i<3;$i++){
+								$sql = mysql_query("SELECT * FROM alarm  WHERE `id` = '$user_id' order by no desc limit $i, 1");
+								$alarm = mysql_fetch_array($sql,MYSQL_NUM); // no, id, message, function, date 
+								$alarmno[$i] = $alarm[0];
+								echo "$alarm[2]";
+								}}
+								if ($alarmcnt[0] > 3){
+								if ($more[0]!=null){
+								echo "<li style='font-family:dek'>...more...</li>";
+								}}
 
-								<li>샘플님이 친구요청 하셨습니다.</li>
-								<li>샘플님이 친구요청 하셨습니다.</li>
-								<li>샘플님이 친구요청 하셨습니다.</li>
+								?>
+								
+								
 							<li class=line style=height:1px></li>
-							<li onclick="location.replace('modern/modern.html')">모던 스타일</li>
+							<li onclick=callgroupSET();><font style='font-family:dek'>MYPUB</font>설정</li>
 							<li onclick=location.replace('logout.php')>로그아웃</li>
 
                     </ul>
@@ -179,7 +68,7 @@ function scorePlus($scoretype, $onlynoscore)	{
             
         <div id='menubox'>
 			<?
-
+			$k=0;
 			for($i=0;$i<$cnt;$i++){
 			$group = explode(";+;",$onmenu[$i]);
 			if ($group[0]==0){
@@ -188,6 +77,9 @@ function scorePlus($scoretype, $onlynoscore)	{
 			$gcforjava[$i] = "'".$group[3]."'";
 			$gnforjava[$i] = $groupname;
 			$pagetypearray[$i]=0;
+			$friendgroupname[$k]=$group[2];
+			$friendgroup[$k]=$group[1]+1;
+			$k++;
 			if (strlen($group[2])<1){$group[2]="무제";}
 			echo "<a class='menu' id='menu$i' onclick=swipeLetter($i)>$group[2]</a>";}
 			else if ($group[0]==1){
@@ -207,7 +99,7 @@ function scorePlus($scoretype, $onlynoscore)	{
 		
 		<div class=writeformprofile>
 		<div onclick=hideID('wirtesomething'); style='width:50px;' class='writebtn'>닫기</div><div id="submit-all" class='writebtn'; onclick='writeLetter();'>글쓰기</div><div style='width:50px;' class='writebtn' onclick='toggleAnonymous();'>익명</div>
-                <a class='profileimg' id='profiletoggle' style="background-image: url('icon/sch.png')"></a><div class=replywrap><span id=username class=reply><?echo $user_name?></span><br>
+                <a class='profileimg' id='profiletoggle' style="background-image: url('<?echo $user_data[10];?>')"></a><div class=replywrap><span id=username class=reply><?echo $user_name?></span><br>
             </div></div>
         <textarea class='writetitle' id=newtitle placeholder='제목'></textarea>
 		
@@ -248,180 +140,16 @@ function scorePlus($scoretype, $onlynoscore)	{
 			}
 			echo "'');";
 			?>
-
-			
-	function swipeleftHandler(){
-  groupnumbernow++;
-  direction = 1;
-  if(groupnumbernow>90){groupnumbernow=0;}
-  if(groupnumbernow>groupcnt-1){groupnumbernow=0;}
-  swipeLetter(groupnumbernow);
-
-  }
-    function swiperightHandler(){
-	groupnumbernow--;
-	direction = 2;
-	if(groupnumbernow>90){groupnumbernow=0;}
-	if(groupnumbernow<0){groupnumbernow=groupcnt-1;}
-	swipeLetter(groupnumbernow);
-
-  }
-			
-			
-			
-			
-			
-function swipeLetter($group, $showingid, $hisid){
-
-sendto = groupnumberfor[$group];
-groupnumbernow = $group;
-if ($group == 100){
-sendto = $hisid+'||1';
-$group=0;
-groupnumbernow = 100; // 누군가의 페이지.
-}
-if (pagetypearray[$group]==1){
-sendto = groupnumberfor[$group]+'||2';
-}
-
-
-			$("#groupset").hide();
-			$("#mainpage").show();
-			pagerightnow = 0;
-						
-			var leftgroup = $group-1;
-			var rightgroup = $group+1;
-			var rightgroup2 = $group+2;
-			
-			switch ($group){
-			case groupcnt-1:
-			rightgroup = 0;
-			rightgroup2 = 1;
-			break;
-			case groupcnt-2:
-			rightgroup2 = 0;
-			break;
-			case 0:
-			leftgroup=groupcnt-1;
-			break;
+			<?
+			$alarmcnt = count($alarm);
+			echo "alarmno = new Array( ";
+			for($i=0;$i<$alarmcnt;$i++){
+			echo " {$alarmno[$i]},";
 			}
-			$("#mainpage").hide();
-			$("#loading").show();
-						$.ajax({
-                        type: "POST",
-                        url: "letter/letter.php",
-                        data: {group : sendto, name: groupnameajax[$group]}, // groupname 수정
-                        success: function(response) {		
-						if (response){
-						/*if (direction==1){
-						$("#mainpage").toggle("slide", { direction: "left" });
-						$("#mainpage").html(response);
-						$("#mainpage").show("slide", { direction: "right" });}
-						if (direction==2){
-						$("#mainpage").toggle("slide", { direction: "right" });*/
-						
-						$("#mainpage").html(response);
-						$("#mainpage").show();
-						$("#loading").hide();
-						$("#"+$showingid).show();
-						/*$("#mainpage").toggle("slide", { direction: "left" });}*/
-						}
-					}});
-					$(".menu").hide();
-					$(".menu").css("color","#777777");
-					$(".hiddenmenu").css("color","#777777");
-					$(".menu").css("border-bottom","0px");
-					$(".hiddenmenu").css("border-bottom","0px");
-					$(".menu").css("padding-bottom","4px");
-					$(".hiddenmenu").css("padding-bottom","4px");
-					$("#menu"+$group).css("color","#"+groupcolorshow[$group]);
-					$("#menu"+$group).css("border-bottom","4px solid #"+groupcolorshow[$group]);
-					$("#menu"+$group).css("padding-bottom","0px");
-					$("#menu"+$group).css("width","40%");
-					$("#menu"+rightgroup2).css("width","20%");
-					$("#menu"+leftgroup).css("width","20%");
-					$("#menu"+rightgroup).css("width","20%");
-					$("#menu"+$group).css("margin-left","20%");
-					$("#menu"+rightgroup2).css("margin-left","80%");
-					$("#menu"+leftgroup).css("margin-left","0");
-					$("#menu"+rightgroup).css("margin-left","60%");
-					$("#menu"+$group).toggle();
-					$("#menu"+leftgroup).toggle();
-					$("#menu"+rightgroup).toggle();
-					$("#menu"+rightgroup2).toggle();
-}
+			echo "'');";
+			?>
 
 
-
-
-function openNEWpub($newpubnumber){
-pubformnumber = $newpubnumber;
-$("#newpub" + $newpubnumber).show();
-				$.ajax({
-                        type: "POST",
-                        url: "pub/pub.html",
-                        data: {},
-                        success: function(response) {		
-						$("#newpub" + $newpubnumber).html(response);
-						}});
-
-
-}
-
-
-replanony=0;
-
-function writeReply($replyid, only, $textid, $anonyreply) {
-						var replytext = $($textid).val();
-						if (replytext==""){alert("댓글을 입력해주세요");
-						}
-						else{
-						var anonyreply = $($anonyreply).text();
-						$.ajax({
-                        type: "POST",
-                        url: "letter/writereply.php",
-                        data: {onlyno: only, reply: replytext, anony: replanony},
-                        success: function(response) {
-						alert(response);
-						$($replyid).append(response);
-						$textid.value="";
-					}});}
-        } 
-		
-function delReply(delonlyno, delno) {
-						$.ajax({
-                        type: "POST",
-                        url: "letter/delreply.php",
-                        data: {onlyno: delonlyno, no: delno},
-                        success: function(response) {
-							$page=1;
-							$.ajax({
-								type: "POST",
-								url: "letter/letter.php",
-								data: {pagesort: $pagesort,page: $page},
-								success: function(response) {	
-								$("#mainpage").html(response);
-								$now = $pagesort;
-							}});
-					}});
-        } 
-		
-function replyToggle($identify) {
-		if (replanony==0){
-		
-		replanony=1;
-		document.getElementById("anony"+$identify).innerHTML="익명";
-		$("#anonyimg"+$identify).css("background-image","url(icon/anony.png)");
-        } else {
-		replanony=0;
-		document.getElementById("anony"+$identify).innerHTML="<?echo $user_name;?>";
-		$("#anonyimg"+$identify).css("background-image","url(<?echo $user_data[10];?>)");
-		}}
-		
-
-
-	
-	
 
 </script>
 
@@ -474,10 +202,9 @@ $(function() {
 groupon = <?echo $onthe?>;
 pubon=<?echo $pn?>;
 gonmenupan = new Array(<?for($i=0;$i<10;$i++){echo "'{$gformenu[$i]}',";}echo"''";?>);
-
 ponmenupan = new Array(<?for($i=0;$i<10;$i++){if($i<$pn){echo "'1',";}
 else{echo "'0',";}}echo"''";?>);
-pubid = new Array('humor', 'humor', 'humor', 'humor', '', '', '', '', '', ''); // PUB 게시판 아이디 넘겨줘야댐..
+pubid = new Array('', '', '', '', '', '', '', '', '', ''); // PUB 게시판 아이디 넘겨줘야댐..
 
 $(".mygroups").hide();
 
@@ -486,130 +213,7 @@ showPubForm();
 
     $( "#menupan" ).sortable();
     $( "#menupan" ).disableSelection();
-
-
-
 });
-
-function showGroupForm(){
-for (var i = 0; i < 10; i++) {
-	if (i-1<<?echo $onthe?>){
-   $("#group"+i).show();}
-	
-	if (gonmenupan[i]!=0){
-   gonmenupan[i]=0;
-   toggleGroupMenupan(i);
-   }
-}
-}
-function showPubForm(){
-for (var i = 0; i < 10; i++) {
-	if (ponmenupan[i]!=0){
-	ponmenupan[i]=0;
-   $("#pub"+i).show();
-   togglePubMenupan(i);
-   }
-}
-}
-
-	
-function addGroup(){
-if (groupon < 10){
-$("#group"+groupon).show();
-groupon++;}
-}
-function delGroup(){
-if (groupon > -1){
-$("#group"+groupon).hide();
-groupon--;
-}
-}
-function addPub(){
-if (pubon < 10){
-$("#pub"+pubon).show();
-pubon++;}
-}
-function delPub(){
-if (pubon > -1){
-$("#pub"+pubon).hide();
-pubon--;
-}
-}
-
-
-function groupSettingJUKYONG(){
-	var pubdata="";
-	var groupdata="";
-	for (var i = 0; i < 10; i++) {
-	pubdata = pubdata + $("#p"+i).val() + ";+;" + $("#p"+i+"c").val() + "|+|";
-	}
-	
-	for (var i = 0; i < 10; i++) {
-	$("#g"+i).val()
-	$("#g"+i+"c").val()
-	groupdata = groupdata + $("#g"+i).val() + ";+;" + $("#g"+i+"c").val() + "|+|";
-	}
-
-	var menupan = $("#menupan").sortable("toArray");
-	
-					$.ajax({
-                        type: "POST",
-                        url: "php/pubsetting.php",
-                        data: {pub : pubdata, group: groupdata, menu : menupan, pubids : pubid},
-                        success: function(response) {
-						alert("그룹설정이 변경되었습니다.");
-						location.reload();
-						}});
-
-	
-}
-
-onthemenupan = 0;
-function toggleGroupMenupan($number){ // 메뉴판에 애드 / 리무브 (그룹)
-if (gonmenupan[$number]==0){
-	if (onthemenupan>10){alert('메뉴판에 최대 10개까지 등록할 수 있습니다.'); return;}
-onthemenupan++;
-var sgname = $("#g"+$number).val();
-gonmenupan[$number]=1;
-var $n = $number +1;
-if(sgname ==""){sgname = "이름없음";}
-$("#menupan").append("<div onclick='toggleGroupMenupan("+$number+")' class=onmenupan id='gm"+$number+"'><font color=#777777 size=2>그룹"+$n+"</font><br>"+sgname+"</div>")
-$("#g"+$number+"ck").css("background-image","url(icon/checked.png)");}
-
-
-else {
-	if (onthemenupan<5){alert('메뉴판은 최소 4개가 필요합니다.'); return;}
-	
-onthemenupan--;
-$("#g"+$number+"ck").css("background-image","none");
-$("#gm"+$number).remove();
-gonmenupan[$number]=0;}
-}
-
-
-function togglePubMenupan($number){ // 메뉴판에 애드 / 리무브 (pub)
-if (ponmenupan[$number]==0){
-	if (onthemenupan>9){alert('메뉴판에 최대 10개까지 등록할 수 있습니다.'); return;}
-	onthemenupan++;
-
-var sgname = $("#p"+$number).val();
-ponmenupan[$number]=1;
-var $n = $number +1;
-if(sgname ==""){sgname = "이름없음";}
-$("#menupan").append("<div  onclick='togglePubMenupan("+$number+")' class=onmenupan id='pm"+$number+"'><font color=#777777 size=2>PUB"+$n+"</font><br>"+sgname+"</div>")
-$("#p"+$number+"ck").css("background-image","url(icon/checked.png)");}
-
-else {
-	if (onthemenupan<5){alert('메뉴판은 최소 4개가 필요합니다.'); return;}
-	onthemenupan--;
-
-$("#pm"+$number).remove();
-ponmenupan[$number]=0;
-$("#p"+$number+"ck").css("background-image","none");}
-}
-
-
-
 </script>
 
 <link  type='text/css' rel='stylesheet' href='css/groupsetting.css' media='screen' />
@@ -666,4 +270,17 @@ echo "<li class=mygroups  id='pub{$i}'>
 	
 
 </div>
+<div id=friendswhere>
+<?
+
+for($i=0;$i<$k;$i++)
+{
+$add = $friendgroup[$i]-1;
+echo "<li onclick='addFriends($add)'>그룹{$friendgroup[$i]} {$friendgroupname[$i]}에 추가</li>";
+}
+?>
+<li onclick=addFriends(50)>무인도에 추가</li>
+</div>
+
+
 <div id=loading><div>

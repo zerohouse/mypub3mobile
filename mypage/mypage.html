@@ -1,0 +1,42 @@
+<meta charset="utf-8" name="viewPort" content="initial-scale=1.0; maximum-scale=1.0; minimum-scale=1.0; user-scale=no;" />
+<link  type='text/css' rel='stylesheet' href='../css/main.css' media='screen' />
+<script src="../js/jquery-1.10.2.min.js"></script>
+<script src="../js/jquery-ui.js"></script>
+<script src="../js/jquery.autosize.min.js"></script>
+
+<?
+
+include "../php/connect_db.php";
+$sql = mysql_query("SELECT * FROM user_data  WHERE `id` = '$user_id'");
+$user_data = mysql_fetch_array($sql,MYSQL_NUM);
+if ($user_data[10]==null)
+{$profileurl="../icon/profile.png";}
+else{$profileurl=$user_data[10];}
+if ($user_data[9]==null)
+{$backurl="../img/6.jpg";}
+else{$backurl=$user_data[9];}
+?>
+
+<script>
+$(function() {
+
+//document.getElementById("mimage").src="img/3.jpg";
+document.getElementById("mpimage").src="<?echo $profileurl?>";
+$(".myprofile").css("height","100%");
+
+
+});
+</script>
+
+	<div class=mypage>
+	<div class=mybackgrounddiv>
+
+<form name="upform" method="POST" enctype="multipart/form-data" action="upload.php">
+	<input type='file' name='back' onchange=this.form.submit() style=height:100%; class=mybackground><img id=mimage src="<?echo $backurl?>" ></div>
+	<div class=myinfo><strong><?echo $user_name?></strong>(<?echo $user_id?>)</div>
+	<div class=myprofilediv>
+	<input type='file' name='profile' onchange=this.form.submit() id=myprofile class=myprofile><img id=mpimage></div>
+ </form>
+
+	</div>
+	</div>

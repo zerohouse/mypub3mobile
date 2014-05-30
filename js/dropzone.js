@@ -435,7 +435,7 @@ require.register("enyo-dropzone/lib/dropzone.js", function(exports, require, mod
       withCredentials: false,
       parallelUploads: 20,
       uploadMultiple: false,
-      maxFilesize: 1,
+      maxFilesize: 2,
       paramName: "file",
       createImageThumbnails: true,
       maxThumbnailFilesize: 10,

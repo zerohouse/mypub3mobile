@@ -21,7 +21,7 @@ $g3n = $_POST['group3'];
 $g4n = $_POST['group4'];
 $url1 = $_POST['url1'];
 $url2 = $_POST['url2'];
-$url3 = $_POST['url3'];*/
+$url3 = $_POST['url3'];
 $rand = rand(1,10);
 
 if($url1==NULL){
@@ -34,7 +34,7 @@ if($url2==NULL){$url2=$url1;}
 if($url3==NULL){$url3=$url2;}
 }
 
-$url = $url1 . "|" . $url2 . "|" . $url3;
+$url = $url1 . "|" . $url2 . "|" . $url3;*/
 
 
 
@@ -64,7 +64,7 @@ die;
 setcookie('user_id',$fuserid);
 setcookie('user_name',$fname);
 
-$sql = "insert into user_data (id, name, passwd, sex, email, date, phone, onmenu, char_url, score) values ('$fuserid','$fname','$fpasswd','$fsex','$femail',now(),'$phone','','$url','15|15|15|15|15')";
+$sql = "insert into user_data (id, name, passwd, sex, email, date, phone, onmenu, char_url, score, groupdata, pub) values ('$fuserid','$fname','$fpasswd','$fsex','$femail',now(),'$phone','0;+;0;+;친구;+;2929FF||0;+;1;+;가족;+;2929FF||0;+;2;+;동료;+;2929FF||1;+;humor;+;유머;+;FF4079||','$url','15|15|15|15|15', '친구;+;2929FF|+|가족;+;2929FF|+|동료;+;2929FF|+|;+;2929FF|+|;+;2929FF|+|;+;2929FF|+|;+;2929FF|+|;+;2929FF|+|;+;2929FF|+|;+;2929FF|+|', ';+;FF4079|+|;+;FF4079|+|;+;FF4079|+|;+;FF4079|+|;+;FF4079|+|;+;FF4079|+|;+;FF4079|+|;+;FF4079|+|;+;FF4079|+|;+;FF4079|+|')";
 $res = mysql_query($sql,$connect);
 $tot_row = mysql_affected_rows();
 

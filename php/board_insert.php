@@ -88,5 +88,5 @@ echo "PUB{$type[0]}에 글을 작성하였습니다.";
 mysql_query("INSERT INTO `zerohouse3`.`my_$user_id` (`sort`,`name_id`,`date`,`only_no`) values('$pagesort','$where',NOW(),'$only_no[0]');");
 mysql_query("INSERT INTO `zerohouse3`.`t_$user_id` (`sort`,`id`,`talk`,`anony`,`date`,`only_no`,`img`) values('$pagesort','$user_id','$talk','$anony',NOW(),'$only_no[0]','$allfiles');");
 mysql_query("INSERT INTO `reply` (`id`,`only_no`) values('$user_id','$only_no[0]');");//리플생성
-mysql_query("INSERT INTO `score` (`type`,`only_no`,`score`) values('letter','$only_no[0]','15|15|15|15|15');");//스코어생성
+mysql_query("INSERT INTO `score` (`hum`,`sym`,`wow`,`info`,`etc`,`type`,`only_no`) values(15,15,15,15,15,'letter','$only_no[0]');");//스코어생성
 ?>

@@ -2,25 +2,90 @@
 
 <?
 include "../php/connect_db.php";
-$group = $_POST['group'];
+$group = $_POST['group']; // 타입으로 나눠서 소팅해야댐.
 $groupname = $_POST['name'];
 $page = $_POST['page'];
 
 $type = explode('||',$group);
-
 $sql = mysql_query("SELECT * FROM user_data  WHERE `id` = '$user_id'");
 $user_data = mysql_fetch_array($sql,MYSQL_NUM); // no, id, name, passwd, sex, email, date, group, phone, char_url, profile, score, attractive
 if ($groupname==null){$groupname="이름없는";}
+if ($type[1]==1){
+$sql = mysql_query("SELECT name FROM user_data  WHERE `id` = '$type[0]'"); 
+$name = mysql_fetch_array($sql,MYSQL_NUM);
+if ($user_data[10]==null)
+{$profileurl="icon/profile.png";}
+else{$profileurl=$user_data[10];}
+if ($user_data[9]==null)
+{$backurl="img/6.jpg";}
+else{$backurl=$user_data[9];}
 
+if ($user_id!=$type[0]){
 		echo "
 		<div id='topblock'></div>
+
+		<div class=mypage>
+	<div class=mybackgrounddiv>
+	<img id=mimage src='$backurl'></div>
+	<div class=myinfo><strong>박성호</strong>(sungho)</div>
+	<div class=myprofilediv>
+	<img id=mpimage src='$profileurl'></div>
+ 	<div class=bottom>
+	<div class=omenuwrap>
+	<div class=omenu>메뉴</div>
+	<div class=omenu>메뉴</div>
+	<div class=omenu>메뉴</div></div>
+	</div>
+	</div>
+			
+			
+			
+		<div class=wrapping>
+        "; // 인사말
+}else{
+
+echo "<iframe class=myframe scrolling='no'  onload='javascript:resizeIframe(this);' src='mypage/mypage.html'>
+</iframe>
+
+
+		<div class=wrapping>";
+
+}	
+	
+
+
+}else if ($type[1]==2){
+
+		echo "
+		<div class=wrapping>
+		<div id='topblock'></div>
             <div id='namewrap'>
-               $user_data[2]님 안녕하세요. $groupname 그룹입니다. <a> 친구보기 </a>
+               $user_data[2]님 안녕하세요. <font style=font-family:dek>Pub</font> {$groupname}입니다.
+            </div>        "; // 인사말
+
+
+}else{
+
+		echo "
+		<div class=wrapping>
+		<div id='topblock'></div>
+            <div id='namewrap'>
+               $user_data[2]님 안녕하세요. $groupname 그룹입니다. $friends[0]<a onclick=toggleID('friends')> 친구보기 </a>
             </div>
+        "; // 인사말
+		echo "<div id=friends>";
+		$sql = mysql_query("SELECT count(fr_id) FROM g_$user_id  WHERE `sort` = '$type[0]'");
+		$frcnt = mysql_fetch_array($sql,MYSQL_NUM);
+		for ($i=0;$i<$frcnt[0];$i++){
+		$sql = mysql_query("SELECT fr_id FROM g_$user_id  WHERE `sort` = '$type[0]' order by no desc limit $i,1");
+		$friends = mysql_fetch_array($sql,MYSQL_NUM);
+		$sql = mysql_query("SELECT name FROM user_data  WHERE `id` = '$friends[0]'");
+		$friendsname = mysql_fetch_array($sql,MYSQL_NUM);
 
-
-        "; // 탑메뉴
+		echo "$friendsname[0]($friends[0])";}
+		echo "</div>";
 		
+}
 		
 
 //여기부터 글컨테이너.
@@ -44,9 +109,9 @@ echo "
 	$talk = explode("|+|",$data[4]); // 제목 글 분리
 	$photo = explode("|+|", $data[3]); // 포토 0 은 사진 1는 제목
 	$only_no[0] = $data[8];
-	$sql = mysql_query("SELECT score from score where `only_no` = '$only_no[0]'"); 
-	$sql = mysql_fetch_array($sql,MYSQL_NUM);
-	$score = explode("|",$sql[0]);
+	$sql = mysql_query("SELECT * from score where `only_no` = '$only_no[0]'"); 
+	$score = mysql_fetch_array($sql,MYSQL_NUM);
+
 	}else if($type[1]==2){
 	$sql = mysql_query("SELECT * from pub_$type[0] order by no desc limit $i, 1"); //no  sort  id  name  talk  score  anony  talk_sort  only_no  date
 	$data = mysql_fetch_array($sql,MYSQL_NUM);
@@ -58,9 +123,9 @@ echo "
 	$talk = explode("|+|",$data[4]); // 제목 글 분리
 	$photo = explode("|+|", $data[3]); // 포토 0 은 사진 1는 제목
 	$only_no[0] = $data[8];
-	$sql = mysql_query("SELECT score from score where `only_no` = '$only_no[0]'"); 
-	$sql = mysql_fetch_array($sql,MYSQL_NUM);
-	$score = explode("|",$sql[0]);
+	$sql = mysql_query("SELECT * from score where `only_no` = '$only_no[0]'"); 
+	$score = mysql_fetch_array($sql,MYSQL_NUM);
+
 	}else{
 	$sql = mysql_query("SELECT * from t_$user_id where `sort` = '$group' order by no desc limit $i, 1"); //no  sort  id  name  talk  score  anony  talk_sort  only_no  date
 	$data = mysql_fetch_array($sql,MYSQL_NUM);
@@ -72,9 +137,9 @@ echo "
 	$talk = explode("|+|",$data[4]); // 제목 글 분리
 	$photo = explode("|+|", $data[3]); // 포토 0 은 사진 1는 제목
 	$only_no[0] = $data[8];
-	$sql = mysql_query("SELECT score from score where `only_no` = '$only_no[0]'"); 
-	$sql = mysql_fetch_array($sql,MYSQL_NUM);
-	$score = explode("|",$sql[0]);
+	$sql = mysql_query("SELECT * from score where `only_no` = '$only_no[0]'"); 
+	$score = mysql_fetch_array($sql,MYSQL_NUM);
+
 	}
 	
 	
@@ -89,10 +154,12 @@ echo "
 if ($data[0]!=null){
 
 	echo "
-    <article class='letter'>
-        <div class=replyonwrap>
+    <article class='letter'>";
+	
+	if($type[1]!=2){
+    echo "    <div class=replyonwrap>
                 <a class='profileimg' style='background-image: url($writer_data[10])'></a><div class=replywrap><span onclick=\"swipeLetter(100, 0, '$data[2]')\" class=reply>$writer_data[2]</span><br><span class=replydate>$data[9]</span>
-            </div></div>";
+            </div></div>";}
 		
 	if ($talk[1]!=null) { //제목 있으면 출력
         echo "<textarea class='title' readonly>$talk[1]</textarea>";}
@@ -125,7 +192,13 @@ if ($data[0]!=null){
 		$cnt = count($reply);
 		$rc = $cnt-1;
 	    echo "
-		<br><a class='replycall' onclick=toggleID('replybox$data[8]');>댓글 ($rc 개)</a> &nbsp&nbsp&nbsp | &nbsp&nbsp <a class='replycall' onclick=toggleID('easing$data[8]');>Feeling?!</a><div class=replybox id=replybox$data[8]>";
+		<br><a class='replycall' onclick=toggleID('replybox$data[8]');>댓글 ($rc 개)</a> &nbsp&nbsp&nbsp | &nbsp&nbsp <a class='replycall' onclick=toggleID('easing$data[8]');>Feeling?!</a>";
+		
+		if($type[1]==2){echo " &nbsp&nbsp&nbsp | &nbsp <a class='replycall' onclick=toggleID('writerinfo$data[8]')>작성자</a>";}
+		
+		echo "<div class=replybox id=replybox$data[8]>";
+		
+
 		
 		if($reply[1]!=null){
 		for ($j=1;$j<$cnt;$j++) {		
@@ -142,6 +215,11 @@ if ($data[0]!=null){
                 <a class='profileimg' id='anonyimg$only_no[0]' onclick='replyToggle($only_no[0])' style='background-image: url($user_data[10])'></a><div class=replywrap><span id='anony$only_no[0]' class=reply>$user_data[2]</span> : <input id='replywriteform$only_no[0]' class=makereply type='text' placeholder='댓글을 남겨주세요^-^' onKeyDown='javascript:if (event.keyCode == 13) writeReply(replybox$only_no[0], $only_no[0], replywriteform$only_no[0], anony$only_no[0]);'>
             </div></div></div>"; // 글끝
 		
+
+		if($type[1]==2){
+		echo "<div id=writerinfo$data[8] style=display:none> <div class=replyonwrap>
+                <a class='profileimg' style='background-image: url($writer_data[10])'></a><div class=replywrap><span onclick=\"swipeLetter(100, 0, '$data[2]')\" class=reply>$writer_data[2]</span><br><span class=replydate>$data[9]</span>
+            </div></div></div>";}
 		
 		
         echo "
@@ -173,7 +251,7 @@ if ($data[0]!=null){
         </div>
     </article>";}}?>
 
-
+</div>
 </div>
 <script type="text/javascript">
 $(function() {
