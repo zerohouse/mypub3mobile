@@ -35,8 +35,7 @@ $user_profile="<?echo $user_data[10];?>";
                 <div class='popup' id='moregroups'>
                     <ul>
 							<li onclick="toggleID('wirtesomething')">글쓰기</li>
-							<li onclick="swipeLetter(100, 0, '<? echo $user_id;?>')">마이페이지</li>
-							
+
 							
 							<li class=line>알림</li>
 								<? 
@@ -60,6 +59,8 @@ $user_profile="<?echo $user_data[10];?>";
 								
 								
 							<li class=line style=height:1px></li>
+							<li onclick="swipeLetter(100, 0, '<? echo $user_id;?>')">마이페이지</li>
+							
 							<li onclick=callgroupSET();><font style='font-family:dek'>MYPUB</font>설정</li>
 							<li onclick=location.replace('logout.php')>로그아웃</li>
 
@@ -101,7 +102,7 @@ $user_profile="<?echo $user_data[10];?>";
 		<div onclick=hideID('wirtesomething'); style='width:50px;' class='writebtn'>닫기</div><div id="submit-all" class='writebtn'; onclick='writeLetter();'>글쓰기</div><div style='width:50px;' class='writebtn' onclick='toggleAnonymous();'>익명</div>
                 <a class='profileimg' id='profiletoggle' style="background-image: url('<?echo $user_data[10];?>')"></a><div class=replywrap><span id=username class=reply><?echo $user_name?></span><br>
             </div></div>
-        <textarea class='writetitle' id=newtitle placeholder='제목'></textarea>
+        <textarea class='writetitle' id=newtitle placeholder='제목' onkeydown='javascript:if (event.keyCode == 13) return false;'></textarea>
 		
 		<div id='dropzonewrap'><div class='filldropzone'>터치하여 사진추가
 		<font size='3'><br>JPG, GIF, PNG (limit 1MB)</font></div>
@@ -281,6 +282,20 @@ echo "<li onclick='addFriends($add)'>그룹{$friendgroup[$i]} {$friendgroupname[
 ?>
 <li onclick=addFriends(50)>무인도에 추가</li>
 </div>
+<div id=friendsmove>
+<ul>
+<?
 
+for($i=0;$i<$k;$i++)
+{
+$add = $friendgroup[$i]-1;
+echo "<li onclick='addFriends($add)'>그룹{$friendgroup[$i]} {$friendgroupname[$i]}(으)로 이동</li>";
+}
+?>
+<li onclick=addFriends(50)>무인도(으)로 이동</li>
+</ul>
+</div>
 
+<div id=save style='display:none';></div>
 <div id=loading><div>
+

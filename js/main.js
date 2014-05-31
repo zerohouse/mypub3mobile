@@ -7,13 +7,14 @@ replanony=0;
 onthemenupan = 0;
 addid = '';
 delno =0;
+onlynomod = 0;
 $(function() {
 	
 windowheight=$(window).height();
 	$('#mainpage').scrollPagination();
 	
 	require("boot");
-	$('.writebody').autosize();
+	$('textarea').autosize();
     $('textarea').each(function() {
         $(this).css("height",$(this).prop('scrollHeight'));
     });
@@ -27,6 +28,12 @@ windowheight=$(window).height();
 	$('#mainpage').click(function(){
     $(".popup").hide();
     });	
+	
+	$('body').click(function(){
+    $("#mod").hide();
+	$("#friendsmove").hide();
+    });	
+	
 	$('#groupset').not(".newpubs").click(function(){
     $(".newpubs").hide();
     });	
@@ -160,6 +167,7 @@ function swipeLetter($group, $showingid, $hisid){
 
 sendto = groupnumberfor[$group];
 groupnumbernow = $group;
+$("#friendsmove").appendTo("#save");
 if ($group == 100){
 sendto = $hisid+'||1';
 $group=0;
@@ -432,6 +440,15 @@ function friendOK($friendid)	{
 						$( "#new"+$friendid).toggle();
 						addid=$friendid;
 					}
+
+function friendMove($friendid)	{
+						$( "#friendsmove" ).appendTo( "#move"+$friendid );;
+						$( ".movefriends").not( "#move"+$friendid ).hide();
+						$("#friendsmove").show();
+						$( "#move"+$friendid).toggle();
+						addid=$friendid;
+					event.stopPropagation();
+					}
 					
 function addFriends($sort){
 location.replace('php/fr_ok.php?id='+addid+'&sort='+$sort+'&no='+delno);
@@ -453,5 +470,60 @@ function friendReq($friend, $sort) {
 
         
   function resizeIframe(obj) {
-    obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
+    obj.style.height = obj.contentWindow.document.body.scrollHeight-20 + 'px';
   }
+  
+function ajaxMore() {
+
+
+				pagerightnow++;
+				
+				$('#mainpage').append("<div id=moreloading><img src=icon/preloader.gif></div>");
+				
+				 	$.ajax({
+                        type: "POST",
+                        url: "letter/lettermore.php",
+                        data: {group : groupnumbernow,	page : pagerightnow},
+                        success: function(data) {
+						
+					if(data.length < 30) { 
+					$('#morebtn').remove();
+					$('#mainpage').append("<div id=morebtn>마지막페이지입니다.</div>");
+					$('#moreloading').remove();
+					}
+					else {
+			
+					$('#mainpage').append(data);
+					$('#morebtn').remove();
+					$('#moreloading').remove();
+					$('#mainpage').append("<div id=morebtn style='cursor:hand' onclick='ajaxMore();'>더보기</div>");
+					}	
+							}});								
+					
+					}
+
+				
+function modLetter($onlynumber){
+		$("#mod").appendTo("#mod"+$onlynumber);
+		$("#mod").show();
+		onlynomod = $onlynumber;
+	event.stopPropagation();
+}
+					
+					
+function del_confirm() {
+if (confirm("삭제하시겠습니까?")){
+  				$.ajax({
+                        type: "POST",
+                        url: "php/del.php",
+                        data: {no: onlynomod},
+                        success: function(response) {
+						alert(response);
+						if(groupnumbernow==100){groupnumbernow=0;}
+						swipeLetter(groupnumbernow);
+
+
+					}}); 
+  
+}}
+

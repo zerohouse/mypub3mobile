@@ -14,7 +14,7 @@ $type = explode('||',$group);
 
 	for ($i=$page*4;$i<$page*4+4;$i++){
 	
-	if($type[1]==1){ // 어느 게시판인지.타입알아보기.
+	if($type[1]==1){ // 어느 게시판인지.타입알아보기. //타입 1은 상대페이지
 	$sql = mysql_query("SELECT * from t_$user_id where `id` = '$type[0]' order by no desc limit $i, 1"); //no  sort  id  name  talk  score  anony  talk_sort  only_no  date
 	$data = mysql_fetch_array($sql,MYSQL_NUM);
 	$sql = mysql_query("SELECT * from user_data where `id` = '$data[2]'"); // no, id, name, passwd, sex, email, date, group, phone, char_url, profile, score, attractive
@@ -23,16 +23,16 @@ $type = explode('||',$group);
 	$sql = mysql_fetch_array($sql,MYSQL_NUM); // 리플 가져오기
 	$reply = explode("|",$sql[0]); // 리플
 	$talk = explode("|+|",$data[4]); // 제목 글 분리
-	$photo = explode("||", $data[3]);
+	$photo = explode("|+|", $data[3]);
 	$only_no[0] = $data[8];
-	$sql = mysql_query("SELECT score from score where `only_no` = '$only_no[0]'"); 
-	$sql = mysql_fetch_array($sql,MYSQL_NUM);
-	$score = explode("|",$sql[0]);
+	$sql = mysql_query("SELECT * from score where `only_no` = '$only_no[0]'"); 
+	$score = mysql_fetch_array($sql,MYSQL_NUM);
+
 	
 	
 	}
-	else if($type[1]==2){
-	$sql = mysql_query("SELECT * from pub_$type[1] order by no desc limit $i, 1"); //no  sort  id  name  talk  score  anony  talk_sort  only_no  date
+	else if($type[1]==2){ //타입 2 는 펍
+	$sql = mysql_query("SELECT * from pub_$type[0] order by no desc limit $i, 1"); //no  sort  id  name  talk  score  anony  talk_sort  only_no  date
 	$data = mysql_fetch_array($sql,MYSQL_NUM);
 	$sql = mysql_query("SELECT * from user_data where `id` = '$data[2]'"); // no, id, name, passwd, sex, email, date, group, phone, char_url, profile, score, attractive
 	$writer_data = mysql_fetch_array($sql,MYSQL_NUM);
@@ -42,9 +42,8 @@ $type = explode('||',$group);
 	$talk = explode("|+|",$data[4]); // 제목 글 분리
 	$photo = explode("|+|", $data[3]); // 포토 0 은 사진 1는 제목
 	$only_no[0] = $data[8];
-	$sql = mysql_query("SELECT score from score where `only_no` = '$only_no[0]'"); 
-	$sql = mysql_fetch_array($sql,MYSQL_NUM);
-	$score = explode("|",$sql[0]);
+	$sql = mysql_query("SELECT * from score where `only_no` = '$only_no[0]'"); 
+	$score = mysql_fetch_array($sql,MYSQL_NUM);
 	
 	
 	}
@@ -58,11 +57,10 @@ $type = explode('||',$group);
 	$sql = mysql_fetch_array($sql,MYSQL_NUM); // 리플 가져오기
 	$reply = explode("|",$sql[0]); // 리플
 	$talk = explode("|+|",$data[4]); // 제목 글 분리
-	$photo = explode("||", $data[3]);
+	$photo = explode("|+|", $data[3]); 
 	$only_no[0] = $data[8];
-	$sql = mysql_query("SELECT score from score where `only_no` = '$only_no[0]'"); 
-	$sql = mysql_fetch_array($sql,MYSQL_NUM);
-	$score = explode("|",$sql[0]);
+	$sql = mysql_query("SELECT * from score where `only_no` = '$only_no[0]'"); 
+	$score = mysql_fetch_array($sql,MYSQL_NUM);
 	}
 	
 	$leng = mb_strlen($talk[0]); // 길이따른 폰트 크기 지정
@@ -75,18 +73,29 @@ $type = explode('||',$group);
 
 if ($data[0]!=null){
 
-	echo "
-    <article class='letter'>
-        <div class=replyonwrap>
-                <a class='profileimg' style='background-image: url($writer_data[10])'></a><div class=replywrap><span onclick=\"swipeLetter(100, 0, '$data[2]')\" class=reply>$writer_data[2]</span><br><span class=replydate >$data[9]</span>
-            </div></div>";
+	echo "<div class=wrapping>
+    <article class='letter'>";
+	
+	
+		if($type[1]!=2){
+    echo "    <div class=replyonwrap>
+                <a class='profileimg' style='background-image: url($writer_data[10])'></a><div class=replywrap><span onclick=\"swipeLetter(100, 0, '$data[2]')\" class=reply>$writer_data[2]</span><br><span class=replydate>$data[9]</span>";
+				
+			if ($data[2]==$user_id){echo "<a id=mod$only_no[0] onclick='modLetter($only_no[0])' class=mod></a>";}
+				
+        echo "</div></div>";}
+	
+
 		
 	if ($talk[1]!=null) { //제목 있으면 출력
         echo "<textarea class='title' readonly>$talk[1]</textarea>";}
 		
-	$cnt = count($photo);
+	$photosize = "95%";
+	$photosrc = explode('||',$photo[0]); 
+	$photoname = explode('||',$photo[1]); 
+	$cnt = count($photosrc);
 	if ($cnt>1) { //사진 1장이상있으면 출력
-	switch($cnt){
+	/*switch($cnt){
 	case 2 : $photosize = "95%"; // 0번은 널이라서 1번부터셈. 갯수 = cnt -1
 		break;
 	case 3 : $photosize = "48%";
@@ -94,12 +103,11 @@ if ($data[0]!=null){
 	case 4 : $photosize = "32%";
 		break;
 	default : $photosize = "24%";
-				}
-	
-	echo "<p>";
+				}*/
+
+	echo "<p class=fancywrap>";
 	for ($j=1;$j<$cnt;$j++){
-		$photodata = explode(';;',$photo[$j]); // 포토데이터 0 은 포토 1은 썸네일 2는 제목
-        echo "<a class=fancybox href=$photodata[0] data-fancybox-group=gallery title=$photodata[2]><img style=width:$photosize src=$photodata[1] alt=></a>
+        echo "<a class=fancybox href=$photosrc[$j] data-fancybox-group=gallery title=$photoname[$j]><img style=max-width:$photosize src=$photosrc[$j] alt=></a>
 		";}
 	echo " </p>";}
 	
@@ -111,7 +119,16 @@ if ($data[0]!=null){
 		$cnt = count($reply);
 		$rc = $cnt-1;
 	    echo "
-		<br><a class='replycall' onclick=toggleID('replybox$data[8]');>댓글 ($rc 개)</a> &nbsp&nbsp&nbsp | &nbsp&nbsp <a class='replycall' onclick=toggleID('easing$data[8]');>Feeling?!</a><div class=replybox style='display:none'; id=replybox$data[8]>";
+		<br><a class='replycall' onclick=toggleID('replybox$data[8]');>댓글 ($rc 개)</a> &nbsp&nbsp&nbsp | &nbsp&nbsp&nbsp&nbsp <a class='replycall' onclick=toggleID('easing$data[8]');>Feeling?!</a>";
+				
+				
+				if($type[1]==2){echo " &nbsp&nbsp&nbsp | &nbsp&nbsp&nbsp <a class='replycall' onclick=toggleID('writerinfo$data[8]')>작성자</a>";}
+		
+		
+		
+		
+		
+		echo "<div class=replybox style='display:none'; id=replybox$data[8]>";
 		
 		if($reply[1]!=null){
 		for ($j=1;$j<$cnt;$j++) {		
@@ -127,6 +144,26 @@ if ($data[0]!=null){
         <div class=replyonwrap >
                 <a class='profileimg' id='anonyimg$only_no[0]' onclick='replyToggle($only_no[0])' style='background-image: url($user_data[10])'></a><div class=replywrap><span id='anony$only_no[0]' class=reply>$user_data[2]</span> : <input id='replywriteform$only_no[0]' class=makereply type='text' placeholder='댓글을 남겨주세요^-^' onKeyDown='javascript:if (event.keyCode == 13) writeReply(replybox$only_no[0], $only_no[0], replywriteform$only_no[0], anony$only_no[0]);'>
             </div></div></div>"; // 글끝
+		
+		
+		
+		
+				if($type[1]==2){
+								
+		if ($data[2]==$user_id){echo "<a id=mod$only_no[0] onclick='modLetter($only_no[0])' class=mod></a>";}
+							
+		echo "<div id=writerinfo$data[8] style=display:none> <div class=replyonwrap>
+                <a class='profileimg' style='background-image: url($writer_data[10])'></a><div class=replywrap><span onclick=\"swipeLetter(100, 0, '$data[2]')\" class=reply>$writer_data[2]</span><br><span class=replydate>$data[9]</span>";
+				
+
+				
+				
+            echo "</div></div></div>";}
+		
+		
+		
+		
+		
 		
 		
 		
@@ -157,6 +194,6 @@ if ($data[0]!=null){
             });
         </script>
         </div>
-    </article>";}}?>
+    </article></div>";}}?>
 
 	

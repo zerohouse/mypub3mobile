@@ -101,7 +101,7 @@ border: 1px solid #ccc;}
 /*친구 팝업*/
 #showfriends{cursor: hand;}
 #showfriends:hover{color:#000;}
-#friends ul{ float:right;margin-top:-6px;margin-left:250px}
+#friends ul{ margin-top:-6px;}
 #friends li{padding:0px 10px;width:180px;line-height:42px;}
 #about{padding:12px;}
 #about ul{right:10;top:30}
@@ -114,9 +114,9 @@ border: 1px solid #ccc;}
 
 
 /*아티클*/
-.letter{border-bottom:1px solid #dddddd;width:100%;position:relative;padding-top:10px;padding-bottom:20px;overflow:hidden;height:}
+.letter{border-bottom:1px solid #dddddd;width:100%;position:relative;padding-top:10px;padding-bottom:20px;overflow:hidden;text-align:center;}
 .title{font-weight: 900;width:95%;font-size:25px;cursor:default;}
-.body{width:95%;font-size:15px;cursor:default;}
+.body{width:95%;font-size:15px;cursor:default;text-align:left;}
 
 .date{color:#777777;font-size:12px;padding-left:15px;}
 	/*아티클작성*/
@@ -135,10 +135,10 @@ border: 1px solid #ccc;}
 	
 
 /*리플*/
-.replycall{padding-left:10px;cursor: hand; color:#777777}
+.replycall{cursor: hand; color:#777777}
 .replycall:hover{color:#000}
 .replybox{border-top:1px solid #dddddd;margin-top:5px;}
-.replywrap{overflow:visible;padding:3px;margin-left:35px;}
+.replywrap{text-align:left;overflow:visible;padding:3px;margin-left:35px;}
 .replyonwrap{overflow:visible;padding:5px;clear:both;}
 .profileimg{margin-right:4px;float:left;width:35px;height:35px;background-size:35px;background-repeat:no-repeat;}
 .profileanony{margin-right:4px;float:left;width:35px;height:35px;background-image:url(../icon/anony.png);background-size:35px;background-repeat:no-repeat;}
@@ -151,7 +151,7 @@ border: 1px solid #ccc;}
 
 
 /*포인트와 작성자*/
-.easing{width:95%;text-align: center;}
+.easing{width:95%;text-align: center;margin:auto;}
 .pointbtn{color:#777777;cursor:hand;margin-left: 15px;}
 .pointbtn:hover{color:#000;}
 .pointbtnsym{border:1px solid #dddddd;border-radius:3px 0px 0px 3px;padding:5px 10px}
@@ -164,30 +164,55 @@ border: 1px solid #ccc;}
 
 /*공감 /창의 /유머 베스트*/
 #symbest, #humbest, #wowbest{margin:3px;}
-
+.fancywrap{text-align:center;}
 
 #loading{position:fixed;width:100%;top:48%;background-image:url(../icon/preloader.gif);background-repeat: no-repeat;background-position:center;height:64px}
 
-#friends, #friendswhere, .newfriends{display:none;}
+#friends, #friendswhere, #friendsmove, .newfriends,.movefriends{display:none;}
 .reqbtn{cursor:hand}
 
-
-
-
 /*마이페이지*/
-.mprofile{width:70;height:70}
-.mbackground{width:100%;height:300px }
-#mimage{width:100%;}
-#mpimage{height:100;float:right;}
-.mybackgrounddiv{width:100%;background-size:400;overflow:hidden;}
-.mybackground{opacity:0;width:100%;position:absolute;}
-.myprofilediv{margin-left:10;margin-top:-120;position:absolute;width:100;overflow:visible;}
-.myprofile{opacity:0;width:100%;position:absolute;}
-.myinfo{width:100%;background-color:rgba(255, 255, 255, 0.7);height:40px;position:absolute;margin-top:-50px;padding-left:125px;padding-top:10px}
 .bottom{width:100%;height:120px;background-color:#e8e8e8}
 .omenu{margin:20px 10px;float:left;width:80;height:80;border-radius:40px;background-color:#FFF;text-align:center;line-height:80px;}
-.omenuwrap{margin:auto;overflow:auto;width:318}
+.omenuwrap{margin:auto;overflow:auto;width:300}
 .myframe{border:none;width:100%;min-height:300px;}
 
+
+.movefr{height:30;line-height:30px;color:#777777}
+
+.viewfriends{cursor:hand}
+
+#moreloading{text-align:center;height:50px;}
+#morebtn{text-align:center;height:50px;line-height:50px;color:#777777}
+
+
+/*수정*/
+.mod{background-image:url(../icon/mod.png);position:absolute;top:15;right:10;height:30;width:30;background-position:center;background-size:20;background-repeat:no-repeat;cursor:hand;}
+#mod{display:none;}
+#mod ul{
+z-index: 5;
+position:absolute;
+list-style-type: none;
+padding: 0;
+background-color: #fff;
+box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+border: 1px solid #ccc;right:0;top:10;min-width:70;text-align:center;}
+#mod li{color:#777777;min-width:30px;padding:0px 15px;font-size:15px;height:30;line-height:30px;}
+#mod li:hover{color:#000;background-color:#f4f4f4}
+
+
+
+.friendsmove{background-image:url(../icon/mod.png);position:absolute;top:15;right:10;height:30;width:30;background-position:center;background-size:20;background-repeat:no-repeat}
+#friendsmove{display:none;}
+#friendsmove ul{
+z-index: 5;
+position:absolute;
+list-style-type: none;
+padding: 0;
+background-color: #fff;
+box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+border: 1px solid #ccc;min-width:70;text-align:center;}
+#friendsmove li{color:#777777;min-width:30px;padding:0px 15px;font-size:15px;height:30;line-height:30px;}
+#friendsmove li:hover{color:#000;background-color:#f4f4f4}
 
 

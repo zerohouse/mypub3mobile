@@ -71,7 +71,9 @@ mysql_query("INSERT INTO `zerohouse3`.`t_$type[0]` (`sort`,`id`,`talk`,`anony`,`
 $sql = mysql_query("SELECT `sort`from g_$user_id where fr_id = '$type[0]'");
 $sql=mysql_fetch_array($sql,MYSQL_NUM);
 $pagesort=$sql[0];
-echo "{$type[1]}님께 글이 작성되었습니다.";
+$sql = mysql_query("SELECT `name`from user_data where id = '$type[0]'");
+$name=mysql_fetch_array($sql,MYSQL_NUM);
+echo "{$name[0]}({$type[0]})님에게 글이 작성되었습니다.";
 }
 
 if ($type[1]==2) // pub에 작성하기

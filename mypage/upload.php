@@ -10,10 +10,10 @@ if(eregi("jpg|png|gif", $profile_ext)){ //파일확장자 체크
    $update="http://mypub.me/m/mypage/".$prodes;
    mysql_query("update user_data set profile='$update' where id='$user_id'") ; 
    
-   echo"<script type='text/javascript'>location.replace('mypage.html');</script>"; 
+   echo"<script type='text/javascript'>location.replace('mypage.html?id=$user_id');</script>"; 
 
    }
-   else{echo"<script type='text/javascript'>alert('2MB이하의 JPG,PNG,GIF파일만 사용가능합니다.');location.replace('mypage.html');</script>"; }
+   else{echo"<script type='text/javascript'>alert('2MB이하의 JPG,PNG,GIF파일만 사용가능합니다.');location.replace('mypage.html?id=$user_id');</script>"; }
    }
    
 $back_ext=substr(strrchr($back_name,"."),1); //파일확장자
@@ -24,15 +24,15 @@ if(eregi("jpg|png|gif", $back_ext)){ //파일확장자 체크
    $update="http://mypub.me/m/mypage/".$backdes;
    mysql_query("update user_data set char_url='$update' where id='$user_id'") ; 
    
-   echo"<script type='text/javascript'>location.replace('mypage.html');</script>"; 
+   echo"<script type='text/javascript'>location.replace('mypage.html?id=$user_id');</script>"; 
    }
    else{
-   echo"<script type='text/javascript'>alert('2MB이하의 JPG,PNG,GIF파일만 사용가능합니다.');location.replace('mypage.html');</script>"; }
+   echo"<script type='text/javascript'>alert('2MB이하의 JPG,PNG,GIF파일만 사용가능합니다.');location.replace('mypage.html?id=$user_id');</script>"; }
    }
 
   
    
-echo"<script type='text/javascript'>alert('2MB이하의 JPG,PNG,GIF파일만 사용가능합니다.');location.replace('mypage.html');</script>";   
+echo"<script type='text/javascript'>alert('2MB이하의 JPG,PNG,GIF파일만 사용가능합니다.');location.replace('mypage.html?id=$user_id');</script>";   
 
 
 

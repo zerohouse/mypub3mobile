@@ -7,7 +7,7 @@
 			offset  : 0, // Initial offset, begins at 0 in this case
 			error   : 'No More Posts!', // When the user reaches the end this is the message that is
 			                            // displayed. You can change this if you want.
-			delay   : 500, // When you scroll down the posts will load after a delayed amount of time.
+			delay   : 0, // When you scroll down the posts will load after a delayed amount of time.
 			               // This is mainly for usability concerns. You can alter this as you see fit
 			scroll  : true // The main bit, if set to false posts will not load as the user scrolls. 
 			               // but will still load if the user clicks.
@@ -37,9 +37,11 @@
 			
 			function getData() {
 				pagerightnow++;
+				$('#mainpage').append("<div id=moreloading><img src=icon/preloader.gif></div>");
+
 				// Post data to lettermore.php
 				$.post('letter/lettermore.php', {
-					group : groupnumbernow,	
+					group : sendto,	
 					page : pagerightnow,
 					action        : 'scrollpagination',
 				    number        : $settings.nop,
@@ -51,7 +53,11 @@
 					
 						
 					// If there is no data returned, there are no more posts to be shown. Show error
-					if(data == "") { 
+					if(data.length < 30) { 
+					$('#morebtn').remove();
+					$('#mainpage').append("<div id=morebtn>마지막페이지입니다.</div>");
+					$('#moreloading').remove();
+					busy = false;
 					}
 					else {
 						
@@ -60,8 +66,13 @@
 						    
 						// Append the data to the content div
 					   	/*$this.find('.content').append(data);*/
-						$('#mainpage').append(data);
 						
+					
+						$('#mainpage').append(data);
+					$('#morebtn').remove();
+					$('#moreloading').remove();
+					$('#mainpage').append("<div id=morebtn style='cursor:hand' onclick='ajaxMore();'>더보기</div>");
+
 						// No longer busy!	
 						busy = false;
 					}	

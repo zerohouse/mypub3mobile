@@ -11,46 +11,20 @@ $sql = mysql_query("SELECT * FROM user_data  WHERE `id` = '$user_id'");
 $user_data = mysql_fetch_array($sql,MYSQL_NUM); // no, id, name, passwd, sex, email, date, group, phone, char_url, profile, score, attractive
 if ($groupname==null){$groupname="이름없는";}
 if ($type[1]==1){
-$sql = mysql_query("SELECT name FROM user_data  WHERE `id` = '$type[0]'"); 
-$name = mysql_fetch_array($sql,MYSQL_NUM);
-if ($user_data[10]==null)
-{$profileurl="icon/profile.png";}
-else{$profileurl=$user_data[10];}
-if ($user_data[9]==null)
-{$backurl="img/6.jpg";}
-else{$backurl=$user_data[9];}
 
-if ($user_id!=$type[0]){
-		echo "
-		<div id='topblock'></div>
 
-		<div class=mypage>
-	<div class=mybackgrounddiv>
-	<img id=mimage src='$backurl'></div>
-	<div class=myinfo><strong>박성호</strong>(sungho)</div>
-	<div class=myprofilediv>
-	<img id=mpimage src='$profileurl'></div>
- 	<div class=bottom>
+echo "<div id='topblock'></div>
+<iframe class=myframe scrolling='no'  onload='javascript:resizeIframe(this);' src='mypage/mypage.html?id=$type[0]'>
+</iframe><div class=wrapping>";
+/*<div class=bottom>
 	<div class=omenuwrap>
 	<div class=omenu>메뉴</div>
 	<div class=omenu>메뉴</div>
-	<div class=omenu>메뉴</div></div>
-	</div>
-	</div>
-			
-			
-			
-		<div class=wrapping>
-        "; // 인사말
-}else{
+	<div class=omenu>메뉴</div></div></div>*/
 
-echo "<iframe class=myframe scrolling='no'  onload='javascript:resizeIframe(this);' src='mypage/mypage.html'>
-</iframe>
+		
 
 
-		<div class=wrapping>";
-
-}	
 	
 
 
@@ -70,19 +44,22 @@ echo "<iframe class=myframe scrolling='no'  onload='javascript:resizeIframe(this
 		<div class=wrapping>
 		<div id='topblock'></div>
             <div id='namewrap'>
-               $user_data[2]님 안녕하세요. $groupname 그룹입니다. $friends[0]<a onclick=toggleID('friends')> 친구보기 </a>
+               $user_data[2]님 안녕하세요. $groupname 그룹입니다. $friends[0]<a class=viewfriends onclick=toggleID('friends')> 친구보기 </a>
             </div>
         "; // 인사말
 		echo "<div id=friends>";
 		$sql = mysql_query("SELECT count(fr_id) FROM g_$user_id  WHERE `sort` = '$type[0]'");
 		$frcnt = mysql_fetch_array($sql,MYSQL_NUM);
+		if ($frcnt[0]==0){
+		echo "<div class=movefr>이 그룹에 친구가 없습니다.</div>";
+		}
 		for ($i=0;$i<$frcnt[0];$i++){
 		$sql = mysql_query("SELECT fr_id FROM g_$user_id  WHERE `sort` = '$type[0]' order by no desc limit $i,1");
 		$friends = mysql_fetch_array($sql,MYSQL_NUM);
 		$sql = mysql_query("SELECT name FROM user_data  WHERE `id` = '$friends[0]'");
 		$friendsname = mysql_fetch_array($sql,MYSQL_NUM);
 
-		echo "$friendsname[0]($friends[0])";}
+		echo "<div class=movefr onclick=friendMove('$friends[0]')>$friendsname[0]($friends[0])</div><div class=movefriends id=move$friends[0]></div>";}
 		echo "</div>";
 		
 }
@@ -158,8 +135,11 @@ if ($data[0]!=null){
 	
 	if($type[1]!=2){
     echo "    <div class=replyonwrap>
-                <a class='profileimg' style='background-image: url($writer_data[10])'></a><div class=replywrap><span onclick=\"swipeLetter(100, 0, '$data[2]')\" class=reply>$writer_data[2]</span><br><span class=replydate>$data[9]</span>
-            </div></div>";}
+                <a class='profileimg' style='background-image: url($writer_data[10])'></a><div class=replywrap><span onclick=\"swipeLetter(100, 0, '$data[2]')\" class=reply>$writer_data[2]</span><br><span class=replydate>$data[9]</span>";
+				
+			if ($data[2]==$user_id){echo "<a id=mod$only_no[0] onclick='modLetter($only_no[0])' class=mod></a>";}
+				
+        echo "</div></div>";}
 		
 	if ($talk[1]!=null) { //제목 있으면 출력
         echo "<textarea class='title' readonly>$talk[1]</textarea>";}
@@ -167,8 +147,9 @@ if ($data[0]!=null){
 	$photosrc = explode('||',$photo[0]); 
 	$photoname = explode('||',$photo[1]); 
 	$cnt = count($photosrc);
+	$photosize = "95%";
 	if ($cnt>1) { //사진 1장이상있으면 출력
-	switch($cnt){
+	/*switch($cnt){
 	case 2 : $photosize = "95%"; // 0번은 널이라서 1번부터셈. 갯수 = cnt -1
 		break;
 	case 3 : $photosize = "48%";
@@ -176,11 +157,11 @@ if ($data[0]!=null){
 	case 4 : $photosize = "32%";
 		break;
 	default : $photosize = "24%";
-				}
+				}*/
 	
-	echo "<p>";
+	echo "<p class=fancywrap>";
 	for ($j=1;$j<$cnt;$j++){
-        echo "<a class=fancybox href=$photosrc[$j] data-fancybox-group=gallery title=$photoname[$j]><img style=width:$photosize src=$photosrc[$j] alt=></a>
+        echo "<a class=fancybox href=$photosrc[$j] data-fancybox-group=gallery title=$photoname[$j]><img style=max-width:$photosize src=$photosrc[$j] alt=></a>
 		";}
 	echo " </p>";}
 	
@@ -192,13 +173,18 @@ if ($data[0]!=null){
 		$cnt = count($reply);
 		$rc = $cnt-1;
 	    echo "
-		<br><a class='replycall' onclick=toggleID('replybox$data[8]');>댓글 ($rc 개)</a> &nbsp&nbsp&nbsp | &nbsp&nbsp <a class='replycall' onclick=toggleID('easing$data[8]');>Feeling?!</a>";
+		<br><a class='replycall' onclick=toggleID('replybox$data[8]');>댓글 ($rc 개)</a> &nbsp&nbsp&nbsp | &nbsp&nbsp&nbsp&nbsp <a class='replycall' onclick=toggleID('easing$data[8]');>Feeling?!</a>";
 		
-		if($type[1]==2){echo " &nbsp&nbsp&nbsp | &nbsp <a class='replycall' onclick=toggleID('writerinfo$data[8]')>작성자</a>";}
+		if($type[1]==2){echo " &nbsp&nbsp&nbsp | &nbsp&nbsp&nbsp <a class='replycall' onclick=toggleID('writerinfo$data[8]')>작성자</a>";}
 		
 		echo "<div class=replybox id=replybox$data[8]>";
 		
 
+		
+		
+		
+		
+		
 		
 		if($reply[1]!=null){
 		for ($j=1;$j<$cnt;$j++) {		
@@ -216,9 +202,23 @@ if ($data[0]!=null){
             </div></div></div>"; // 글끝
 		
 
+		
+		
+		
+		
+		
+		
+		
 		if($type[1]==2){
+						
+		if ($data[2]==$user_id){echo "<a id=mod$only_no[0] onclick='modLetter($only_no[0])' class=mod></a>";}
+		
 		echo "<div id=writerinfo$data[8] style=display:none> <div class=replyonwrap>
                 <a class='profileimg' style='background-image: url($writer_data[10])'></a><div class=replywrap><span onclick=\"swipeLetter(100, 0, '$data[2]')\" class=reply>$writer_data[2]</span><br><span class=replydate>$data[9]</span>
+				
+				
+				
+				
             </div></div></div>";}
 		
 		
@@ -248,9 +248,11 @@ if ($data[0]!=null){
                 });
             });
         </script>
+		
         </div>
     </article>";}}?>
-
+	
+<div id=morebtn style='cursor:hand' onclick='ajaxMore();'>더보기</div>
 </div>
 </div>
 <script type="text/javascript">
@@ -262,3 +264,9 @@ replanony=0;
 
 		
 </script>
+<div id=mod>
+<ul>
+<li>수정</li>
+<li onclick='del_confirm();'>삭제</li>
+</ul>
+</div>
