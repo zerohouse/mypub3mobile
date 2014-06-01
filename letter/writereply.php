@@ -27,10 +27,6 @@ $replydone = "$ori[0]". "|" . "$anony"."&*$"."$user_name"."&*$"."$user_id"."&*$"
 mysql_query("update `zerohouse3`.`reply` set `reply`='$replydone' where only_no='$only_no'");
 
 
-if ($anony==0){
-echo "<div class='reply'>$user_name($user_id) : $reply <font size='1' color='#a5a5a5'>$date</font> <a onclick='delReply($only_no[0], $no)' class='link'>지우기</a></div>";}
-else {
-echo "<div class='reply'>익명(anonymous) : $reply <font size='1' color='#a5a5a5'>$date</font> <a onclick='delReply($only_no[0], $no)' class='link'>지우기</a></div>";}
 
 
 ?>

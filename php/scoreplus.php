@@ -3,7 +3,6 @@ include "connect_db.php";
 $plus = $_POST['type'];
 $only_no = $_POST['onlyno'];
 
-
 $sql = mysql_query("SELECT * FROM score WHERE `only_no` = '$only_no'");
 $score = mysql_fetch_array($sql,MYSQL_NUM);
 
@@ -42,4 +41,6 @@ mysql_query("update `zerohouse3`.`score` set `info`='$score[3]' where `only_no` 
 mysql_query("update `zerohouse3`.`score` set `etc`='$score[4]' where `only_no` = '$only_no'") ;
 mysql_query("update `zerohouse3`.`score` set `who`='$newdone' where `only_no` = '$only_no'") ;
 
+$scoredone = $score[0] + $score[1] + $score[2] + $score[3] + $score[4];
+echo $scoredone;
 ?>

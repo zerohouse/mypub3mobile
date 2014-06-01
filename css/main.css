@@ -30,7 +30,14 @@ outline: none;
            -webkit-touch-callout:none;
            -webkit-tap-highlight-color: rgba(0,0,0,0);
 			top:0;left:0;
+			-webkit-transition:1s; /* For Safari 3.1 to 6.0 */
+    transition:1s;
+	opacity:0.7;
 		 position:fixed; _position:absolute;  }
+
+#topmenuwrap:hover ,#topmenuwrap:focus ,#topmenuwrap:active{opacity:1}
+
+		 
 
 		 #menubox{position:absolute;margin-left:50px;width:80%;overflow:hidden;height:50px}
 .menu{width:25%;position:absolute;float:left;padding:4px 0px; text-align:center; height:43px;line-height:42px;color:#777777;cursor:hand;top:0px;left:0px;}
@@ -114,9 +121,9 @@ border: 1px solid #ccc;}
 
 
 /*아티클*/
-.letter{border-bottom:1px solid #dddddd;width:100%;position:relative;padding-top:10px;padding-bottom:20px;overflow:hidden;text-align:center;}
-.title{font-weight: 900;width:95%;font-size:25px;cursor:default;}
-.body{width:95%;font-size:15px;cursor:default;text-align:left;}
+.letter{border-bottom:1px solid #dddddd;width:100%;position:relative;padding-top:10px;padding-bottom:10px;overflow:hidden;text-align:center;}
+.title{font-weight: 900;width:100%;font-size:25px;cursor:default;text-align:center;margin:10px 0px;}
+.body{width:100%;font-size:15px;cursor:default;text-align:left;margin:10px 0px;}
 
 .date{color:#777777;font-size:12px;padding-left:15px;}
 	/*아티클작성*/
@@ -135,8 +142,16 @@ border: 1px solid #ccc;}
 	
 
 /*리플*/
-.replycall{cursor: hand; color:#777777}
-.replycall:hover{color:#000}
+.writercall, .replycall, .feelingcall{cursor: hand; color:#999999; width:75px;height:50px; background-repeat:no-repeat; border-radius:7px;background-position:center 4px; line-height:80px; font-size:10px;display:inline-block;margin-top:20px;}
+.feelingcall{background-image:url(../icon/feeling.png); background-size:32px;}
+.replycall{background-image:url(../icon/reply.png); background-size:30px;}
+.writercall{background-image:url(../icon/writer.png); background-size:28px;margin-left:-10px;background-position:center 6px; }
+
+.writercall:hover, .feelingcall:hover, .replycall:hover{color:#000;}
+.feelingcall:hover{background-image:url(../icon/feelinghover.png);}
+.replycall:hover{background-image:url(../icon/replyhover.png);}
+.writercall:hover{background-image:url(../icon/writerhover.png);}
+
 .replybox{border-top:1px solid #dddddd;margin-top:5px;}
 .replywrap{text-align:left;overflow:visible;padding:3px;margin-left:35px;}
 .replyonwrap{overflow:visible;padding:5px;clear:both;}
@@ -147,6 +162,9 @@ border: 1px solid #ccc;}
 
 .makereply{width:80%;height:35px;border:none;border-radius: 5px;padding:5px;}
 .makereply:hover,.makereply:focus,.makereply:active{border: 1px solid #dddddd;padding-left:4px;}
+
+.delreply{float: right;cursor: hand;color: #777777;}
+.delreply:hover{color:#000}
 
 
 
@@ -215,4 +233,6 @@ border: 1px solid #ccc;min-width:70;text-align:center;}
 #friendsmove li{color:#777777;min-width:30px;padding:0px 15px;font-size:15px;height:30;line-height:30px;}
 #friendsmove li:hover{color:#000;background-color:#f4f4f4}
 
+
+.bodyimg{max-width:100%; margin:2px}
 

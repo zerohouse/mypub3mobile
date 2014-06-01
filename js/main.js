@@ -10,14 +10,16 @@ delno =0;
 onlynomod = 0;
 $(function() {
 	
-windowheight=$(window).height();
+	windowheight=$(window).height();
 	$('#mainpage').scrollPagination();
 	
-	require("boot");
-	$('textarea').autosize();
+	require("boot"); //드롭존 부트
+	
+	/*$('textarea').autosize();
     $('textarea').each(function() {
         $(this).css("height",$(this).prop('scrollHeight'));
-    });
+    });*/
+	
 	$(".writeformwrap").hide();
     $(".popup").hide();
 	$("#loading").hide();
@@ -25,12 +27,11 @@ windowheight=$(window).height();
     $('#more').click(function(){
         $(this).toggleClass("moreclicked")
     });
-	$('#mainpage').click(function(){
-    $(".popup").hide();
-    });	
+
 	
 	$('body').click(function(){
     $("#mod").hide();
+	$(".popup").hide();
 	$("#friendsmove").hide();
     });	
 	
@@ -42,12 +43,13 @@ windowheight=$(window).height();
     });	
 	$("#groupset").hide();
 	
-	
+
 	
 	  // Bind the swipeleftHandler callback function to the swipe event on div.box
-   $( "#mainpage" ).on( "swipeleft", swipeleftHandler );
-   $( "#mainpage" ).on( "swiperight", swiperightHandler );
-   
+
+   $( "body" ).on( "swipeleft", swipeleftHandler );
+   $( "body" ).on( "swiperight", swiperightHandler );
+
 
   // Callback function references the event target and adds the 'swipeleft' class to it
 swipeLetter(groupnumbernow);
@@ -63,13 +65,15 @@ function showID(showid) {
 function hideID(hideid){
     $('#'+hideid).hide();
 }
-function toggleID(toggleid){
+function toggleID(toggleid, effect){
         $('.popup').not('#'+toggleid).hide();
-        $('#'+toggleid).toggle();
+        $('#'+toggleid).toggle("blind",500);
+		event.stopPropagation();
 }
 function togglePOPUP(toggleid){
         $('.popup').not('#'+toggleid).hide();
         $('#'+toggleid).toggle();
+		event.stopPropagation();
 }
 
 function toggleAnonymous(){
@@ -131,8 +135,21 @@ function scorePlus($scoretype, $onlynoscore)	{
   $.ajax({              type: "POST",
                         url: "php/scoreplus.php",
                         data: {type: $scoretype, onlyno : $onlynoscore},
-                        success: function(response) {
-						swipeLetter(groupnumbernow, 'easing'+$onlynoscore);
+                        success: function(points) {
+						$("#points"+$onlynoscore).text(points);
+														$.ajax({
+								type: "POST",
+								url: "letter/pointrefresh.php",
+								data: {onlyno: $onlynoscore},
+								success: function(response) {
+								$("#easing"+$onlynoscore).html(response);
+
+		
+						
+								}});
+							
+						
+						
 
 					}});
   }
@@ -275,9 +292,20 @@ function writeReply($replyid, only, $textid, $anonyreply) {
                         url: "letter/writereply.php",
                         data: {onlyno: only, reply: replytext, anony: replanony},
                         success: function(response) {
-						alert(response);
-						$($replyid).append(response);
-						$textid.value="";
+								
+								$.ajax({
+								type: "POST",
+								url: "letter/replyrefresh.php",
+								data: {onlyno: only},
+								success: function(response) {
+								$($replyid).html(response);
+								var comments = $("#comments"+only).text();
+								comments++;
+								$("#comments"+only).text(comments);
+						
+					}});
+								
+								
 					}});}
         } 
 		
@@ -308,7 +336,7 @@ function replyToggle($identify) {
         } else {
 		replanony=0;
 		document.getElementById("anony"+$identify).innerHTML=$user_name;
-		$("#anonyimg"+$identify).css("background-image","url("+$userprofile+")");
+		$("#anonyimg"+$identify).css("background-image","url("+$user_profile+")");
 		}}
 		
 
@@ -526,4 +554,36 @@ if (confirm("삭제하시겠습니까?")){
 					}}); 
   
 }}
+
+function cancelMod() {
+$("#editbtn"+onlynomod).html("");
+$("#edit"+onlynomod).attr("contentEditable","false");
+$("#edit"+onlynomod).css("border","none");
+}
+
+function modThis() {
+var modvalue = $("#edit"+onlynomod).html();
+
+					$.ajax({
+                        type: "POST",
+                        url: "php/mod.php",
+                        data: {talk: modvalue, anony:'' , onlyno: onlynomod},
+                        success: function(response) {
+						$("#editbtn"+onlynomod).html("");
+						$("#edit"+onlynomod).attr("contentEditable","false");
+						$("#edit"+onlynomod).css("border","none");
+
+					}}); 
+}
+
+function editThis() {
+$("#editbtn"+onlynomod).html("");
+$("#edit"+onlynomod).attr("contentEditable","True");
+$("#edit"+onlynomod).css("border","1px solid #dddddd");
+$("#edit"+onlynomod).focus();
+$("#editbtn"+onlynomod).append("<a onclick=modThis();>수정</a> &nbsp&nbsp&nbsp | &nbsp&nbsp&nbsp <a onclick=cancelMod()>취소</a>");
+}
+
+  
+
 
