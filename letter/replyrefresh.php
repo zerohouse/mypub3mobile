@@ -21,7 +21,11 @@ $only_no = $_POST['onlyno'];
 		
 		echo "
         <div class=replyonwrap>
-            <a class='profileimg' style=\"background-image: url($profile[0])\"></a><div class=replywrap><a class=replydate onclick=\"{$f}swipeLetter(100, 0, '$replydata[2]')\">$replydata[1] $replydata[4]</a><div class=reply readonly>$replydata[3]</div>
+            <a class='profileimg' style=\"background-image: url($profile[0])\"></a><div class=replywrap><a class=replydate onclick=\"{$f}swipeLetter(100, 0, '$replydata[2]')\">$replydata[1] $replydata[4]</a><div class=reply readonly>$replydata[3]";
+			
+			if ($replydata[2]==$user_id){ echo "<a class=delreply onclick=delReply($only_no,$j)>삭제<a>";}
+			
+			echo "</div>
         </div></div>";}}
 		
 		echo "

@@ -42,10 +42,10 @@ echo "<div id='topblock'></div>
 		<div class=wrapping>
 		<div id='topblock'></div>
             <div id='namewrap'>
-               $user_data[2]님 안녕하세요. $groupname 그룹입니다. $friends[0]<a class=viewfriends onclick=toggleID('friends')> 친구보기 </a>
+               $user_data[2]님 안녕하세요. $groupname 그룹입니다. <a class=viewfriends onclick=toggleID('friends')> 친구보기 </a>
             </div>
         "; // 인사말
-		echo "<div id=friends>";
+		echo "<div id=friends class=frwrap><div class=frtitle><strong>{$groupname}그룹의 멤버<br><br></strong></div>";
 		$sql = mysql_query("SELECT count(fr_id) FROM g_$user_id  WHERE `sort` = '$type[0]'");
 		$frcnt = mysql_fetch_array($sql,MYSQL_NUM);
 		if ($frcnt[0]==0){
@@ -55,9 +55,11 @@ echo "<div id='topblock'></div>
 		$sql = mysql_query("SELECT fr_id FROM g_$user_id  WHERE `sort` = '$type[0]' order by no desc limit $i,1");
 		$friends = mysql_fetch_array($sql,MYSQL_NUM);
 		$sql = mysql_query("SELECT name FROM user_data  WHERE `id` = '$friends[0]'");
-		$friendsname = mysql_fetch_array($sql,MYSQL_NUM);
+		$frname = mysql_fetch_array($sql,MYSQL_NUM);
+		$sql = mysql_query("SELECT profile FROM user_data  WHERE `id` = '$friends[0]'");
+		$frprofile = mysql_fetch_array($sql,MYSQL_NUM);
 
-		echo "<div class=movefr onclick=friendMove('$friends[0]')>$friendsname[0]($friends[0])</div><div class=movefriends id=move$friends[0]></div>";}
+		echo "<div class=movefr onclick=friendMove('$friends[0]')><img class=frprofile src=$frprofile[0]><br>$frname[0]($friends[0])</div><div class=movefriends id=move$friends[0]></div>";}
 		echo "</div>";
 		
 }
@@ -198,7 +200,7 @@ if ($data[0]!=null){
 			
 			
 			
-			if ($replydata[2]==$user_id){ echo "<a class=delreply>삭제<a>";}
+			if ($replydata[2]==$user_id){ echo "<a class=delreply onclick=delReply($only_no[0],$j)>삭제<a>";}
 			
 			echo "</div>
         </div></div>";}}

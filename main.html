@@ -33,6 +33,7 @@ $cnt--;
 $user_name = "<?echo $user_name?>";
 $user_profile="<?echo $user_data[10];?>";
 </script>
+<body bgcolor='#f4f4f4'>
     <div id='topmenuwrap'>
             <a id='more' class='morenonclicked' style='width:17px;' onclick="togglePOPUP('moregroups');"></a>
                 <div class='popup' id='moregroups'>
@@ -286,6 +287,7 @@ echo "<li onclick='addFriends($add)'>그룹{$friendgroup[$i]} {$friendgroupname[
 </div>
 <div id=friendsmove>
 <ul>
+<li onclick="swipeLetter(100, 0, addid)">페이지로 이동</li>
 <?
 
 for($i=0;$i<$k;$i++)

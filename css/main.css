@@ -97,7 +97,8 @@ border: 1px solid #ccc;}
 
 /* 네임스페이스*/
 .wrapping{width:95%; margin:auto;}
-#namewrap{border-bottom:1px solid #dddddd;width:100%; color:#777777; height:50px;position:relative;line-height:60px}
+#namewrap{margin-bottom:-10px;
+width:100%; color:#777777; height:50px;position:relative;line-height:60px}
 
 /*그룹세팅 팝업*/
 #showgroupset{ float:right;cursor:hand;height:47px;width:43px;background-image: url(../icon/setting.png);background-size: 22px;background-repeat: no-repeat;background-position: center;}
@@ -121,7 +122,8 @@ border: 1px solid #ccc;}
 
 
 /*아티클*/
-.letter{border-bottom:1px solid #dddddd;width:100%;position:relative;padding-top:10px;padding-bottom:10px;overflow:hidden;text-align:center;}
+.letter{border:1px solid #dddddd; border-radius:15px 0px; padding:2.5%; width:95%;position:relative;padding-top:10px;padding-bottom:10px;overflow:hidden;
+text-align:center;margin-top:20px; background-color:#FFF}
 .title{font-weight: 900;width:100%;font-size:25px;cursor:default;text-align:center;margin:10px 0px;}
 .body{width:100%;font-size:15px;cursor:default;text-align:left;margin:10px 0px;}
 
@@ -196,9 +198,6 @@ border: 1px solid #ccc;}
 .myframe{border:none;width:100%;min-height:300px;}
 
 
-.movefr{height:30;line-height:30px;color:#777777}
-
-.viewfriends{cursor:hand}
 
 #moreloading{text-align:center;height:50px;}
 #morebtn{text-align:center;height:50px;line-height:50px;color:#777777}
@@ -219,10 +218,11 @@ border: 1px solid #ccc;right:0;top:10;min-width:70;text-align:center;}
 #mod li:hover{color:#000;background-color:#f4f4f4}
 
 
-
+/*친구보기*/
+.frprofile{height:40px;}
 .friendsmove{background-image:url(../icon/mod.png);position:absolute;top:15;right:10;height:30;width:30;background-position:center;background-size:20;background-repeat:no-repeat}
 #friendsmove{display:none;}
-#friendsmove ul{
+#friendsmove ul{margin-top:30px;margin-left:20px;
 z-index: 5;
 position:absolute;
 list-style-type: none;
@@ -235,4 +235,12 @@ border: 1px solid #ccc;min-width:70;text-align:center;}
 
 
 .bodyimg{max-width:100%; margin:2px}
+
+
+.frtitle{width:100%;text-align:center;}
+.frwrap {border:1px solid #dddddd;border-radius:10px 0px;padding:10px;overflow:auto;margin-top:20px;background-color:#FFF}
+.movefr{text-align:center;color:#777777; cursor:hand; float:left;}
+
+.viewfriends{cursor:hand}
+
 

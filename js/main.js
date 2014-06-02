@@ -303,28 +303,36 @@ function writeReply($replyid, only, $textid, $anonyreply) {
 								comments++;
 								$("#comments"+only).text(comments);
 						
-					}});
+								}});
 								
 								
 					}});}
         } 
 		
 function delReply(delonlyno, delno) {
+if (confirm("삭제하시겠습니까?")){
 						$.ajax({
                         type: "POST",
                         url: "letter/delreply.php",
                         data: {onlyno: delonlyno, no: delno},
                         success: function(response) {
-							$page=1;
-							$.ajax({
+
+														$.ajax({
 								type: "POST",
-								url: "letter/letter.php",
-								data: {pagesort: $pagesort,page: $page},
-								success: function(response) {	
-								$("#mainpage").html(response);
-								$now = $pagesort;
-							}});
+								url: "letter/replyrefresh.php",
+								data: {onlyno: delonlyno},
+								success: function(response) {
+								$("#replybox"+delonlyno).html(response);
+								var comments = $("#comments"+delonlyno).text();
+								comments--;
+								$("#comments"+delonlyno).text(comments);
+						
+								}});
+						
 					}});
+					
+					
+				}
         } 
 		
 function replyToggle($identify) {

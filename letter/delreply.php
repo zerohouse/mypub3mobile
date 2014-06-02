@@ -17,8 +17,6 @@ $replydone =  $replydone."|".$reply[$j];}
 
 }
 
-echo "$only_no $no";
-
 mysql_query("update `zerohouse3`.`reply` set `reply`='$replydone' where only_no='$only_no'");
 
 

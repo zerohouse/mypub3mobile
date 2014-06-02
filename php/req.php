@@ -27,7 +27,7 @@ if ($fr_g==0){$fr_g=1;}
 if($list){
 	if($onlist){
 			if($fr_on[0]==1) {
-					echo "이미 친구시네요~!";exit;}
+					echo "이미 친구입니다.";exit;}
 					
 			else if($fr_on[0]==2){
 					echo "친구 요청 대기중입니다!";exit;}
@@ -48,7 +48,8 @@ if($list){
 		$request2.= "values ('$user_id','0',now())";
 		mysql_query($request2,$connect);
 		mysql_query("insert into alarm (id, message, date, delno) values ('$find_id',\"<li onclick=delNo($delno[0]);friendOK('{$user_id}')>{$user_name}님이 친구를 맺고 싶어합니다.</li><li style='display:none;' class=newfriends id=new$user_id></li>\",now(),'$delno[0]')");
-		echo "친구요청 했어요~!";
+		$fr_q = $fr_g +1;
+		echo "{$fr_q}그룹으로 친구요청 했어요.";
 			}
 		}
 else{

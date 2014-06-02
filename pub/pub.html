@@ -1,3 +1,11 @@
+<?
+include "../php/connect_db.php";
+
+$sql = mysql_query("SELECT count(id) FROM pub");
+$cnt = mysql_fetch_array($sql,MYSQL_NUM); // no, i
+
+?>
+
 <script>
 function pubtoInput($valthis, $pubid){
 $("#p"+pubformnumber).val($valthis);
@@ -7,12 +15,19 @@ pubid[pubformnumber]=$pubid;
                 <div class='newpubs'>
 				<div class='windowtop'>Add Pubs</div>
                     <ul>
-							<li class=headli style='margin-top:0'>Hot</li>
-							<li onclick="pubtoInput('ㅋㅋㅋ','humor');">ㅋㅋㅋ</li>
-							<li onclick="pubtoInput('고양이','cat');">고양이</li>
-							<li onclick="pubtoInput('Girl','girl');">Girl</li>
-							<li onclick="pubtoInput('Boy','boy');">Boy</li>
-							<li>더보기</li>
+							<li class=headli style='margin-top:0'>New</li>
+							<?
+							for ($i=0;$i<$cnt;$i++)
+							{
+							$sql = mysql_query("SELECT * FROM pub limit $i,1");
+							$pub = mysql_fetch_array($sql,MYSQL_NUM); // no, i
+							echo "<li onclick=\"pubtoInput('$pub[2]','$pub[1]');\">$pub[2]</li>";
+							
+							}
+							
+							
+							?>
+							<!--<li>더보기</li>-->
 
                     </ul>
                 </div>

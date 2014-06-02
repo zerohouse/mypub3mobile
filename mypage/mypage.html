@@ -1,5 +1,6 @@
 <meta charset="utf-8" name="viewPort" content="initial-scale=1.0; maximum-scale=1.0; minimum-scale=1.0; user-scale=no;" />
 <link  type='text/css' rel='stylesheet' href='style.css' media='screen' />
+<script src="../js/jquery-1.10.2.min.js"></script>
 <body>
 <?
 $id=$_GET['id'];
@@ -16,6 +17,19 @@ else{$backurl=$user_data[9];}
 
 
 <script>
+function friendReq($friend) {
+
+
+  				$.ajax({
+                        type: "POST",
+                        url: "../php/req.php",
+                        data: {id: $friend, sort: 0},
+                        success: function(response) {
+							alert(response);
+								
+							}});							
+					
+					}
 </script>
 	<div class=mypage>
 	<div class=mybackgrounddiv>
@@ -25,7 +39,7 @@ else{$backurl=$user_data[9];}
 	<div class=myinfo></div>
 	<div class=profilewrap>
 	<div class=myprofilediv>
-	<? if ($user_id==$id) {echo "<input type='file' name='profile' onchange=this.form.submit() id=myprofile class=myprofile>";}?><img id=mpimage src='<?echo $profileurl?>'></div><div class=name><strong><?echo $user_data[2]?></strong>(<?echo $user_data[1]?>)</div></div>
+	<? if ($user_id==$id) {echo "<input type='file' name='profile' onchange=this.form.submit() id=myprofile class=myprofile>";}?><img id=mpimage src='<?echo $profileurl?>'></div><div class=name><strong><?echo $user_data[2]?></strong>(<?echo $user_data[1]?>)<? if ($user_id!=$id){ echo "<a class=frreq onclick=\"friendReq('$id')\">친구신청</a>"; }?></div></div> 
  </form>
 
 	</div>

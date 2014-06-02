@@ -110,7 +110,7 @@ if ($data[0]!=null){
 		$cnt = count($reply);
 		$rc = $cnt-1;
 	    echo "
-		<div class='replycall' onclick=toggleID('replybox$data[8]');>{$rc} comments</div><div class='feelingcall' onclick=toggleID('easing$data[8]');>{$onscore} points</div>";
+		<div class='replycall' onclick=toggleID('replybox$data[8]');><a id=comments$data[8]>{$rc}</a> comments</div><div class='feelingcall' onclick=toggleID('easing$data[8]');><a id=points$data[8]>{$onscore}</a> points</div>";
 		
 		if($type[1]==2){echo "<div class='writercall' onclick=toggleID('writerinfo$data[8]')>writer</div>";}
 		
@@ -135,7 +135,13 @@ if ($data[0]!=null){
 		
 		echo "
         <div class=replyonwrap>
-            <a class='profileimg' style=\"background-image: url($profile[0])\"></a><div class=replywrap><a class=replydate onclick=\"{$f}swipeLetter(100, 0, '$replydata[2]')\">$replydata[1] $replydata[4]</a><div class=reply readonly>$replydata[3]</div>
+            <a class='profileimg' style=\"background-image: url($profile[0])\"></a><div class=replywrap><a class=replydate onclick=\"{$f}swipeLetter(100, 0, '$replydata[2]')\">$replydata[1] $replydata[4]</a><div class=reply readonly>$replydata[3]";
+			
+			
+			if ($replydata[2]==$user_id){ echo "<a class=delreply onclick=delReply($only_no[0],$j)>삭제<a>";}
+			
+			
+			echo "</div>
         </div></div>";}}
 		
 		echo "
