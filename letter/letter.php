@@ -154,7 +154,7 @@ if ($data[0]!=null){
 				
         echo "</div></div>";}
 		
-	echo "<div id=edit$only_no[0]>"; //수정 에디터블
+	echo "<div id=edit$only_no[0] class=overflow>"; //수정 에디터블
 		
 		echo "$data[4]";
 
@@ -170,9 +170,38 @@ if ($data[0]!=null){
 		$cnt = count($reply);
 		$rc = $cnt-1;
 	    echo "
-		<div class='replycall' onclick=toggleID('replybox$data[8]');><a id=comments$data[8]>{$rc}</a> comments</div><div class='feelingcall' onclick=toggleID('easing$data[8]');><a id=points$data[8]>{$onscore}</a> points</div>";
+		<div class='replycall' id=cr$data[8]
+		onclick=\"toggleID('replybox$data[8]');callAdds('cr$data[8]', 1);\">
 		
-		if($type[1]==2){echo "<div class='writercall' onclick=toggleID('writerinfo$data[8]')>writer</div>";}
+		<a id=comments$data[8]>{$rc}</a> comments</div><div class='feelingcall' id=cf$data[8] onclick=\"toggleID('easing$data[8]');callAdds('cf$data[8]',2 );\"><a id=points$data[8]>{$onscore}</a> points</div>";
+		
+		if($type[1]==2){echo "<div id=cw$data[8] class='writercall' onclick=\"toggleID('writerinfo$data[8]');callAdds('cw$data[8]',3);\">writer</div>";}
+		
+		
+		
+		
+		
+		
+		
+				if($type[1]==2){
+						
+		
+		echo "<div id=writerinfo$data[8] style='display:none;padding-top:10px;margin-top:10px;border-top:1px solid #f4f4f4'> <div class=replyonwrap>
+                <a class='profileimg' style='background-image: url($writer_data[10])'></a><div class=replywrap><span onclick=\"swipeLetter(100, 0, '$data[2]')\" class=reply>$writer_data[2]</span><br><span class=replydate>$data[9]</span>
+				
+				
+				
+				
+            </div></div></div>";}
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		echo "<div class=replybox id=replybox$data[8]>";
 		
@@ -218,16 +247,7 @@ if ($data[0]!=null){
 		
 		
 		
-		if($type[1]==2){
-						
-		
-		echo "<div id=writerinfo$data[8] style=display:none> <div class=replyonwrap>
-                <a class='profileimg' style='background-image: url($writer_data[10])'></a><div class=replywrap><span onclick=\"swipeLetter(100, 0, '$data[2]')\" class=reply>$writer_data[2]</span><br><span class=replydate>$data[9]</span>
-				
-				
-				
-				
-            </div></div></div>";}
+
 		
 		
         echo "

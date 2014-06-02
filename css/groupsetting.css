@@ -4,12 +4,14 @@
 .mygroups{clear:both;margin:auto;padding:10px;width:80%;}
 .delgroups{margin:10px;float:left;}
 #groupset{position:absolute;width:100%}
-.wrapgroup{list-style:none;width:80%;margin:auto;clear:both;text-align:center;border:1px solid #dddddd;overflow:auto;border-radius:10px;padding:10px;margin-top:10px;margin-bottom:10px;}
+.wrapgroup{list-style:none;width:80%;margin:auto;clear:both;text-align:center;border:1px solid #dddddd;overflow:auto;border-radius:10px 0px;padding:20px 10px;margin-top:10px;margin-bottom:10px;
+background-color:#fff;
+}
 .plusminus{font-family:dek;font-size:20px;cursor:hand;color:#777777}
 .plusminus:hover{color:#000}
 .setitle{font-family:dek;font-weight:500;font-size:25;}
 
-	.jukyong{cursor:hand;width:200px;margin:auto;border:1px solid #dddddd;color:#777777;border-radius:30px;font-size:30px;z-index:3;background-color:#F4F4F4;text-align:center;padding:10px}
+	.jukyong{cursor:hand;width:200px;margin:auto;border:1px solid #dddddd;color:#777777;border-radius:30px;font-size:30px;z-index:3;background-color:#FFF;text-align:center;padding:10px}
 	
 	.jukyong:hover{color:#000;background-color:#f9f9f9;}
 

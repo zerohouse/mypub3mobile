@@ -11,13 +11,18 @@ function pubtoInput($valthis, $pubid){
 $("#p"+pubformnumber).val($valthis);
 pubid[pubformnumber]=$pubid;
 }
+function doNothing(){
+	event.stopPropagation();
+
+}
+
 </script>
                 <div class='newpubs'>
 				<div class='windowtop'>Add Pubs</div>
                     <ul>
-							<li class=headli style='margin-top:0'>New</li>
+							<li onclick="doNothing()" class=headli style='margin-top:0'>New</li>
 							<?
-							for ($i=0;$i<$cnt;$i++)
+							for ($i=0;$i<$cnt[0];$i++)
 							{
 							$sql = mysql_query("SELECT * FROM pub limit $i,1");
 							$pub = mysql_fetch_array($sql,MYSQL_NUM); // no, i

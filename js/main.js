@@ -65,11 +65,23 @@ function showID(showid) {
 function hideID(hideid){
     $('#'+hideid).hide();
 }
+
+
 function toggleID(toggleid, effect){
         $('.popup').not('#'+toggleid).hide();
         $('#'+toggleid).toggle("blind",500);
 		event.stopPropagation();
+
 }
+function callAdds($idofcall, $typeofcall){
+switch ($typeofcall)
+{ case 1: $("#"+$idofcall).toggleClass("replytoggle");break;
+case 2: $("#"+$idofcall).toggleClass("feelingtoggle");break;
+case 3: $("#"+$idofcall).toggleClass("writertoggle");break;
+}
+$("#"+$idofcall).addClass();
+}
+
 function togglePOPUP(toggleid){
         $('.popup').not('#'+toggleid).hide();
         $('#'+toggleid).toggle();
@@ -589,7 +601,7 @@ $("#editbtn"+onlynomod).html("");
 $("#edit"+onlynomod).attr("contentEditable","True");
 $("#edit"+onlynomod).css("border","1px solid #dddddd");
 $("#edit"+onlynomod).focus();
-$("#editbtn"+onlynomod).append("<a onclick=modThis();>수정</a> &nbsp&nbsp&nbsp | &nbsp&nbsp&nbsp <a onclick=cancelMod()>취소</a>");
+$("#editbtn"+onlynomod).append("<a class=modibtn onclick=modThis();>수정</a> &nbsp  &nbsp&nbsp&nbsp <a  class=modibtn onclick=cancelMod()>취소</a>");
 }
 
   

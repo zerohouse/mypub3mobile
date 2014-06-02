@@ -25,7 +25,7 @@ outline: none;
 }
 
 /* 탑메뉴*/
-#topmenuwrap{height:48px;line-height:50px;border-bottom:1px solid #dddddd; background-color:#f4f4f4;width:100%;z-index:10;
+#topmenuwrap{height:48px;line-height:50px;border-bottom:1px solid #dddddd; background-color:#FFF;width:100%;z-index:10;
            -webkit-user-select:none;
            -webkit-touch-callout:none;
            -webkit-tap-highlight-color: rgba(0,0,0,0);
@@ -51,7 +51,7 @@ outline: none;
 #iconbox{float:right;height:46px;position:absolute;right:0px;}
 
 /* 서치창*/
-#schbox{float:right;position:absolute;z-index:15;background-color:#f4f4f4;height:48px;right:0;padding-left:4px;padding-right:3px;}
+#schbox{float:right;position:absolute;z-index:15;background-color:#FFF;height:48px;right:0;padding-left:4px;padding-right:3px;}
 #sch{cursor:hand;height:30px;margin:10px 6px 8px 6px;background:none;padding-left:25px;padding-top: 5px;padding-bottom: 5px;right:5px;
     background-image:url(../icon/sch.png);background-size:20px;background-repeat: no-repeat;background-position: 3px; border:none;border-radius: 5px;
     -webkit-transition:0.5s; /* For Safari 3.1 to 6.0 */
@@ -118,12 +118,16 @@ width:100%; color:#777777; height:50px;position:relative;line-height:60px}
 
 /* 본문 */
 #topblock{width:100%;height:47;clear:both;}
-
+.overflow{overflow:hidden;}
 
 
 /*아티클*/
 .letter{border:1px solid #dddddd; border-radius:15px 0px; padding:2.5%; width:95%;position:relative;padding-top:10px;padding-bottom:10px;overflow:hidden;
-text-align:center;margin-top:20px; background-color:#FFF}
+text-align:center;margin-top:20px; background-color:#FFF;
+box-shadow:2px 2px 2px silver;
+-moz-box-shadow:2px 2px 2px silver;
+-webkit-box-shadow:2px 2px 2px silver;
+}
 .title{font-weight: 900;width:100%;font-size:25px;cursor:default;text-align:center;margin:10px 0px;}
 .body{width:100%;font-size:15px;cursor:default;text-align:left;margin:10px 0px;}
 
@@ -154,7 +158,12 @@ text-align:center;margin-top:20px; background-color:#FFF}
 .replycall:hover{background-image:url(../icon/replyhover.png);}
 .writercall:hover{background-image:url(../icon/writerhover.png);}
 
-.replybox{border-top:1px solid #dddddd;margin-top:5px;}
+.writertoggle, .feelingtoggle, .replytoggle{color:#000;}
+.feelingtoggle{background-image:url(../icon/feelinghover.png);}
+.replytoggle{background-image:url(../icon/replyhover.png);}
+.writertoggle{background-image:url(../icon/writerhover.png);}
+
+.replybox{border-top:1px solid #f4f4f4;margin-top:10px;padding-top:10px;}
 .replywrap{text-align:left;overflow:visible;padding:3px;margin-left:35px;}
 .replyonwrap{overflow:visible;padding:5px;clear:both;}
 .profileimg{margin-right:4px;float:left;width:35px;height:35px;background-size:35px;background-repeat:no-repeat;}
@@ -200,7 +209,7 @@ text-align:center;margin-top:20px; background-color:#FFF}
 
 
 #moreloading{text-align:center;height:50px;}
-#morebtn{text-align:center;height:50px;line-height:50px;color:#777777}
+#morebtn{text-align:center;height:50px;line-height:50px;color:#777777;margin-top:20px;}
 
 
 /*수정*/
@@ -234,13 +243,18 @@ border: 1px solid #ccc;min-width:70;text-align:center;}
 #friendsmove li:hover{color:#000;background-color:#f4f4f4}
 
 
-.bodyimg{max-width:100%; margin:2px}
+.bodyimg{max-width:100%; margin:3px 0px; border-radius:10px 0px;}
 
 
 .frtitle{width:100%;text-align:center;}
-.frwrap {border:1px solid #dddddd;border-radius:10px 0px;padding:10px;overflow:auto;margin-top:20px;background-color:#FFF}
+.frwrap {border:1px solid #dddddd;border-radius:10px 0px;padding:10px;overflow:auto;margin-top:20px;background-color:#FFF;padding-bottom:15px;
+box-shadow:2px 2px 2px silver;
+-moz-box-shadow:2px 2px 2px silver;
+-webkit-box-shadow:2px 2px 2px silver;}
 .movefr{text-align:center;color:#777777; cursor:hand; float:left;}
 
 .viewfriends{cursor:hand}
 
 
+.modibtn {line-height:40px;color:#777777;cursor:hand}
+.modibtn:hover{color:#000}
