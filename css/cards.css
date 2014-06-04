@@ -1,0 +1,92 @@
+
+
+
+.uploadtoggle {cursor: hand;
+width: 70px;
+height: 40px;
+font-size: 13px;
+float:left;
+line-height:77px;
+background-color: #FFF;
+text-align: center;
+background-image:url(../icon/upload.png);
+background-size: 30px;
+background-repeat: no-repeat;
+background-position: center 3;
+margin:5px;
+margin-top:3px;
+
+opacity:0.3
+}
+.cardstogglewrap{overflow:auto;
+cursor: hand;
+float:left;
+font-size: 12px;
+background-color: #FFF;
+width:70px
+
+text-align: center;
+margin:5px;
+margin-top:6px;
+opacity:0.3
+}
+.cardstoggle{
+
+margin:auto;
+width: 28;
+height: 19px;
+border: 5px solid #000;
+
+border-radius: 15px 0px;
+
+}
+.anonytoggle {cursor: hand;
+width:70px;
+height: 40px;
+font-size: 13px;
+float:left;
+line-height:77px;
+background-color: #FFF;
+text-align: center;
+background-image:url(../icon/anonyblack.png);
+background-size: 30px;
+background-repeat: no-repeat;
+background-position: center 3;
+margin:5px;
+margin-top:3px;
+opacity:0.3
+}
+
+
+.titletoggle{cursor: hand;
+height: 40px;
+
+font-size: 13px;
+float:left;
+line-height:77px;
+background-color: #FFF;
+text-align: center;
+background-image:url(../icon/title.png);
+background-size: 70px;
+background-repeat: no-repeat;
+background-position: center 3;
+margin:5px;
+margin-top:3px;
+opacity:0.3}
+
+
+
+
+.togglewrap{
+overflow: auto;
+margin: auto;
+width: 295px;
+padding-left: 10px;}
+
+
+.plus{width:30;height:30;background-image:url(../icon/plus.png);
+right: 10%;
+position:absolute; 
+background-size: 20;
+background-repeat: no-repeat;
+}

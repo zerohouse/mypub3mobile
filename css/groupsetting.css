@@ -5,7 +5,9 @@
 .delgroups{margin:10px;float:left;}
 #groupset{position:absolute;width:100%}
 .wrapgroup{list-style:none;width:80%;margin:auto;clear:both;text-align:center;border:1px solid #dddddd;overflow:auto;border-radius:10px 0px;padding:20px 10px;margin-top:10px;margin-bottom:10px;
-background-color:#fff;
+background-color:#fff;box-shadow: 2px 2px 2px silver;
+-moz-box-shadow:2px 2px 2px silver;
+-webkit-box-shadow:2px 2px 2px silver;
 }
 .plusminus{font-family:dek;font-size:20px;cursor:hand;color:#777777}
 .plusminus:hover{color:#000}

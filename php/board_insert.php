@@ -4,6 +4,7 @@ $anony = $_POST['anony'];
 $head=$_POST['head'];
 $body=$_POST['body'];
 $pagesort=$_POST['pagesort'];
+$cards=$_POST['cards'];
 $head="<div class='title'>".$head."</div>";
 $body="<div class='body'>".$body."</div>";
 
@@ -41,7 +42,7 @@ for ($i=2;$i<$cnt;$i++)
 $allfiles=$allfiles."</p>";
 
 // 토크 생성
-$talk=$head.$allfiles.$body;
+$talk=$head.$cards.$allfiles.$body;
 
 
 

@@ -1,19 +1,41 @@
+<div id="MainContainer">
 
-<html>
-<head>
-<title>간단업로드</title>
-<meta http-equiv="Content-Type" content="text/html; charset=euc-kr">
-</head>
-<body>
-<table width="550" border="0" cellspacing="0" cellpadding="0">
-     <tr>
+	<h1>Switch</h1>
+	<p>Just a simple switch for you. Works in all modern browsers and even IE7 and above. I know right!?
+	Feel free to download, edit, and do whatcha like.</p>
+	<hr />
 
-         <td width="78" align="center">&nbsp;파일</td>
-         <td width="390">&nbsp;<input type="file" name="upfile" size="38">
-		 <input type="file" name="upfile2" size="38"></td>
-         <td width="82">&nbsp;<input type="submit" name="Submit" value="전송"></td>
+	<!-- Big Switch -->
+	<div class="Switch Off">
+		<div class="Toggle"></div>
+	<span class="On">ON</span>
+	<span class="Off">OFF</span>
+	</div>
+	<!-- // -->
+	
+	<div style="margin: 50px 0px;"></div>
+	
+	<!-- Round Switch -->
+	<div class="Switch Round Off">
+		<div class="Toggle"></div>
+	</div>
+	<!-- // -->
+	
+	<div style="margin: 40px 0px;"></div>
+	
+	
+</div>
 
-     </tr>
-</table>
-</body>
-</html>
+<script class="cssdeck" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+
+<div class="victorknust">Simple and Impactful Creative Solutions | <a href="http://cssdeck.com/user/victorknust" target="_blank">Victor knust</a></div>
+<script>
+$(document).ready(function() {
+	
+	// Switch toggle
+	$('.Switch').click(function() {
+		$(this).toggleClass('On').toggleClass('Off');
+	});
+	
+});
+</script>

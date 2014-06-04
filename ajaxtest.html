@@ -9,15 +9,11 @@ $onmenu = explode("||",$user_data[7]);
 $cnt = count($onmenu);
 $cnt--;
 ?>
-<link rel="stylesheet" href="css/dropzone.css" />
 <link  type='text/css' rel='stylesheet' href='css/main.css' media='screen' />
-<link  type='text/css' rel='stylesheet' href='css/sch.css' media='screen' />
-<link  type='text/css' rel='stylesheet' href='css/cards.css' media='screen' />
 <link  type='text/css' rel='stylesheet' href='pub/pub.css' media='screen' />
 <link  type='text/css' rel='stylesheet' href='css/groupsetting.css' media='screen' />
 <script src="js/jquery-1.10.2.min.js"></script>
 <script src="js/jquery.mobile-1.4.2.min.js"></script>
-<!--<script src="js/jquery.ui.touch-punch.min.js"></script>-->
 <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
 <script src="letter/loadmore.js"> </script>
 <script src="js/jquery-ui.js"></script>
@@ -26,37 +22,26 @@ $cnt--;
 <script type="text/javascript" src="js/jquery.fancybox.js?v=2.1.5"></script>
 <script src="js/chartforletter.js"></script>
 <link rel="stylesheet" type="text/css" href="css/jquery.fancybox.css?v=2.1.5" media="screen" />
+<link rel="stylesheet" href="css/dropzone.css" />
 <script src="js/dropzone.js"></script>
-<!--<script src="js/jquery.scrollupformenu.js"></script>-->
 <script src="js/jquery.autosize.min.js"></script>
-<script src="js/mobiledrag.js"></script>
 <script src="js/main.js"></script>
-
-
-
 <!--<script src='js/jquery.touchSwipe.min.js'></script>-->
 <!--<script src='js/jquery.fixer.js'></script>-->
 
 <script type="text/javascript">
-$user_id= "<?echo $user_id?>";
 $user_name = "<?echo $user_name?>";
 $user_profile="<?echo $user_data[10];?>";
 </script>
 <body bgcolor='#f4f4f4'>
     <div id='topmenuwrap'>
-<div id=toptogglemenu>
-<div id=topmenu>
-
-
-            <a id='more' class='morenonclicked' style='width:17px;' onclick="toggleState('more');togglePOPUP('moregroups');"></a>
+            <a id='more' class='morenonclicked' style='width:17px;' onclick="togglePOPUP('moregroups');"></a>
                 <div class='popup' id='moregroups'>
                     <ul>
-							<li onclick="swipeLetter(100, 0, '<? echo $user_id;?>')">마이페이지</li>
-							<li onclick=callgroupSET();>그룹설정</li>
-							<li onclick=callfriendsSET();>친구관리</li>
-							<li onclick=menuMinimalize();>메뉴최소화</li>
-							<li class=line>알림</li>
+							<li onclick="toggleID('wirtesomething')">글쓰기</li>
+
 							
+							<li class=line>알림</li>
 								<? 
 								$sql = mysql_query("SELECT count(no) FROM alarm  WHERE `id` = '$user_id'");
 								$alarmcnt = mysql_fetch_array($sql,MYSQL_NUM); // no, id, message, function, date
@@ -78,25 +63,14 @@ $user_profile="<?echo $user_data[10];?>";
 								
 								
 							<li class=line style=height:1px></li>
-
+							<li onclick="swipeLetter(100, 0, '<? echo $user_id;?>')">마이페이지</li>
+							
+							<li onclick=callgroupSET();><font style='font-family:dek'>MYPUB</font>설정</li>
 							<li onclick=location.replace('logout.php')>로그아웃</li>
 
                     </ul>
                 </div>
-				<a id=gnamewhere><a id=groupname onclick="setTopToggle('menubox')"></a></a>
-				<a id=writespin onclick="writeSpin()"></a>
-				<a id=spinwhere><a id=swipepin onclick="swipeState('swipepin')"></a></a>
-				
-
-			
-					<div id=schbox><input id='sch' placeholder="Search…" onKeyDown="javascript:if (event.keyCode == 13) findFriends();"><div class=popup id='about'></div></div>
-
-
-
-
-</div>
-
-
+            
         <div id='menubox'>
 			<?
 			$k=0;
@@ -122,11 +96,24 @@ $user_profile="<?echo $user_data[10];?>";
 			if (strlen($group[2])<1){$group[2]="무제";}
 			echo "<a class='menu' id='menu$i' onclick=swipeLetter($i)><font style='font-family:dek;font-size:10px'>PUB</font>$group[2]</a>";}}?>
 
-        </div>
-		</div>
-<div id=gline></div>
-	
 
+
+        </div>
+		<div id=schbox><input id='sch' placeholder="Search…" onKeyDown="javascript:if (event.keyCode == 13) findFriends();"><div class=popup id='about'></div></div>
+		        <div id='wirtesomething' class='writeformwrap'>
+		
+		<div class=writeformprofile>
+		<div onclick=hideID('wirtesomething'); style='width:50px;' class='writebtn'>닫기</div><div id="submit-all" class='writebtn'; onclick='writeLetter();'>글쓰기</div><div style='width:50px;' class='writebtn' onclick='toggleAnonymous();'>익명</div>
+                <a class='profileimg' id='profiletoggle' style="background-image: url('<?echo $user_data[10];?>')"></a><div class=replywrap><span id=username class=reply><?echo $user_name?></span><br>
+            </div></div>
+        <textarea class='writetitle' id=newtitle placeholder='제목' onkeydown='javascript:if (event.keyCode == 13) return false;'></textarea>
+		
+		<div id='dropzonewrap'><div class='filldropzone'>터치하여 사진추가
+		<font size='3'><br>JPG, GIF, PNG (limit 1MB)</font></div>
+		<form enctype= multipart/form-data action="php/uploadimg.php" class="dropzone" id="my-dropzone"></form></div>
+
+        <textarea class='writebody' id=newbody placeholder='내용'></textarea>
+		</div>
     </div>
 
 <script>
@@ -169,10 +156,24 @@ $user_profile="<?echo $user_data[10];?>";
 
 
 
+function naverTest(){
+alert('');
+				$.ajax({
+                        type: "POST",
+                        url: "http://openapi.naver.com/search?key=4e91a82a85f0e174272b2d3ef39e9448&query=%EC%95%84%EC%9D%B4%EC%96%B8%EB%A7%A8&display=10&start=1&target=movie",
+                        data: {head : title, body: text, anony : anonymousval, 			pagesort: sendwr},
+                        success: function(response) {		
+						$("#mainpage").html(response);
+
+						}});
+	}
+			
+			
+
 </script>
 
-
-
+<br><br><br><br><br><br><br><br><br>
+<a onclick=naverTest();> 네이버테스트 </a>
 
 
 
@@ -181,6 +182,8 @@ $user_profile="<?echo $user_data[10];?>";
 
 <div id=groupset>
 <?
+include "php/connect_db.php";
+
 $sql = mysql_query("SELECT * FROM user_data  WHERE `id` = '$user_id'");
 $user_data = mysql_fetch_array($sql,MYSQL_NUM); // no, id, name, passwd, sex, email, date, group, phone, char_url, profile, score, attractive
 
@@ -279,59 +282,9 @@ echo "<li class=mygroups  id='pub{$i}'>
 
 </div>
 
-<!--<div id='topblock'></div>-->
-
-<div id=first></div>
-
-<div id='wirtesomething' class='wrapping'>
-<div class=letter>
-		<div class=writeformprofile>
-		<div onclick=writeLetter(); class='writebtn'>게시</div>
-		 
-                <a class='profileimg' id='profiletoggle' style="background-image: url('<?echo $user_data[10];?>')"></a><div onclick="toggleState('anonytoggles');toggleAnonymous()" class=replywrapwrite><span id=username class=reply><?echo $user_name?></span><br>
-            </div></div>
-        <textarea class='writetitle' id=newtitle placeholder='제목' onkeydown='javascript:if (event.keyCode == 13) return false;'></textarea>
-		
-
-		
-		<div class=mycards id='mycards'>
-		<div class=schiconwrap>
-		<div onclick="schType(1)" id=movie class=scon></div>
-		<div onclick="schType(2)" id=book class=scon></div>
-		<div onclick="schType(3)" id=news class=scon></div>
-		<div onclick="schType(4)" id=ency class=scon></div>
-		<div onclick="schType(5)" id=img class=scon></div>
-		</div>
-		
-
-		<div id=schwindow>
-		<input type=text id=schvalue placeholder='' onKeyDown='javascript:if (event.keyCode == 13) schSomething();'><a class=schwbtn onclick=schSomething();>검색</a>
-		</div>
-		
-		<div id=result></div>
-		
-		</div>
-		<div id=writeforsch></div>
-
-		
-	<div id='dropzonewrap'><div class='filldropzone'>터치하여 사진추가
-	<font size='3'><br>JPG, GIF, PNG (limit 1MB)</font></div>
-	<form enctype= multipart/form-data action="php/uploadimg.php" class="dropzone" id="my-dropzone"></form></div>
-
-        <textarea class='writebody' id=newbody placeholder='내용'></textarea>
-	<div class=togglewrap>
-	<div class=titletoggle id=titletoggles onclick="toggleState('titletoggles');toggleID('newtitle')">add title</div>
-	<div class='uploadtoggle' id=uploadtoggles onclick="toggleState('uploadtoggles');toggleID('dropzonewrap')">upload</div>
-	<div class=cardstogglewrap id=cardtoggles onclick="toggleState('cardtoggles');toggleID('mycards')"><div class='cardstoggle'></div>add cards</div>
-	<div class='anonytoggle' id=anonytoggles onclick="toggleState('anonytoggles');toggleAnonymous()" >anonymous</div>
-	</div>
-		</div></div>
-
-
-<div id=switch><div id=showit></div><div id=swipemini></div><div id=gnamemini></div></div>
-
 
 <div id="mainpage">
+	
 	
 
 </div>
@@ -341,7 +294,7 @@ echo "<li class=mygroups  id='pub{$i}'>
 for($i=0;$i<$k;$i++)
 {
 $add = $friendgroup[$i]-1;
-echo "<li onclick=\"addFriends('$add','$friendgroupname[$i]')\">그룹{$friendgroup[$i]} {$friendgroupname[$i]}에 추가</li>";
+echo "<li onclick='addFriends($add)'>그룹{$friendgroup[$i]} {$friendgroupname[$i]}에 추가</li>";
 }
 ?>
 <li onclick=addFriends(50)>무인도에 추가</li>
@@ -354,10 +307,10 @@ echo "<li onclick=\"addFriends('$add','$friendgroupname[$i]')\">그룹{$friendgr
 for($i=0;$i<$k;$i++)
 {
 $add = $friendgroup[$i]-1;
-echo "<li onclick=\"addFriends($add,'{$friendgroupname[$i]}')\">그룹{$friendgroup[$i]} {$friendgroupname[$i]}(으)로 이동</li>";
+echo "<li onclick='addFriends($add)'>그룹{$friendgroup[$i]} {$friendgroupname[$i]}(으)로 이동</li>";
 }
 ?>
-<li onclick=addFriends(50)>무인도로 이동</li>
+<li onclick=addFriends(50)>무인도(으)로 이동</li>
 </ul>
 </div>
 

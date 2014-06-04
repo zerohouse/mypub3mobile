@@ -8,9 +8,9 @@ var options= {
 
     //** Required if scaleOverride is true **
     //Number - The number of steps in a hard coded scale
-    scaleSteps : 4,
+    scaleSteps : 3,
     //Number - The value jump in the hard coded scale
-    scaleStepWidth : 25,
+    scaleStepWidth : 40,
     //Number - The centre starting value
     scaleStartValue : 0,
 
@@ -18,7 +18,7 @@ var options= {
     scaleShowLine : true,
 
     //String - Colour of the scale line
-    scaleLineColor : "rgba(0,0,0,.1)",
+    scaleLineColor : "rgba(100,100,100,0.1)",
 
     //Number - Pixel width of the scale line
     scaleLineWidth : 1,
@@ -57,7 +57,7 @@ var options= {
     angleShowLineOut : true,
 
     //String - Colour of the angle line
-    angleLineColor : "rgba(0,0,0,.1)",
+    angleLineColor : "rgba(100,100,100,.1)",
 
     //Number - Pixel width of the angle line
     angleLineWidth : 1,
@@ -69,7 +69,7 @@ var options= {
     pointLabelFontStyle : "normal",
 
     //Number - Point label font size in pixels
-    pointLabelFontSize : 15,
+    pointLabelFontSize : 12,
 
     //String - Point label font colour
     pointLabelFontColor : "#666",

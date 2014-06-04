@@ -7,7 +7,7 @@ if(eregi("jpg|png|gif", $profile_ext)){ //파일확장자 체크
 	if ($profile_size<2512000){ //파일 용량 체크
 	$prodes = "files/profile".$user_id.".".$profile_ext;
    copy($profile,$prodes);
-   $update="http://mypub.me/m/mypage/".$prodes;
+   $update="http://mypub.me/mypage/".$prodes;
    mysql_query("update user_data set profile='$update' where id='$user_id'") ; 
    
    echo"<script type='text/javascript'>location.replace('mypage.html?id=$user_id');</script>"; 
@@ -21,7 +21,7 @@ if(eregi("jpg|png|gif", $back_ext)){ //파일확장자 체크
 	if ($back_size<2512000){ //파일 용량 체크
 	$backdes = "files/back".$user_id.".".$back_ext;
    copy($back,$backdes);
-   $update="http://mypub.me/m/mypage/".$backdes;
+   $update="http://mypub.me/mypage/".$backdes;
    mysql_query("update user_data set char_url='$update' where id='$user_id'") ; 
    
    echo"<script type='text/javascript'>location.replace('mypage.html?id=$user_id');</script>"; 

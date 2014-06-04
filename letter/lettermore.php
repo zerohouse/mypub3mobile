@@ -87,7 +87,7 @@ if ($data[0]!=null){
 	
 		if($type[1]!=2){
     echo "    <div class=replyonwrap>
-                <a class='profileimg' style='background-image: url($writer_data[10])'></a><div class=replywrap><span onclick=\"{$f}swipeLetter(100, 0, '$data[2]')\" class=reply>$writer_data[2]</span><br><span class=replydate>$data[9]</span>";
+                <a class='profileimg' style='background-image: url($writer_data[10])'></a><div class=replywrap><span onclick=\"{$f}swipeLetter(100, 0, '$writer_data[1]', '$writer_data[2]')\" class=reply>$writer_data[2]</span><br><span class=replydate>$data[9]</span>";
 				
 			if ($data[2]==$user_id){echo "<a id=mod$only_no[0] onclick='modLetter($only_no[0])' class=mod></a>";}
 				
@@ -126,8 +126,8 @@ if ($data[0]!=null){
 								
 		if ($data[2]==$user_id){echo "<a id=mod$only_no[0] onclick='modLetter($only_no[0])' class=mod></a>";}
 							
-		echo "<div id=writerinfo$data[8] style='display:nonepadding-top:10px;margin-top:10px;border-top:1px solid #f4f4f4'> <div class=replyonwrap>
-                <a class='profileimg' style='background-image: url($writer_data[10])'></a><div class=replywrap><span onclick=\"swipeLetter(100, 0, '$data[2]')\" class=reply>$writer_data[2]</span><br><span class=replydate>$data[9]</span>";
+		echo "<div id=writerinfo$data[8] style='display:none;padding-top:10px;margin-top:10px;border-top:1px solid #f4f4f4'> <div class=replyonwrap>
+                <a class='profileimg' style='background-image: url($writer_data[10])'></a><div class=replywrap><span onclick=\"swipeLetter(100, 0, '$writer_data[1]', '$writer_data[2]')\" class=reply>$writer_data[2]</span><br><span class=replydate>$data[9]</span>";
 				
 
 				
@@ -162,7 +162,7 @@ if ($data[0]!=null){
 		
 		echo "
         <div class=replyonwrap>
-            <a class='profileimg' style=\"background-image: url($profile[0])\"></a><div class=replywrap><a class=replydate onclick=\"{$f}swipeLetter(100, 0, '$replydata[2]')\">$replydata[1] $replydata[4]</a><div class=reply readonly>$replydata[3]";
+            <a class='profileimg' style=\"background-image: url($profile[0])\"></a><div class=replywrap><a class=replydate onclick=\"{$f}swipeLetter(100, 0, '$replydata[2]','$replydata[1]')\">$replydata[1] $replydata[4]</a><div class=reply readonly>$replydata[3]";
 			
 			
 			if ($replydata[2]==$user_id){ echo "<a class=delreply onclick=delReply($only_no[0],$j)>삭제<a>";}
@@ -190,8 +190,18 @@ if ($data[0]!=null){
 		
         echo "
                 <div class='easing' style='display:none;' id='easing$data[8]'>
-            <br><br>
-            <a class='pointbtnsym' onclick='scorePlus(4, $only_no[0]);'>공감+</a><a class='pointbtnwow' onclick='scorePlus(0, $only_no[0]);'>우와+</a><a class='pointbtnwow' onclick='scorePlus(1, $only_no[0]);'>지식+</a><a class='pointbtnwow' onclick='scorePlus(2, $only_no[0]);'>감동+</a><a class='pointbtnhum' onclick='scorePlus(3, $only_no[0]);'>ㅋㅋ+</a><br>
+              <br>
+			<div class=pointwrap>
+			<div class='pointbtnhum' onclick='scorePlus(4, $only_no[0]);'><a class=points>$score[4]</a><br> ㅋㅋ+</div>
+			<div class='pointbtnsym' onclick='scorePlus(0, $only_no[0]);'><a class=points>$score[0]</a><br> 공감+</div>
+			<div class='pointbtnwow' onclick='scorePlus(1, $only_no[0]);'><a class=points>$score[1]</a><br> 우와+</div>
+			<div class='pointbtngood' onclick='scorePlus(2, $only_no[0]);'><a class=points>$score[2]</a><br> 지식+</div>
+			<div class='pointbtnsad' onclick='scorePlus(3, $only_no[0]);'><a class=points>$score[3]</a><br> 감동+</div>
+			<br>
+			</div>
+			</div></article>";
+		
+		/*echo "
 			<canvas id='radar$data[8]' data-type='Radar' width='250' height='250'></canvas><br>
         <script type='text/javascript'>
             var data$data[8] = {
@@ -215,6 +225,10 @@ if ($data[0]!=null){
             });
         </script>
         </div>
-    </article></div>";}}?>
+    </article></div>";*/}	echo "</div>";}?>
+
+<script>
+pagerightnow++;
+</script>
 
 	

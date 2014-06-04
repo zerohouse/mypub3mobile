@@ -1,0 +1,43 @@
+<?
+include "../php/connect_db.php";
+
+$sql = mysql_query("SELECT groupdata FROM user_data  WHERE `id` = '$user_id'");
+$group_data = mysql_fetch_array($sql,MYSQL_NUM); // no, id, name, passwd, sex, email, date, group, phone, char_url, profile, score, attractive
+
+$group_data = explode("|+|",$group_data[0]);
+
+친구;+;2929FF|+|가족;+;2929FF|+|동료;+;2929FF|+|;+;2929FF|+|;+;2929FF|+|;+;2929FF|+|;+;2929FF|+|;+;2929FF|+|;+;2929FF|+|;+;2929FF|+|
+
+
+for($i=0;$i<10;$i++) // 10개 세고;
+{
+$sql = mysql_query("SELECT count(fr_id) FROM g_$user_id  WHERE `sort` = '$i'");
+$cnt = mysql_fetch_array($sql,MYSQL_NUM);
+
+$group = explode(";+;",$group_data[$i]);
+$xxx = $i+1;
+if ($group[0]=="";)($group[0]="무제";)
+
+		echo "<div id=friends class=frwrap><div class=frtitle><strong>그룹{$xxx} {$group[0]}의 멤버<br><br></strong></div>";
+
+		for ($j=0;$j<$cnt[0];$j++){
+		$sql = mysql_query("SELECT fr_id FROM g_$user_id  WHERE `sort` = '$i' order by no desc limit $j,1");
+		$friends = mysql_fetch_array($sql,MYSQL_NUM);
+		$sql = mysql_query("SELECT name FROM user_data  WHERE `id` = '$friends[0]'");
+		$frname = mysql_fetch_array($sql,MYSQL_NUM);
+		$sql = mysql_query("SELECT profile FROM user_data  WHERE `id` = '$friends[0]'");
+		$frprofile = mysql_fetch_array($sql,MYSQL_NUM);
+
+		echo "<div class=movefr onclick=friendMove('$friends[0]')><img class=frprofile src=$frprofile[0]><br>$frname[0]($friends[0])</div><div class=movefriends id=move$friends[0]></div>";}
+		echo "</div>";
+
+
+
+
+
+
+
+
+
+
+}

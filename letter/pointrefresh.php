@@ -12,8 +12,17 @@ $data[8] = $_POST['onlyno'];
 		
 		
         echo "
-            <br><br>
-            <a class='pointbtnsym' onclick='scorePlus(4, $only_no[0]);'>공감+</a><a class='pointbtnwow' onclick='scorePlus(0, $only_no[0]);'>우와+</a><a class='pointbtnwow' onclick='scorePlus(1, $only_no[0]);'>지식+</a><a class='pointbtnwow' onclick='scorePlus(2, $only_no[0]);'>감동+</a><a class='pointbtnhum' onclick='scorePlus(3, $only_no[0]);'>ㅋㅋ+</a><br>
+              <br>
+			<div class=pointwrap>
+			<div class='pointbtnhum' onclick='scorePlus(4, $only_no[0]);'><a class=points>$score[4]</a><br> ㅋㅋ+</div>
+			<div class='pointbtnsym' onclick='scorePlus(0, $only_no[0]);'><a class=points>$score[0]</a><br> 공감+</div>
+			<div class='pointbtnwow' onclick='scorePlus(1, $only_no[0]);'><a class=points>$score[1]</a><br> 우와+</div>
+			<div class='pointbtngood' onclick='scorePlus(2, $only_no[0]);'><a class=points>$score[2]</a><br> 지식+</div>
+			<div class='pointbtnsad' onclick='scorePlus(3, $only_no[0]);'><a class=points>$score[3]</a><br> 감동+</div>
+			<br>
+			</div>";
+		/*	
+		echo "
 			<canvas id='radar$data[8]' data-type='Radar' width='250' height='250'></canvas><br>
         <script type='text/javascript'>
             var data$data[8] = {
@@ -35,6 +44,6 @@ $data[8] = $_POST['onlyno'];
                     eval(\"new Chart(this.getContext('2d')).\" + $(this).data('type') + '(data$data[8],options);');
                 });
             });
-        </script>"; ?>
+        </script>";*/ ?>
 
 	
