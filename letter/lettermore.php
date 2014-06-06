@@ -226,9 +226,6 @@ if ($data[0]!=null){
         </script>
         </div>
     </article></div>";*/}	echo "</div>";}?>
-
-<script>
-pagerightnow++;
-</script>
+<script src="letter/lettermore.js"></script>
 
 	

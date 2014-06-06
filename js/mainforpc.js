@@ -1,6 +1,3 @@
-//모바일을 위한 더블 클릭 체크 => 모바일은 드래그시 클릭이벤트 발생하여 터치따라가기 떔에 두번 클릭 일어나는듯..
-//PC로 할땐 odd 관련 함수 on.tap 체크해서 뺴면댐. 그리고 스와이프 방지이벤트도 주석 해제.
-
 groupnumbernow = 0;
 anonymousval=0;
 pagerightnow = 0;
@@ -16,19 +13,15 @@ schnow = 0;
 busy=false;
 notswipe=false;
 mini=false;
-odd = 0;
+
 
 
 friend='';
 friendset = false;
 $(function() {
-$('#toggleblock').css("height",$('#menubox').height()-10);
-
-
-//////////////////////////////////////////////////////////////////////
+$('#first').css('margin-top',$('#topmenuwrap').height());
 //	$('#toptogglemenu').scrollUpMenu({'transitionTime': 200});
-hideID('switch');
-toggleID('toggleblock');
+hideID('switch'); 
 	windowheight=$(window).height();
 	$('#mainpage').scrollPagination();
 	
@@ -48,9 +41,6 @@ toggleID('toggleblock');
 	reShow();
 	}	
 	});	
-	
-
-	
 	
 	$('body').click(function(){
     $("#mod").hide();
@@ -84,21 +74,21 @@ swipeLetter(groupnumbernow);
     $( "#switch" ).draggable({
       start: function() {
 	  notswipesave=notswipe;
-	  /*if (notswipe==false){
+	  if (notswipe==false){
 		
 		swipeState('swipepin');
 		
-		}*/ //모바일에선 체크 못함..ㅜㅜ
+		}
 	  
       },
       drag: function() {
 	  
       },
       stop: function() {
-	  /*if (notswipesave==false){
+	  if (notswipesave==false){
 		swipeState('swipepin')
 		
-		}*/ //모바일에선 체크 못함..ㅜㅜ
+		}
 		
 		stop =true;
 		setTimeout(function(){stop =false}, 1000);
@@ -107,8 +97,6 @@ swipeLetter(groupnumbernow);
     } 
 	
 	);
-
-	
 
 	
 	
@@ -184,37 +172,15 @@ $('#'+$id).remove();
 
 function menuboxOnly(){
 
-odd++;
-if (odd==2){odd=0;return false();} //모바일을 위한 더블 클릭 체크 => 모바일은 드래그시 클릭이벤트 발생하여 터치따라가기 떔에 두번 클릭 일어나는듯..
-
-
-
 showID('toptogglemenu');
 hideID('topmenu');
 toggleID('menubox');
-toggleID('toggleblock');
-
-if ($( "#menubox" ).attr("toggle")==0){
-$('#switch').css('top',4);
-$( "#menubox" ).attr("toggle",1);}
-else{
-$('#switch').css('top',$('#menubox').height());
-$( "#menubox" ).attr("toggle",0);}
-
+$('#first').css('margin-top',$('#menubox').height());
 }
 
 function setTopToggle(ttt){
-if ($( "#menubox" ).attr("toggle")==0){
-toggleID(ttt);
-toggleID('toggleblock');
-$( "#menubox" ).attr("toggle",1);
-
-}
-else{
-$( "#menubox" ).attr("toggle",0);
-toggleID(ttt);
-toggleID('toggleblock');
-}
+$('#'+ttt).toggle();
+$('#first').css('margin-top',$('#topmenuwrap').height());
 }
 
 function toggleID(toggleid, effect, duration){
@@ -269,7 +235,6 @@ if (pagetypearray[groupnumbernow]==1){sendwr=groupnumberfor[groupnumbernow]+"||2
 		$(this).attr("id","");});
 
 		var schwrite = $("#writeforsch").html();
-		$("#writeforsch").html("");
 		
 				$.ajax({
                         type: "POST",
@@ -280,34 +245,28 @@ if (pagetypearray[groupnumbernow]==1){sendwr=groupnumberfor[groupnumbernow]+"||2
 						$("textarea#newbody").val(""); 
 						$("#my-dropzone").html("")
 						$("#wirtesomething").hide();
-						if (response.length<3){
-						var answer = groupnameajax[groupnumbernow]+"에 글이 작성되었습니다.";
-						response++;
-						answer = "그룹"+response+" "+answer;
-						alert(answer);
-						}
-						else{
-						alert(response);}
+						alert(response);
 						swipeLetter(groupnumbernow);
 						}});
 	}
 	
 function callgroupSET(){
-hideID("writespin","slide",500);
-showID("groupset");
-hideID("mainpage");
-hideID("wirtesomething");
-hideID("first");
+$("#writespin").css("opacity","0.3");
+$("#groupset").show();
+$("#mainpage").hide();
+$("#wirtesomething").hide();
+$("#first").hide();
 $(".popup").hide();
 }
 
 function callfriendsSET(){
 friendset = true;
 busy=true;
-hideID("writespin","slide",500);
-hideID("groupset");
-hideID("wirtesomething");
-hideID("first");
+$("#writespin").css("opacity","0.3");
+$("#groupset").hide();
+$("#wirtesomething").hide();
+$("#first").html("<br>");
+$("#first").show();
 $(".popup").hide();
 
 				$.ajax({
@@ -320,7 +279,11 @@ $(".popup").hide();
 						$("#mainpage").show();
 						existOnly();
 						}});
-						
+
+
+
+
+
 }		
 	
 
@@ -364,11 +327,6 @@ function scorePlus($scoretype, $onlynoscore)	{
    //점수올리기
 
       function swipeState($idb){
-	  if (mini==true){
-	  odd++;
-if (odd==2){odd=0;return false();}} //모바일을 위한 더블 클릭 체크 => 모바일은 드래그시 클릭이벤트 발생하여 터치따라가기 떔에 두번 클릭 일어나는듯.. PC에선 두번눌러야댐.시발..ㅜㅜ
-	  
-	  
    if ($( "#"+$idb ).attr("toggle")==0){
      notswipe=false;
 
@@ -413,8 +371,6 @@ if (odd==2){odd=0;return false();}} //모바일을 위한 더블 클릭 체크 =
    function writeSpin(){
 	
    $("body").scrollTop("0");
-   $.mobile.silentScroll(0);
-   $("#newbody").focus();
    }
 
    
@@ -458,7 +414,6 @@ function swipeLetter($group, $showingid, $hisid, $hisname){
 friendset = false;
 busy=false;
 sendto = groupnumberfor[$group];
-pagerightnow = 0;
 groupnumbernow = $group;
 $("#friendsmove").appendTo("#save");
 if ($group == 100){
@@ -469,13 +424,14 @@ groupnumbernow = 100; // 누군가의 페이지.
 if (pagetypearray[$group]==1){
 sendto = groupnumberfor[$group]+'||2';
 }
-			hideID("groupset");
-			hideID("wirtesomething");
-			hideID("mainpage");
-			showID("loading");
+			$("#groupset").hide();
 
-
-
+			$("#first").hide();
+			$("#first").show();
+			$("#wirtesomething").hide();
+			$( "#writespin" ).css("opacity", "0.3");
+			pagerightnow = 0;
+						
 			var leftgroup = $group-1;
 			var rightgroup = $group+1;
 			var rightgroup2 = $group+2;
@@ -492,32 +448,32 @@ sendto = groupnumberfor[$group]+'||2';
 			leftgroup=groupcnt-1;
 			break;
 			}
-
+			$("#mainpage").hide();
+			$("#loading").show();
 						$.ajax({
                         type: "POST",
                         url: "letter/letter.php",
                         data: {group : sendto, name: groupnameajax[$group]}, // groupname 수정
                         success: function(response) {		
 						if (response){
-						
-						$("#first").html(response);
-						showID("first");
-						if (groupnumbernow==100){
-						hideID("writespin", "slide", 500);
 
+						$("#first").html(response);
+						$("#first").show();
+						if (groupnumbernow==100){
+						   $( "#writespin" ).animate({opacity: 0.3}, 500 );
 						}
 						else{
-						showID("writespin", "slide", 500);
-						showID("wirtesomething");
+						$( "#writespin" ).animate({opacity: 1}, 500 );
+						$("#wirtesomething").show();
 						}
-						hideID("loading");
+						$("#loading").hide();
 						$("#mainpage").html("");
-						showID("mainpage");
-						showID($showingid);
+						$("#mainpage").show();
+						$("#"+$showingid).show();
 
 						}
 					}});
-
+					//$(".menu").hide();
 					$(".menu").css("color","#777777");
 					$(".hiddenmenu").css("color","#777777");
 					$(".menu").css("border-bottom","0px");
@@ -528,6 +484,7 @@ sendto = groupnumberfor[$group]+'||2';
 					$("#gline").css("background-color","#"+groupcolorshow[$group]);
 					$("#menu"+$group).css("border-bottom","4px solid #"+groupcolorshow[$group]);
 					$("#menu"+$group).css("padding-bottom","0px");
+					$('#first').css('margin-top',$('#topmenuwrap').height());
 					
 					var ggname;
 					if (pagetypearray[$group]==1)
@@ -901,7 +858,7 @@ if (busy==true){
 return false; 
 }
 
-busy = true;
+									busy = true;
 				$('#mainpage').append("<div id=moreloading><img src=icon/preloader.gif></div>");
 				
 				 	$.ajax({
@@ -910,7 +867,8 @@ busy = true;
                         data: {group : sendto,	page : pagerightnow},
                         success: function(data) {
 						
-					if(data.length < 550) { 
+					if(data.length < 100) { 
+					
 					$('#morebtn').remove();
 					$('#mainpage').append("<div id=morebtn>마지막페이지입니다.</div>");
 					$('#moreloading').remove();
@@ -918,6 +876,7 @@ busy = true;
 					}
 					
 					else {
+			
 					$('#mainpage').append(data);
 					$('#morebtn').remove();
 					$('#moreloading').remove();
@@ -995,11 +954,6 @@ case 2 : $url="sch/book.php"; $id="book"; $message="어떤 책을 읽으세요?"
 case 3 : $url="sch/news.php"; $id="news"; $message="어떤 뉴스를 찾고 싶으세요?"; break;
 case 4 : $url="sch/ency.php"; $id="ency"; $message="사전을 검색합니다"; break;
 case 5 : $url="sch/img.php"; $id="img"; $message="그림을 검색합니다"; break;
-case 6 : $url="sch/music.php"; $id="music"; $message="어떤 음악을 좋아하세요?"; break;
-case 7 : $url="sch/local.php"; $id="local"; $message="어디에 가셨나요?"; break;
-case 8 : $url="sch/doc.php"; $id="doc"; $message="어떤 논문을 찾으세요?"; break;
-case 9 : $url="sch/shop.php"; $id="shop"; $message="무엇을 사고 싶으세요?"; break;
-case 10 : $url="sch/web.php"; $id="web"; $message="웹에서 검색합니다."; break;
 }
 schurl = $url;
 
@@ -1024,7 +978,6 @@ schnow = 0;
   
 function schSomething() {
 				var schword = $("#schvalue").val();
-				$('#writeforsch').hide();
                 $.ajax({
                         type: "POST",
                         url: schurl,
@@ -1039,30 +992,19 @@ function schSomething() {
                 return false;
 }
 
-
 function moveToWrite($schid){
-
-
 $("#writeit").show("blind", 500);
-$("#writeforsch").show();
 $("#"+$schid).appendTo("#writeforsch");
 toggleState('cardtoggles');
 toggleID('mycards');
 $("#newbody").focus();
-//function(){("body").animate({scrollTop:0}, '500', 'swing', function() { }); //for pc
-setTimeout(function(){$("body").scrollTop("0");},100);
-//$.mobile.silentScroll(0);
+$("body").scrollTop("0");
 
 }
 
 
-/*
-function messageShow(mm ,tt){
-$("#message").show("blind", 500);
-$("#message").html(""+mm);
-setTimeout(function(){$("message").hide("blind", 500);},500);
-}
-*/
+
+
 
 
 
@@ -1150,15 +1092,14 @@ if (pagetypearray[groupnumbernow]==1){sendwr=groupnumberfor[groupnumbernow]+"||2
 					
 						
 					// If there is no data returned, there are no more posts to be shown. Show error
-					if(data.length < 550) { 
-					
+					if(data.length < 100) { 
 					$('#morebtn').remove();
 					$('#mainpage').append("<div id=morebtn>마지막페이지입니다.</div>");
 					$('#moreloading').remove();
 					busy = true;
 					}
 					else {
-
+						
 						// Offset increases
 					    offset = offset+$settings.nop; 
 						    

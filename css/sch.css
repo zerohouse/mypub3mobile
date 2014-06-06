@@ -13,11 +13,11 @@ color:#777;cursor:hand}
 .movielink:hover{color:#000;}
 
 .poster{max-width:100px;border-radius:5px 0px;float:left;margin-right:5%;}
-.schwbtn{cursor:hand;color:#777;margin:10px;float:left}
+.schwbtn{cursor:hand;color:#777;margin:10px;float:left;line-height: 28px;}
 .schwbtn:hover{cursor:hand;color:#000}
 #writeschvalue{width:46%;float:left;padding:2%;}
 #schvalue{
-width: 200px;
+max-width:100%;
 float:left;
 border: 1px solid #dddddd;
 margin:10px;
@@ -37,7 +37,7 @@ border-radius: 5px 0px;}
 .schtextarea{margin-top:0;}
 
 .schiconwrap{width:300;margin:auto;overflow:auto;}
-#book , #news , #ency , #movie , #img{
+#book , #news , #ency , #movie , #img, #doc, #local, #shop, #music, #web{
 width:40px;height:40px;background-size:40px;background-repeat:no-repeat;margin:10px;float:left;
 cursor:hand;
 color:#000;
@@ -49,9 +49,15 @@ color:#000;
 #movie{background-image:url(../sch/movieh.png)}
 #img{background-image:url(../sch/imgh.png)}
 #ency{background-image:url(../sch/encyh.png)}
+
+#doc{background-image:url(../sch/doc.png)}
+#local{background-image:url(../sch/local.png)}
+#shop{background-image:url(../sch/shop.png)}
+#music{background-image:url(../sch/music.png)}
+#web{background-image:url(../sch/web.png)}
 .scon{opacity:0.4;}
 .opacity{opacity:1;}
-#ency:hover, #book:hover , #movie:hover, #news:hover, #img:hover{opacity:1}
+#doc:hover, #local:hover, #shop:hover, #music:hover, #web:hover,#ency:hover, #book:hover , #movie:hover, #news:hover, #img:hover{opacity:1}
 
 
 
@@ -70,8 +76,15 @@ background-position: center;}
 
 
 
-
-
+.plus{
+cursor:hand;
+width: 25;
+height: 25;
+float: right;
+background-image: url(../icon/plus.png);
+background-size: 25;
+opacity: 0.15;}
+.plus:hover{opacity:0.5}
 
 
 

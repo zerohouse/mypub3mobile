@@ -11,6 +11,7 @@
 body{font-family:pub;margin:0;padding:0;font-size:14px;}
 html, body, div, span, object,
 form, h1, h2, button, label, a, img {
+outline:none;
     font-family: pub;
     -moz-user-select: none;
     -webkit-user-select: none;
@@ -25,8 +26,12 @@ outline: none;
 }
 
 /* 탑메뉴*/
-#groupname{float: left;margin-left: 60px;
-cursor:hand;width:100%;
+#groupname{float: left;margin-left: 60px;width: 100%;
+line-height: 50px;
+overflow: hidden;
+height: 40;
+
+cursor:hand;
 line-height: 50px;
 }
 #topmenuwrap{width:100%;z-index:10;
@@ -44,8 +49,11 @@ line-height: 50px;
 #topmenu{width:100%;height:50px;background-color:#99F}
 #gline{width:100%;height:4px;position:absolute;opacity:0.5}
 
-		 #menubox{display:none;overflow:auto;text-align:justify;background-color: #FFF;margin-bottom:-4px;}
-.menu{float:left;padding:10px 30px; text-align:center; height: 30;
+.namewid{max-width:50%}
+
+		 #menubox{display:none;overflow:auto;background-color: #FFF;margin-bottom:-4px;}
+.menu{float:left;padding:10px 0px; text-align:center; height: 30;width:25%;
+overflow: hidden;
 line-height: 20px;color:#777777;cursor:hand;
 
 }
@@ -128,7 +136,7 @@ width:100%; color:#777777; height:50px;position:relative;line-height:60px}
 
 
 /* 본문 */
-#topblock{width:100%;height:47;clear:both;}
+.topblock{width:100%;height:47;clear:both;}
 .overflow{overflow:hidden;width:100%;}
 
 
@@ -269,7 +277,7 @@ padding: 0;
 background-color: #fff;
 box-shadow: 0 5px 10px rgba(0,0,0,0.2);
 border: 1px solid #ccc;min-width:70;text-align:center;}
-#friendsmove li{cursor:hand;color:#777777;min-width:30px;padding:0px 15px;font-size:15px;height:30;line-height:30px;}
+#friendsmove li{cursor:hand;color:#777777;min-width:30px;padding:0px 15px;font-size:15px;height:30;line-height:30px;overflow:hidden;}
 #friendsmove li:hover{color:#000;background-color:#f4f4f4}
 
 
@@ -318,7 +326,7 @@ background-image:url(../icon/write.png);
 
 
 #switch{width:110;height:50;position:fixed;right: 0;padding-left: 60;
-top: 4;opacity:0;z-index:300;border-radius:25px;background-color:#99F}
+top: 4;z-index:300;border-radius:25px;background-color:#99F}
 #showit{float: right;
 width: 50;
 height: 50;
@@ -332,3 +340,16 @@ overflow:hidden;height:50;
 }
 #swipemini{width: 50;
 float: left;}
+#message{
+position: fixed;
+text-align: center;
+z-index: 5000;
+top: 0;
+width: 30%;
+margin: 25%;
+background-color: rgba(255,255,255,0.7);
+padding: 20px 10%;
+border-radius: 30px 0;
+border: 1px solid rgba(0,0,0, 0.2);
+
+}

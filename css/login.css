@@ -17,8 +17,44 @@ input:focus, select:focus,  textarea:focus,   button:focus {
 outline: none;
 }
 
-#wrap{width:90%;margin:auto;padding:10px;text-align:center;}
+#wrap{
+width: 100%;
+margin: auto;
+text-align: center;
+border-radius: 30px 0px;
+background-color:rgba(255,255,255,0.7)
+}
 .form{width:70%;margin:0;border:1px solid #dddddd;height:30px;padding:10px;font-size:15px}
 #user_id{border-radius:5px 5px 0px 0px;}
 #user_pw{border-radius:0px 0px 5px 5px;border-top:none;}
-.btn{width:200px;margin:auto;margin-top:10px;height:30px;font-size:15px;border-radius:5px;border:none;}
+.btn{width: 200px;
+margin: auto;
+margin-top: 10px;
+height: 30px;
+font-size: 15px;
+border-radius: 5px;
+box-shadow: 1px 1px 1px silver;
+border: none;
+opacity:0.9;
+cursor: hand;
+background-repeat: no-repeat;
+color: #FFF;
+}
+#login{
+background-color:9999ff;
+background-image:url(../icon/logo.png);
+font-family: dek;
+background-size: 40px;
+background-position: 40 -2;
+font-size: 17;
+}
+#login:hover{opacity:1;}
+#facebook{
+background-size: 30px;
+background-color:#3f65b7;
+background-image: url(../icon/facebook.gif);
+
+font-family: dek;
+}
+#facebook:hover{opacity:1;}
+#mypublogin{width:310;margin:auto;display:none;}

@@ -35,7 +35,7 @@ if($url3==NULL){$url3=$url2;}
 }*/
 
 $rand = rand(0,10);
-$url = "http://mypub.me/m/img/" . $rand . ".jpg";
+$url = "http://mypub.me/img/" . $rand . ".jpg";
 
 
 include "../php/connect_db.php";
@@ -64,7 +64,7 @@ die;
 setcookie('user_id',$fuserid);
 setcookie('user_name',$fname);
 
-$sql = "insert into user_data (id, name, passwd, sex, email, date, phone, onmenu, char_url, score, groupdata, pub, profile) values ('$fuserid','$fname','$fpasswd','$fsex','$femail',now(),'$phone','0;+;0;+;친구;+;2929FF||0;+;1;+;가족;+;2929FF||0;+;2;+;동료;+;2929FF||1;+;public;+;광장;+;FF4079||','$url','15|15|15|15|15', '친구;+;2929FF|+|가족;+;2929FF|+|동료;+;2929FF|+|;+;2929FF|+|;+;2929FF|+|;+;2929FF|+|;+;2929FF|+|;+;2929FF|+|;+;2929FF|+|;+;2929FF|+|', '광장;+;FF4079|+|;+;FF4079|+|;+;FF4079|+|;+;FF4079|+|;+;FF4079|+|;+;FF4079|+|;+;FF4079|+|;+;FF4079|+|;+;FF4079|+|;+;FF4079|+|','http://mypub.me/m/icon/profile.png')"; //고쳐야댐
+$sql = "insert into user_data (id, name, passwd, sex, email, date, phone, onmenu, char_url, score, groupdata, pub, profile) values ('$fuserid','$fname','$fpasswd','$fsex','$femail',now(),'$phone','0;+;0;+;친구;+;2929FF||0;+;1;+;가족;+;2929FF||0;+;2;+;동료;+;2929FF||1;+;public;+;광장;+;FF4079||','$url','15|15|15|15|15', '친구;+;2929FF|+|가족;+;2929FF|+|동료;+;2929FF|+|;+;2929FF|+|;+;2929FF|+|;+;2929FF|+|;+;2929FF|+|;+;2929FF|+|;+;2929FF|+|;+;2929FF|+|', '광장;+;FF4079|+|;+;FF4079|+|;+;FF4079|+|;+;FF4079|+|;+;FF4079|+|;+;FF4079|+|;+;FF4079|+|;+;FF4079|+|;+;FF4079|+|;+;FF4079|+|','http://mypub.me/icon/profile.png')"; //고쳐야댐
 $res = mysql_query($sql,$connect);
 $tot_row = mysql_affected_rows();
 

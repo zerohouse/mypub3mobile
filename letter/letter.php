@@ -37,12 +37,12 @@ echo "
 
 
 }else{
-
+	$xx = str_split($groupname, 15);
 		echo "
 		<div class=wrapping>
 		
             <div id='namewrap'>
-               $user_data[2]님 안녕하세요. $groupname 그룹입니다. <a class=viewfriends onclick=toggleID('friends')> 친구보기 </a>
+               $user_data[2]님 안녕하세요. <a class=namewid>$xx[0]</a> 그룹입니다. <a class=viewfriends onclick=toggleID('friends')> 친구보기 </a>
             </div>
         "; // 인사말
 		echo "<div id=friends class=frwrap><div class=frtitle><strong>{$groupname}그룹의 멤버<br><br></strong></div>";

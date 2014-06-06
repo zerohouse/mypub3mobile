@@ -43,7 +43,10 @@ $user_name = "<?echo $user_name?>";
 $user_profile="<?echo $user_data[10];?>";
 </script>
 <body bgcolor='#f4f4f4'>
+<div class='topblock'></div>
+<div class='topblock' id=toggleblock></div>
     <div id='topmenuwrap'>
+
 <div id=toptogglemenu>
 <div id=topmenu>
 
@@ -54,10 +57,10 @@ $user_profile="<?echo $user_data[10];?>";
 							<li onclick="swipeLetter(100, 0, '<? echo $user_id;?>')">마이페이지</li>
 							<li onclick=callgroupSET();>그룹설정</li>
 							<li onclick=callfriendsSET();>친구관리</li>
-							<li onclick=menuMinimalize();>메뉴최소화</li>
 							<li class=line>알림</li>
 							
 								<? 
+								
 								$sql = mysql_query("SELECT count(no) FROM alarm  WHERE `id` = '$user_id'");
 								$alarmcnt = mysql_fetch_array($sql,MYSQL_NUM); // no, id, message, function, date
 								if ($alarmcnt[0] ==0){
@@ -83,7 +86,7 @@ $user_profile="<?echo $user_data[10];?>";
 
                     </ul>
                 </div>
-				<a id=gnamewhere><a id=groupname onclick="setTopToggle('menubox')"></a></a>
+				<a id=gnamewhere><a id=groupname onclick="setTopToggle('menubox');"></a></a>
 				<a id=writespin onclick="writeSpin()"></a>
 				<a id=spinwhere><a id=swipepin onclick="swipeState('swipepin')"></a></a>
 				
@@ -100,6 +103,7 @@ $user_profile="<?echo $user_data[10];?>";
         <div id='menubox'>
 			<?
 			$k=0;
+			$q=0;
 			for($i=0;$i<$cnt;$i++){
 			$group = explode(";+;",$onmenu[$i]);
 			if ($group[0]==0){
@@ -114,6 +118,8 @@ $user_profile="<?echo $user_data[10];?>";
 			if (strlen($group[2])<1){$group[2]="무제";}
 			echo "<a class='menu' id='menu$i' onclick=swipeLetter($i)>$group[2]</a>";}
 			else if ($group[0]==1){
+			$pubid[$q]=$group[1];
+			$q++;
 			$gnumber[$i] = "'".$group[1]."'";
 			$groupname = $group[2];
 			$gcforjava[$i] = "'".$group[3]."'";
@@ -128,6 +134,11 @@ $user_profile="<?echo $user_data[10];?>";
 	
 
     </div>
+	
+	
+<div id=switch><div id=showit></div><div id=swipemini></div><div id=gnamemini></div></div>
+
+
 
 <script>
 			<?echo "groupcolorshow = new Array( ";
@@ -181,8 +192,6 @@ $user_profile="<?echo $user_data[10];?>";
 
 <div id=groupset>
 <?
-$sql = mysql_query("SELECT * FROM user_data  WHERE `id` = '$user_id'");
-$user_data = mysql_fetch_array($sql,MYSQL_NUM); // no, id, name, passwd, sex, email, date, group, phone, char_url, profile, score, attractive
 
 $onmenu = explode("||",$user_data[7]);
 $cnt = count($onmenu);
@@ -221,6 +230,14 @@ gonmenupan = new Array(<?for($i=0;$i<10;$i++){echo "'{$gformenu[$i]}',";}echo"''
 ponmenupan = new Array(<?for($i=0;$i<10;$i++){if($i<$pn){echo "'1',";}
 else{echo "'0',";}}echo"''";?>);
 pubid = new Array('', '', '', '', '', '', '', '', '', ''); // PUB 게시판 아이디 넘겨줘야댐..
+
+<? $q = count($pubid);
+	for ($i=0;$i<$q;$i++)
+	{
+	echo "pubid[$i]='{$pubid[$i]}';";
+	}
+?>
+
 
 $(".mygroups").hide();
 showGroupForm();
@@ -279,14 +296,28 @@ echo "<li class=mygroups  id='pub{$i}'>
 
 </div>
 
-<!--<div id='topblock'></div>-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <div id=first></div>
 
 <div id='wirtesomething' class='wrapping'>
 <div class=letter>
 		<div class=writeformprofile>
-		<div onclick=writeLetter(); class='writebtn'>게시</div>
+		<div onclick=writeLetter(); class='writebtn'>글쓰기</div>
 		 
                 <a class='profileimg' id='profiletoggle' style="background-image: url('<?echo $user_data[10];?>')"></a><div onclick="toggleState('anonytoggles');toggleAnonymous()" class=replywrapwrite><span id=username class=reply><?echo $user_name?></span><br>
             </div></div>
@@ -301,6 +332,11 @@ echo "<li class=mygroups  id='pub{$i}'>
 		<div onclick="schType(3)" id=news class=scon></div>
 		<div onclick="schType(4)" id=ency class=scon></div>
 		<div onclick="schType(5)" id=img class=scon></div>
+		<div onclick="schType(6)" id=music class=scon></div>
+		<div onclick="schType(7)" id=local class=scon></div>
+		<div onclick="schType(8)" id=doc class=scon></div>
+		<div onclick="schType(9)" id=shop class=scon></div>
+		<div onclick="schType(10)" id=web class=scon></div>
 		</div>
 		
 
@@ -320,15 +356,15 @@ echo "<li class=mygroups  id='pub{$i}'>
 
         <textarea class='writebody' id=newbody placeholder='내용'></textarea>
 	<div class=togglewrap>
-	<div class=titletoggle id=titletoggles onclick="toggleState('titletoggles');toggleID('newtitle')">add title</div>
-	<div class='uploadtoggle' id=uploadtoggles onclick="toggleState('uploadtoggles');toggleID('dropzonewrap')">upload</div>
-	<div class=cardstogglewrap id=cardtoggles onclick="toggleState('cardtoggles');toggleID('mycards')"><div class='cardstoggle'></div>add cards</div>
-	<div class='anonytoggle' id=anonytoggles onclick="toggleState('anonytoggles');toggleAnonymous()" >anonymous</div>
+	<div class=writeoptions id=titletoggles onclick="toggleState('titletoggles');toggleID('newtitle')">제목</div>
+	<div class=writeoptions id=cardtoggles onclick="hideID('writeforsch');toggleState('cardtoggles');toggleID('mycards')">카드추가</div>
+	<div class='writeoptions' id=uploadtoggles onclick="toggleState('uploadtoggles');toggleID('dropzonewrap')">업로드</div>
+	<div class='writeoptions' id=anonytoggles onclick="toggleState('anonytoggles');toggleAnonymous()" >익명</div>
 	</div>
 		</div></div>
 
 
-<div id=switch><div id=showit></div><div id=swipemini></div><div id=gnamemini></div></div>
+
 
 
 <div id="mainpage">
@@ -353,6 +389,7 @@ echo "<li onclick=\"addFriends('$add','$friendgroupname[$i]')\">그룹{$friendgr
 
 for($i=0;$i<$k;$i++)
 {
+
 $add = $friendgroup[$i]-1;
 echo "<li onclick=\"addFriends($add,'{$friendgroupname[$i]}')\">그룹{$friendgroup[$i]} {$friendgroupname[$i]}(으)로 이동</li>";
 }
@@ -362,5 +399,5 @@ echo "<li onclick=\"addFriends($add,'{$friendgroupname[$i]}')\">그룹{$friendgr
 </div>
 
 <div id=save style='display:none';></div>
-<div id=loading><div>
-
+<div id=loading></div>
+<!--<div id=message>그래서?</div>-->

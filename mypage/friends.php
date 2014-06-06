@@ -14,6 +14,7 @@ border: 1px solid #ccc;min-width:70;text-align:center;}
 <script>
 
 </script>
+<br><br>
 <div class=wrapping>
 <center><font size='4'><strong>마이펍 친구 관리</strong></font></center>
 <?

@@ -6,12 +6,6 @@
 <script src="js/jquery-1.10.2.min.js"></script>
 <script type="text/javascript">
         function loginConfirm() {
-				if ($("#user_id").val()==''&&$("#user_pw").val()=='')
-				{
-				$("#mypublogin").slideToggle();
-				return false;
-				}
-				
                 var action = $("#form1").attr('action');
                 var form_data = {
                         user_id: $("#user_id").val(),
@@ -54,8 +48,11 @@
                     
                     FB.api('/me', function(user) {
                         if (user) {
-							var image = 'http://graph.facebook.com/' + user.id + '/picture';
-							loginFacebook(user.id, user.name, user.gender, user.email, image);
+						alert(user.id);
+alert(user.name);
+alert(user.gender);
+alert(user.email);
+							loginFacebook();
                         }
                     });    
                      
@@ -94,6 +91,8 @@
                 user_email = response.email; //get user email
           // you can store this data into your database             
             });
+			
+			
 
         } else {
             //user hit cancel button
@@ -105,16 +104,17 @@
     });
 }
 
-function loginFacebook($id,$name,$gender,$mail,$image){
-            $.ajax({
+function loginFacebook(){
+
+                $.ajax({
                         type: "POST",
                         url: "fblogin.php",
                         data: {
-						id : $id,
-						name : $name,
-						gender : $gender,
-						mail : $mail,
-						image : $image
+						id : user.id,
+						name : user.name,
+						gender : user.gender,
+						mail : user.email,
+						image : 'http://graph.facebook.com/' + user.id + '/picture'
 						},
                         success: function(response) {
                                 if(response == 'addok') {
@@ -130,7 +130,6 @@ function loginFacebook($id,$name,$gender,$mail,$image){
 								}
                         
                 });
-				alert();
 
 }
 
@@ -139,24 +138,20 @@ function loginFacebook($id,$name,$gender,$mail,$image){
         </script>
 
 
- 
+
 <div id=wrap>
 <br><br>
-<font style=font-family:dek><strong>My Republic</strong><font size=5> MYPUB</font></font>&nbsp&nbsp<br>
-
-<div id=mypublogin>
-<br>
-처음이라면 <a class='link' style='font-size:25px;color:#777' href="join/">여기</a>를 눌러 회원가입<br><br></font>
+<font size=7 style=font-family:dek> MYPUB</font>
+<br><br>
+처음이라면 <a class='link' style='font-size:25px;color:#777' href="join/">여기</a>를 눌러 회원가입<br><br></font><div id="about" style='width:100%; text-align:center' ></div>
 <form id="form1" name="form1" action="login_ok.php" method="post">
 <input placeholder='아이디 ID' class='form' type='text' id='user_id' name='user_id' tabindex='1'/><br>
 <input placeholder='암호 Password'class='form' type='password' id='user_pw' name='user_pw' onKeyDown="javascript:if (event.keyCode == 13) loginConfirm();" tabindex='2'/><br>
-<div id="about" style='width:100%; text-align:center' ></div>
+<input class='btn' type='button' id='login' tabindex='3' onclick='loginConfirm();' value='로그인'/>
+<input class='btn' type='button' id='facebook' tabindex='3' onclick='fb_login();' value='로그인'/>
+</div>
 </form>
 </div>
-<input class='btn' type='button' id='login' tabindex='3' onclick='loginConfirm();' value='Login'/><br>
-<input class='btn' type='button' id='facebook' tabindex='3' onclick='fb_login();' value=' Login with FACEBOOK'/>
-</div>
-
 
 
 <br>

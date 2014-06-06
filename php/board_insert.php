@@ -1,4 +1,3 @@
-
 <?
 $anony = $_POST['anony'];
 $head=$_POST['head'];
@@ -60,8 +59,7 @@ $sort=mysql_fetch_array($sql,MYSQL_NUM);//그사람 소트값 가져오고
 $where = "$where" . "|" . "$id[0]"; // 아이디 모아주고
 mysql_query("INSERT INTO `zerohouse3`.`t_$id[0]` (`sort`,`id`,`talk`,`anony`,`date`,`only_no`) values('$sort[0]','$user_id',\"$talk\",'$anony',NOW(),'$only_no[0]');"); //글쓰고
 }
-$tmp=$pagesort+1;
-echo "그룹{$tmp}에 글이 작성되었습니다.";
+echo "{$pagesort}";
 }
 
 
